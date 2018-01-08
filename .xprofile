@@ -1,0 +1,10 @@
+libinput-gestures-setup start
+dunst &
+lxpolkit &
+xrandr --output eDP-1 --primary &
+nitrogen --set-scaled /usr/share/pixmaps/dna-futuristic-wallpaper.jpg
+nm-applet &
+compton &
+redshift &
+vimb &
+rambox &

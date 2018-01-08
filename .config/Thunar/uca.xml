@@ -1,0 +1,36 @@
+<?xml encoding="UTF-8" version="1.0"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<unique-id>1446300165762627-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Example for a custom action</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>extract here</name>
+	<unique-id>1455211821057273-1</unique-id>
+	<command>unzip %N</command>
+	<description></description>
+	<patterns>*.zip</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>add to zip</name>
+	<unique-id>1455211862547482-3</unique-id>
+	<command>zip -r %n.zip %N</command>
+	<description></description>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+</actions>

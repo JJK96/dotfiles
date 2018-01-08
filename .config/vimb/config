@@ -1,0 +1,6 @@
+set editor-command=urxvt -e vim %s
+set hint-keys=asdfjkl;
+set download-path=/tmp/Downloads
+set home-page=www.duckduckgo.com
+nmap H :set status-bar!<CR>
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+while :
+do
+    echo 'test' || exit 1
+done
+

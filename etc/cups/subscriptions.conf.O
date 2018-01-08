@@ -1,0 +1,21 @@
+# Subscription configuration file for CUPS v2.1.3
+# Written by cupsd on 2016-04-08 11:19
+NextSubscriptionId 108
+<Subscription 106>
+Events printer-state-changed printer-restarted printer-shutdown printer-stopped printer-added printer-deleted job-state-changed job-created job-completed job-stopped
+Owner jjk
+Recipient dbus://
+LeaseDuration 3600
+Interval 0
+ExpirationTime 1460110649
+NextEventId 1
+</Subscription>
+<Subscription 107>
+Events printer-state-changed printer-restarted printer-shutdown printer-stopped printer-added printer-deleted job-state-changed job-created job-completed job-stopped
+Owner jjk
+Recipient dbus://
+LeaseDuration 3600
+Interval 0
+ExpirationTime 1460110747
+NextEventId 1
+</Subscription>

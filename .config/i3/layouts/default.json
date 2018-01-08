@@ -1,0 +1,136 @@
+// vim:ts=4:sw=4:et
+{
+    // workspace 1
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splith",
+    "percent": 0.333333333333333,
+    "type": "workspace",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 877,
+               "width": 1596,
+               "x": 0,
+               "y": 0
+            },
+            "name": "Firefox",
+            "percent": 1,
+            "swallows": [
+               {
+               // "class": "^Firefox$",
+               // "instance": "^Navigator$",
+               // "title": "^i3\\:\\ Layout\\ saving\\ in\\ i3\\ \\-\\ Mozilla\\ Firefox$",
+               // "transient_for": "^$",
+               // "window_role": "^browser$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // workspace with 1 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "fullscreen_mode": 1,
+    "layout": "splith",
+    "percent": null,
+    "type": "workspace",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 364,
+               "width": 724,
+               "x": 0,
+               "y": 0
+            },
+            "name": "urxvt",
+            "percent": 1,
+            "swallows": [
+               {
+               // "class": "^URxvt$",
+               // "instance": "^urxvt$",
+               // "title": "^urxvt$",
+               // "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // workspace with 1 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splith",
+    "percent": 0.333333333333333,
+    "type": "workspace",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 600,
+               "width": 800,
+               "x": 0,
+               "y": 0
+            },
+            "name": "Kid Rock - All Summer Long",
+            "percent": 1,
+            "swallows": [
+               {
+               // "class": "^Spotify$",
+               // "instance": "^spotify$",
+               // "title": "^Kid\\ Rock\\ \\-\\ All\\ Summer\\ Long$",
+               // "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // workspace with 1 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splith",
+    "percent": 0.333333333333333,
+    "type": "workspace",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 877,
+               "width": 1596,
+               "x": 2,
+               "y": 21
+            },
+            "name": "Rambox",
+            "percent": 1,
+            "swallows": [
+               {
+               // "class": "^Rambox$",
+               // "instance": "^rambox$",
+               // "title": "^Rambox$",
+               // "transient_for": "^$",
+               // "window_role": "^browser\\-window$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

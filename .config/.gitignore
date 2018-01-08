@@ -1,0 +1,14 @@
+chromium/
+dconf
+gconf
+google-chrome
+libreoffice
+pandoc
+transmission
+user-dirs.dirs
+user-dirs.locale
+vis
+spotify
+rclone
+pulse
+.mono
