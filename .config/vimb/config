@@ -1,6 +1,7 @@
 set editor-command=urxvt -e vim %s
 set hint-keys=asdfjkl;
 set download-path=/tmp/Downloads
-set home-page=www.duckduckgo.com
 nmap H :set status-bar!<CR>
-
+handler-add magnet=xdg-open %s
+nmap x :sh uget-gtk "$VIMB_URI"<CR>
+set x-hint-command=:sh uget-gtk <C-R>;<CR>

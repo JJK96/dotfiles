@@ -41,6 +41,7 @@ bar {
 }
 
 bindsym $mod+Control+p exec keepass --auto-type
+bindsym $mod+Mod1+p exec keepass
 
 # start a terminal
 bindsym $mod+Return exec $terminal
