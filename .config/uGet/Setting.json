@@ -5,15 +5,15 @@
 		"Category": true,
 		"Summary": true,
 		"Banner": true,
-		"x": 0,
-		"y": 19,
-		"width": 1916,
-		"height": 1057,
+		"x": 1280,
+		"y": 37,
+		"width": 636,
+		"height": 1039,
 		"maximized": false,
 		"NthCategory": 0,
 		"NthStatus": 0,
 		"PanedPositionH": 359,
-		"PanedPositionV": 911
+		"PanedPositionV": 873
 	},
 	"Summary": {
 		"name": true,
@@ -77,7 +77,9 @@
 		"pattern": "BIN|ZIP|GZ|7Z|XZ|Z|TAR|TGZ|BZ2|LZH|A[0-9]?|RAR|R[0-9][0-9]|ISO|RPM|DEB|EXE|MSI|APK|3GP|AAC|FLAC|M4A|M4P|MP3|OGG|WAV|WMA|MP4|MKV|WEBM|OGV|AVI|MOV|WMV|FLV|F4V|MPG|MPEG|RMVB",
 		"monitor": true,
 		"quiet": false,
-		"NthCategory": 0
+		"NthCategory": 0,
+		"Website": true,
+		"MediaWebsite": true
 	},
 	"Bandwidth": {
 		"NormalUpload": 0,
@@ -99,6 +101,11 @@
 		"uri": "http:\/\/localhost:6800\/jsonrpc",
 		"MaxUploadSpeed": 0,
 		"MaxDownloadSpeed": 0
+	},
+	"PluginMedia": {
+		"match_mode": 3,
+		"quality": 1,
+		"type": 0
 	},
 	"Completion": {
 		"remember": true,
