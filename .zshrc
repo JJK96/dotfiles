@@ -2,7 +2,8 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-export $EDITOR=vim
+export EDITOR=vim
+export GPGKEY=35DA10798B42C1C8AEFEFEAC6487A893C19EA8BC
 setopt inc_append_history
 setopt autocd extendedglob
 setopt share_history

@@ -6,5 +6,4 @@ nitrogen --set-scaled /usr/share/pixmaps/dna-futuristic-wallpaper.jpg
 nm-applet &
 compton &
 redshift &
-vimb &
 rambox &

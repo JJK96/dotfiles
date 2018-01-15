@@ -3,11 +3,13 @@ set hint-keys=asdfjkl;
 set download-path=/tmp/Downloads
 nmap H :set status-bar!<CR>
 handler-add magnet=xdg-open %s
+handler-add lutris=lutris %s
 nmap x :sh uget-gtk "$VIMB_URI" &<CR>
 set x-hint-command=:sh uget-gtk <C-R> &; <CR>
-set user-agent=Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
 
 augroup titlechange
 autocmd LoadFinished * e! document.title+=' '+document.URL;
 augroup end
 
+shortcut-add dd=https://duckduckgo.com/?q=$0
+shortcut-default dd

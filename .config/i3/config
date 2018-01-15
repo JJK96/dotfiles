@@ -40,7 +40,8 @@ bar {
 	position top
 }
 
-bindsym $mod+Control+p exec keepass --auto-type
+bindsym $mod+Control+p exec mypassmenu --type
+#keepass --auto-type
 bindsym $mod+Mod1+p exec keepass
 
 # start a terminal
@@ -186,7 +187,6 @@ mode "resize" {
 
 # assign windows to workspace
 assign [class="^Firefox$"] 1
-assign [class="^Vimb$"] 1
 assign [class="^Rambox$"] 9
 assign [class="^Spotify$"] 8
 assign [class="^jetbrains\-idea$"] 2
