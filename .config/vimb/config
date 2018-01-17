@@ -13,3 +13,7 @@ augroup end
 
 shortcut-add dd=https://duckduckgo.com/?q=$0
 shortcut-default dd
+
+aug download
+au DownloadFinished *.pdf shellcmd! zathura $(ls -t /tmp/Downloads | head -1)
+aug end

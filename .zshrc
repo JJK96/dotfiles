@@ -46,7 +46,7 @@ PERL_MM_OPT="INSTALL_BASE=/home/jjk/perl5"; export PERL_MM_OPT;
 
 # aliases
 alias wine32='WINEPREFIX="$HOME/.wine32" wine'
-alias ls='ls --color'
+alias l='ls --color'
 alias please='sudo $(fc -ln -1)'
 alias youtube-mp3='youtube-dl -i --yes-playlist -x --audio-format m4a --audio-quality 0 '
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"

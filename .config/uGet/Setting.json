@@ -13,7 +13,7 @@
 		"NthCategory": 0,
 		"NthStatus": 0,
 		"PanedPositionH": 359,
-		"PanedPositionV": 873
+		"PanedPositionV": 765
 	},
 	"Summary": {
 		"name": true,
@@ -37,8 +37,8 @@
 		"uri": false,
 		"AddedOn": true,
 		"CompletedOn": false,
-		"SortType": 1,
-		"SortNth": 0,
+		"SortType": 0,
+		"SortNth": 4,
 		"Width": {
 			"state": 18,
 			"name": 801,
