@@ -58,3 +58,4 @@ alias term='urxvt &'
 alias custom='repose -vf custom -r /var/cache/pacman/custom'
 alias iv="sxiv -b"
 alias i3config="$EDITOR ~/.config/i3/config"
+alias upd="aursync -u && sudo pacman -Syu"
