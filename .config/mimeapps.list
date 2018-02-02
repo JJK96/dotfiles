@@ -73,3 +73,4 @@ application/x-extension-xhtml=vimb.desktop;
 application/x-extension-xht=vimb.desktop;
 application/msword=libreoffice-writer.desktop;
 video/x-msvideo=mpv.desktop;vlc.desktop;
+text/x-objcsrc=gvim.desktop;

@@ -5,6 +5,7 @@ SAVEHIST=1000
 export EDITOR=vim
 export GPGKEY=35DA10798B42C1C8AEFEFEAC6487A893C19EA8BC
 export PASSWORD_STORE_GENERATED_LENGTH=30
+export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 setopt inc_append_history
 setopt autocd extendedglob
 setopt share_history
@@ -59,3 +60,7 @@ alias custom='repose -vf custom -r /var/cache/pacman/custom'
 alias iv="sxiv -b"
 alias i3config="$EDITOR ~/.config/i3/config"
 alias upd="aursync -u && sudo pacman -Syu"
+alias cleargpg="echo RELOADAGENT | gpg-connect-agent"
+alias xsel="xsel -b"
+alias wd="cd ~/Documents/mod11/"
+alias pkgs='function _pkgs(){ pacman -Ss "$1" || aursearch "$1";};_pkgs'
