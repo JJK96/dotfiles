@@ -8,6 +8,7 @@ Plugin 'vim-scripts/Align'
 Plugin 'tpope/vim-dispatch'
 Plugin 'vim-latex/vim-latex'
 Plugin 'skywind3000/asyncrun.vim'
+Plugin 'dylanaraps/wal.vim'
 "Plugin 'davidhalter/jedi-vim'
 "Plugin 'guyzmo/vim-etherpad'
 call vundle#end()
