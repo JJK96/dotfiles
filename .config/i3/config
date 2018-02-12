@@ -37,9 +37,10 @@ new_window pixel
 # from the generated scheme.
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
-set_from_resource $fg i3wm.color15 #f0f0f0
-set_from_resource $bg i3wm.color4 #f0f0f0
-set_from_resource $bgu i3wm.color12
+set_from_resource $fg i3wm.foreground #f0f0f0
+set_from_resource $bg i3wm.background #f0f0f0
+#set_from_resource $fg i3wm.color0
+#set_from_resource $bg i3wm.color8
 set_from_resource $color0 i3wm.color0
 set_from_resource $color1 i3wm.color1
 set_from_resource $color2 i3wm.color2
@@ -58,11 +59,11 @@ set_from_resource $color14 i3wm.color14
 set_from_resource $color15 i3wm.color15
 
 # class                 border  backgr. text indicator child_border
-client.focused          $bg     $bg     $fg  $bg       $bg
-client.focused_inactive $bg     $bg     $fg  $bg       $bg
-client.unfocused        $bg     $bgu    $fg  $bgu      $bgu
-client.urgent           $bg     $bg     $fg  $bg       $bg
-client.placeholder      $bg     $bg     $fg  $bg       $bg
+client.focused          $bg     $fg     $bg  $fg       $fg
+client.focused_inactive $bg     $fg     $bg  $fg       $fg
+client.unfocused        $fg     $bg     $fg  $bg       $fg
+client.urgent           $fg     $bg     $fg  $bg       $fg
+client.placeholder      $fg     $bg     $fg  $bg       $fg
 
 client.background       $bg
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -73,11 +74,10 @@ bar {
         status_command i3blocks
 	position top
         colors {
-            background #000000
+            background $color0
             statusline $fg
-            separator $bgu
-            focused_workspace $bg $bg $fg
-            unfocused_workspace $bgu $bgu $fg
+            separator $fg
+            focused_workspace $fg $fg $bg
         }
 }
 

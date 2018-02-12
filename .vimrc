@@ -9,12 +9,13 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'vim-latex/vim-latex'
 Plugin 'skywind3000/asyncrun.vim'
 Plugin 'dylanaraps/wal.vim'
+Plugin 'digitaltoad/vim-pug'
 "Plugin 'davidhalter/jedi-vim'
 "Plugin 'guyzmo/vim-etherpad'
 call vundle#end()
 if &cp | set nocp | endif
 set background=dark
-colorscheme solarized
+colorscheme wal
 let g:solarized_termtrans=1
 set backspace=indent,eol,start
 set number
@@ -36,7 +37,7 @@ let g:tex_flavor = 'latex'
 set omnifunc=syntaxcomplete#Complete
 set autoread
 set softtabstop=4
-set autoindent
+set smartindent
 set shiftwidth=4
 set expandtab
 set hidden
@@ -60,3 +61,4 @@ nmap M :w<CR>:@c<CR>
 let g:epad_host = "pad.noedel.win" " Hostname to connect to
 let g:epad_port = "9001"      " Port to connect to
 let g:epad_path = "p/"        " URL Path to the pad
+au BufRead,BufNewFile *.twig set ft=html

@@ -1,2 +1,2 @@
 setlocal foldlevel=999
-nnoremap s :w<CR>:!pdflatex %<CR>
+nnoremap s :w<CR>:AsyncRun pdflatex %<CR>

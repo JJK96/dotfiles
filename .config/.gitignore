@@ -19,3 +19,8 @@ Kitware/
 Signal*
 VirtualBox/
 radare2
+QtProject.conf
+configstore
+pavucontrol.ini
+wireshark/
+composer/

@@ -6,6 +6,7 @@ export EDITOR=vim
 export GPGKEY=35DA10798B42C1C8AEFEFEAC6487A893C19EA8BC
 export PASSWORD_STORE_GENERATED_LENGTH=30
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
+export PASSWORD_STORE_EXTENSIONS_DIR="$HOME/.config/pass/extensions"
 setopt inc_append_history
 setopt autocd extendedglob
 setopt share_history
@@ -32,7 +33,7 @@ fgLast() {
 }
 zle -N fgLast
 bindkey '^Z' fgLast
-export PATH="${PATH}:$HOME/bin:$HOME/bin/perl"
+export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin"
 function chpwd() {
     emulate -L zsh
     ls
@@ -59,8 +60,10 @@ alias term='urxvt &'
 alias custom='repose -vf custom -r /var/cache/pacman/custom'
 alias iv="sxiv -b"
 alias i3config="$EDITOR ~/.config/i3/config"
-alias upd="aursync -u && sudo pacman -Syu"
+alias upd="aur sync -u && sudo pacman -Syu"
 alias cleargpg="echo RELOADAGENT | gpg-connect-agent"
 alias xsel="xsel -b"
-alias wd="cd ~/Documents/mod11/"
-alias pkgs='function _pkgs(){ pacman -Ss "$1" || aursearch "$1";};_pkgs'
+alias wd="cd /home/jjk/Documents/mod11/design-project"
+alias pkgs='function _pkgs(){ pacman -Ss "$1" || aur search "$1";};_pkgs'
+alias p="zathura"
+alias ll="ls -lh"

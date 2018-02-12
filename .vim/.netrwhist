@@ -1,10 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/home/jjk/Documents/work/dahomey.nl/edit/testing.dahomey.nl/components/com_search'
-let g:netrw_dirhist_2='/home/jjk/Documents/work/dahomey.nl/edit/testing.dahomey.nl/components/com_search/views'
-let g:netrw_dirhist_3='/home/jjk/Documents/work/dahomey.nl/edit/testing.dahomey.nl/components/com_search/views/search'
-let g:netrw_dirhist_4='/home/jjk/Documents/mod10/CPS_project'
-let g:netrw_dirhist_5='/home/jjk/.ssh'
-let g:netrw_dirhist_6='/home/jjk/.config'
-let g:netrw_dirhist_7='/home/jjk/Documents/mod10/DSN/13258382hbdtnphpjxxp/.git'
-let g:netrw_dirhist_8='/home/jjk/git/trizen'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/var/lib/gerrit/git/All-Projects.git'
+let g:netrw_dirhist_2='/home/jjk/.cache/wal'
+let g:netrw_dirhist_3='/home/jjk/dotfiles/.config/radare2'
+let g:netrw_dirhist_4='/home/jjk/.password-store'
