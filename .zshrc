@@ -1,3 +1,5 @@
+# colorscheme
+(cat ~/.cache/wal/sequences &)
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -17,7 +19,6 @@ zstyle :compinstall filename '/home/jjk/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-eval neofetch --color_blocks off
 bindkey -v
 autoload -U promptinit
 promptinit
@@ -33,14 +34,15 @@ fgLast() {
 }
 zle -N fgLast
 bindkey '^Z' fgLast
-export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin"
 function chpwd() {
     emulate -L zsh
     ls
 }
 
 
+export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin"
 PATH="/home/jjk/perl5/bin${PATH:+:${PATH}}"; export PATH;
+
 PERL5LIB="/home/jjk/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/home/jjk/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/jjk/perl5\""; export PERL_MB_OPT;
@@ -67,3 +69,5 @@ alias wd="cd /home/jjk/Documents/mod11/design-project"
 alias pkgs='function _pkgs(){ pacman -Ss "$1" || aur search "$1";};_pkgs'
 alias p="zathura"
 alias ll="ls -lh"
+alias zip="zip -r"
+

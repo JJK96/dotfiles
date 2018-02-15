@@ -62,3 +62,4 @@ let g:epad_host = "pad.noedel.win" " Hostname to connect to
 let g:epad_port = "9001"      " Port to connect to
 let g:epad_path = "p/"        " URL Path to the pad
 au BufRead,BufNewFile *.twig set ft=html
+set hlsearch
