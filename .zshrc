@@ -32,15 +32,35 @@ bindkey '^X^X' history-beginning-search-menu
 fgLast() {
     fg
 }
+
+nextJob() {
+    myJobs="$(jobs)"
+    current=$(echo "$myJobs" | grep + | awk '{print $1}' | perl -pe 's/[\[\]]//g')
+    jobCount=$(echo "$myJobs" | wc -l)
+    if [[ $1 ]]; then
+        next=$(if [[ $current -eq 1 ]]; then echo $jobCount; else echo $(($current-1));fi)
+    else 
+        next=$(if [[ $current -eq $jobCount ]]; then echo "1"; else echo $(($current+1));fi)
+    fi
+    fg "%$next"
+}
+prevJob() {
+    nextJob x
+}
+
+zle -N nextJob
+zle -N prevJob
 zle -N fgLast
 bindkey '^Z' fgLast
+bindkey '^k' nextJob
+bindkey '^j' prevJob
 function chpwd() {
     emulate -L zsh
     ls
 }
 
 
-export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin"
+export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:/usr/local/bin"
 PATH="/home/jjk/perl5/bin${PATH:+:${PATH}}"; export PATH;
 
 PERL5LIB="/home/jjk/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
@@ -68,6 +88,6 @@ alias xsel="xsel -b"
 alias wd="cd /home/jjk/Documents/mod11/design-project"
 alias pkgs='function _pkgs(){ pacman -Ss "$1" || aur search "$1";};_pkgs'
 alias p="zathura"
-alias ll="ls -lh"
+alias ll="ls -lh --color"
 alias zip="zip -r"
 

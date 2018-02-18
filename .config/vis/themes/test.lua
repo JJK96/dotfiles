@@ -5,28 +5,29 @@
 local lexers = vis.lexers
 
 local colors = {
-	['base00'] = '#002b36',
-	['base01'] = '#073642',
-	['base02'] = '#586e75',
-	['base03'] = '#657b83',
-	['base04'] = '#839496',
-	['base05'] = '#93a1a1',
-	['base06'] = '#eee8d5',
-	['base07'] = '#fdf6e3',
-	['base08'] = '#dc322f',
-	['base09'] = '#cb4b16',
-	['base0A'] = '#b58900',
-	['base0B'] = '#859900',
-	['base0C'] = '#2aa198',
-	['base0D'] = '#268bd2',
-	['base0E'] = '#6c71c4',
-	['base0F'] = '#d33682',
+    ['base00'] = '#051119',
+    ['base01'] = '#3B847B',
+    ['base02'] = '#27708E',
+    ['base03'] = '#487890',
+    ['base04'] = '#348AA2',
+    ['base05'] = '#5399AA',
+    ['base06'] = '#64B9CE',
+    ['base07'] = '#c6e0e7',
+    ['base08'] = '#8a9ca1',
+    ['base09'] = '#3B847B',
+    ['base00'] = '#27708E',
+    ['base0A'] = '#487890',
+    ['base0B'] = '#348AA2',
+    ['base0C'] = '#5399AA',
+    ['base0D'] = '#64B9CE',
+    ['base0E'] = '#c6e0e7',
+    ['base0F'] = '#c6e0e7',
 }
 
 lexers.colors = colors
 
 local fg = ',fore:'..colors.base05..','
-local bg = ',back:default,'
+local bg = ',back:'..colors.base00..','
 
 lexers.STYLE_DEFAULT = bg..fg
 lexers.STYLE_NOTHING = bg
