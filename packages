@@ -1,278 +1,50 @@
-acpi
-acpilight
-adwaita-x-dark-and-light-theme
-alsa-utils
-android-tools
-arandr
-arc-gtk-theme
+#themes
+terminus-font
+oomox #generate gtk theme using pywal
+lxappearance #adapt gtk themes
+arc-gtk-theme 
 arc-icon-theme
-at
-atool
-aurutils-git
-autoconf
-automake
-bash
-bash-completion
-bind-tools
-binutils
-binwalk
-bison
-bumblebee
-bzip2
-calc
-certbot
 ceti-2-themes
-cfunge
-cgoban3
-chromium
-clang
-clisp
-cmatrix
-composer
-compton
-coreutils
-cowsay
-crunch
-cryptsetup
-cupp-v3
-cups
-curlftpfs
-ddclient
-device-mapper
-dhcpcd
-diffutils
-digger
-discount
-dmenu
-dmidecode
-dnsmasq
-dosbox
-dropbox
-dunst-git
-e2fsprogs
-ebook2cw
-efibootmgr
-electrum
-elementary-icon-theme
-exfat-utils
-fakeroot
-fcrackzip
-ffmpegthumbnailer
-figlet
-file
-filesystem
-findutils
-firefox
-firewalld
-flex
-flite
-fortune-mod
-gawk
-gcc
-gcc-libs
-gdb
-gendesk
-gerrit
-gettext
-ghc
-gimp
-git
-gitg
-glibc
-gnome-keyring
-gnu-netcat
-gparted
-grep
-groff
-grub
-gst-plugins-good
-gstreamer0.10-base
-gucharmap
-gvfs-mtp
-gvfs-smb
-gvim
-gzip
-hardinfo
-hashcat
-howdoi
-hplip
-i3-style
-i3-wm
-i3blocks
-i3lock
-i3status
-inetutils
-intel-ucode
-intellij-idea-ultimate-edition
-iproute2
-iputils
-irssi
-iverilog
-iw
-java-openjfx
-jfbview
-jfsutils
-kdenlive
-kexec-tools
-less
-lib32-libpulse
-lib32-libxtst
-lib32-openal
-lib32-virtualgl
-libinput-gestures
-libreoffice-fresh
-libtool
-libvirt
-libxp
-licenses
-linux
-linux-headers
-linux-lts
+
+##fonts
+ttf-baekmuk
+ttf-dejavu
+ttf-ms-fonts
+ttf-symbola
+
+#graphics card
+bumblebee #hybrid video card with nvidia
+primus #hybrid video card with nvidia
+nvidia #video card driver
+
+#extended support
+zip
+unrar
+unzip
+bzip2 #bzip2 unzip
+exfat-utils #fat 
+
+#info and control
+acpilight #control backlight
+alsa-utils #control volume
+acpi #read battery status (used by i3blocks)
+sysstat #performance monitoring (used by i3blocks)
+arandr #Graphical control monitors.
+smartmontools #view smart status of disks (used by tlp)
+
+#development
+php-apache #php for apache
+mariadb #mysql database
+postgresql #postgres database
+maven #java project management
 linux-lts-headers
-logrotate
-lsdesktopf
-lsyncd
-ltris
-lutris
-lvm2
-lxappearance
-lxqt-policykit
-lxrandr
-lxsession
-lynx
-m4
-make
-man-db
-man-pages
-mariadb
-maven
-mdadm
-mesa-demos
-minecraft
-minicom
-mono-addins
-mono-tools
-mplayer
-mpv
-mtpfs
-multibootusb
-mutt
-n-ninja
-namcap
-nano
-ncurses5-compat-libs
-neofetch
-net-tools
-netctl
-network-manager-applet
-networkmanager
-networkmanager-openvpn
-networkmanager-pptp
-newsboat
-nitrogen
-nmap
-ntfs-3g
-ntp
-nvidia
-oomox
-openbox
-openlp
-openssh
-os-prober
-pacman
-pacutils
-pandoc-bin
-pass
-pass-extension-tail
-patch
-pavucontrol
-pciutils
-pcmciautils
-pdftk-bin
-perl
-perl-anyevent-i3
-perl-file-which
-perl-smart-comments
-perl-x11-guitest
-php
-php-apache
-php-gd
-php-intl
-php-xsl
-pkg-config
-pkgfile
-postfix
-postgresql
-primus
-prismmodelchecker-git
-procps-ng
-psmisc
-pulseaudio-alsa
-pulseaudio-equalizer
-pv
-pygmentize
-python-docx
-python-matplotlib
-python-numpy
-python-opencv
-python-pip
-python-pywal
-python-pywapi
-python-sympy
-python-v4l2capture
-python-websockets
-python2-anyjson
-python2-jedi
-python2-pip
-python2-pwntools
-python2-pyserial
-qemu
-qemu-arch-extra
-qt5-websockets
-radare2-git
-rambox-bin
-ranger
-rclone
-redshift
-refind-efi
-reiserfsprogs
-repose
-rofi-git
-ropgadget
-rsync
-ruby-fusuma
-rxvt-unicode
-s-nail
-samba
-scapy
-scapy3k
-scrot
-seahorse
-sed
-shadow
-signal-desktop-beta
-smartmontools
-soundhelix
-spotify
-srb2
-statnot
-steam
-strace
-sudo
-sway
-sxiv
-synergy
-sysfsutils
-syslinux
-sysstat
-system-config-printer
-systemd
-systemd-sysvcompat
-tar
-teamviewer
-termite
-testdisk
-texinfo
+linux-headers
+intellij-idea-ultimate-edition
+git
+gdb #debugger
+android-tools #adb, etc.
+
+##latex libraries
 texlive-bibtexextra
 texlive-bin
 texlive-core
@@ -287,124 +59,203 @@ texlive-pictures
 texlive-pstricks
 texlive-publishers
 texlive-science
-thunar
-thunar-volman
-tk
-tlp
-tmux
-toilet
-tor
-tor-browser
-torsocks
-traceroute
-tracker
-transmission-qt
-ttf-baekmuk
-ttf-dejavu
-ttf-ms-fonts
-ttf-symbola
-udevil
-uget
-unrar
-unzip
-uppaal
-usbutils
-util-linux
-vi
-vifm
-vimb-git
-virt-manager
-virtualbox-ext-oracle
-virtualbox-host-modules-arch
-vis
-vlc
-wget
-which
-whois
-wine-staging-nine
-wireshark-gtk
-wmname
-wpa_supplicant
-wpscan
-x11vnc
-x264
-xarchiver
-xautoclick
-xautolock
-xbindkeys
-xcompmgr
-xdg-user-dirs-gtk
-xf86-input-evdev
-xf86-input-keyboard
-xf86-input-mouse
-xf86-input-vmmouse
-xf86-input-void
-xf86-video-ati
-xf86-video-dummy
-xf86-video-fbdev
-xf86-video-intel
-xf86-video-nouveau
-xf86-video-openchrome
-xf86-video-vesa
-xf86-video-vmware
-xf86-video-voodoo
-xfsprogs
-xorg-bdftopcf
-xorg-docs
-xorg-font-util
-xorg-fonts-100dpi
-xorg-fonts-75dpi
-xorg-fonts-encodings
-xorg-iceauth
-xorg-luit
-xorg-mkfontdir
-xorg-mkfontscale
-xorg-server
-xorg-server-common
-xorg-server-devel
-xorg-server-xdmx
-xorg-server-xephyr
-xorg-server-xnest
-xorg-server-xvfb
-xorg-server-xwayland
-xorg-sessreg
-xorg-setxkbmap
-xorg-smproxy
-xorg-x11perf
-xorg-xauth
-xorg-xcmsdb
-xorg-xcursorgen
-xorg-xdpyinfo
-xorg-xdriinfo
-xorg-xev
-xorg-xgamma
-xorg-xhost
-xorg-xinit
-xorg-xinput
-xorg-xkbcomp
-xorg-xkbevd
-xorg-xkbutils
-xorg-xkill
-xorg-xlsatoms
-xorg-xlsclients
-xorg-xmodmap
-xorg-xpr
-xorg-xprop
-xorg-xrandr
-xorg-xrdb
-xorg-xrefresh
-xorg-xset
-xorg-xsetroot
-xorg-xvinfo
-xorg-xwd
-xorg-xwininfo
-xorg-xwud
-xsane
-xsel
-yarn
-youtube-dl
-zathura
-zathura-pdf-mupdf
-zip
-zsh
+
+##python libraries
+python-docx #read docx
+python-matplotlib #plot stuff
+python-numpy #calculate stuff
+python-opencv #image detection
+python-pip #package manager
+python-pywal #set themes
+python-pywapi 
+python-sympy #symbolic calculation
+python-websockets
+python2-anyjson
+python2-jedi #autocomplete
+python2-pip
+python2-pwntools #hacking
+python2-pyserial #read serial connections
+
+##php plugins
+php-gd
+php-intl
+php-xsl
+
+#utilities
+
+## active use
+zathura #pdf viewer
+zathura-pdf-mupdf #needed for zathura
+youtube-dl #download from youtube
+xsel #clipboard management
+xautolock #lock screen automatically
+xautoclick #auto clicker
+x11vnc #vnc server/client
+wireshark-gtk #sniff packets
+whois #find information about  web host
+wget #download stuff
+uget #download manager
+traceroute #find intermediate hops over internet
+tmux #terminal multiplexer
+system-config-printer #printer settings
+sxiv #image viewer
+seahorse #gui for gnome-keyring management
+scrot #screenshots
+rsync #copy lots of files
+rclone #sync dropbox and google drive
+radare2-git #reverse engineering toolkit
+pv #measure progress through pipe
+pdftk-bin #pdf toolkit
+pavucontrol #volume control
+pass #password store
+pandoc-bin #compile markdown and documents converting
+nmap #scan ports
+nitrogen #set wallpaper
+newsboat #rss reader
+net-tools #ifconfig etc.
+neofetch #system information in terminal (screenfetch)
+libinput-gestures #gestures
+howdoi #quickly find how to do something
+gparted #partition manager
+gnu-netcat #interact over network
+dmenu #choose from list
+discount #markdown
+at #schedule commands
+certbot #ssl certificates
+composer #php package manager
+curlftpfs #mount ftp
+
+## inactive use
+tor #tor network
+tk #windowing toolkit
+redshift #make screen less blue during night time
+gnome-keyring #save passwords
+dnsmasq #dns
+ddclient #dynamic dns client
+binwalk #view files in .img
+cups #printing
+xsane #printing
+hplip #printing hp
+
+#file management
+vifm #file manager (used by aurutils)
+thunar #file manager
+thunar-volman #automatic removable devices
+ranger #file manager
+ntfs-3g #ntfs support
+mtpfs #mtp support
+gvfs-mtp #mtp support thunar
+gvfs-smb #smb support thunar
+atool #archive support in ranger.
+ffmpegthumbnailer #video thumbnail ranger
+
+#package management
+pkgfile #find which package a file belongs to
+repose #handle custom repository
+aurutils-git #aur helper
+namcap #check pkgbuilds
+
+#programming languages
+yarn #node package manager
+php
+ghc #haskell
+bash #scripts
+bind-tools #requirement python
+cfunge #befunge
+clisp #lisp
+
+#games
+steam
+srb2
+minecraft
+lutris #load windows games more easily
+digger 
+cgoban3 #go (baduk)
+
+#Applications
+zsh #shell
 zsh-completions
+vimb-git #browser
+transmission-qt #torrent client
+tor-browser 
+termite #terminal emulator
+teamviewer
+spotify
+rofi-git #application launcher
+rambox-bin #social media manager
+openlp #worship software
+mpv #media player
+vlc #media player
+libreoffice-fresh
+kdenlive #video editing
+gvim #text editor
+vis #text editor (like vim)
+irssi #irc client
+gimp #image editing
+firefox
+chromium
+
+#Fun
+fortune-mod #fortune cookies
+cmatrix #matrix terminal
+cowsay
+figlet #big text figures
+
+#Window manager
+sway #i3 for wayland
+dunst-git #notifications
+statnot #notifications
+compton #compositor
+i3-style #colorschemes i3
+i3-wm #window manager
+i3blocks #customizable status bar
+i3lock #lock screen
+perl-anyevent-i3 #communicate with i3
+
+#groups
+base
+base-devel
+xorg-drivers
+xorg
+
+#virtual machines / emulation
+wine-staging-nine #run windows programs
+virt-manager #manage qemu virtual machines
+qemu
+qemu-arch-extra
+dosbox #dos applications
+virtualbox-host-modules-arch #host modules
+
+#cloud
+dropbox
+
+#boot
+os-prober #detect other OSes
+grub #boot loader
+syslinux
+efibootmgr #needed for grub on efi
+
+#System
+intel-ucode #microcode
+iw #wireless configuration
+lib32-libpulse #sound support wine
+lib32-openal #wine audio
+lib32-virtualgl #bumblebee
+linux-lts #fallback kernel
+lxqt-policykit #popup asking for password
+lxsession #something with polkit
+network-manager-applet #icon for network manager
+networkmanager
+networkmanager-openvpn
+networkmanager-pptp
+ntp #time synchronization
+openssh #ssh
+postfix #mail server
+pulseaudio-alsa
+pulseaudio-equalizer
+samba #shares and printers
+tlp #power management
+udevil #udev auto mount disks
+wpa_supplicant #wpa connections
+x264 #codec
+xorg-xinit #start x from tty

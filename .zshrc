@@ -1,6 +1,7 @@
 # colorscheme
 (cat ~/.cache/wal/sequences &)
 # Lines configured by zsh-newuser-install
+setopt HIST_IGNORE_SPACE
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -90,4 +91,5 @@ alias pkgs='function _pkgs(){ pacman -Ss "$1" || aur search "$1";};_pkgs'
 alias p="zathura"
 alias ll="ls -lh --color"
 alias zip="zip -r"
+alias r2="r2 -A"
 
