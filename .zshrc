@@ -11,7 +11,8 @@ export PASSWORD_STORE_GENERATED_LENGTH=30
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export PASSWORD_STORE_EXTENSIONS_DIR="$HOME/.config/pass/extensions"
 setopt inc_append_history
-setopt autocd extendedglob
+setopt autocd 
+setopt extendedglob
 setopt share_history
 bindkey -v
 # End of lines configured by zsh-newuser-install
@@ -72,7 +73,7 @@ PERL_MM_OPT="INSTALL_BASE=/home/jjk/perl5"; export PERL_MM_OPT;
 # aliases
 alias wine32='WINEPREFIX="$HOME/.wine32" wine'
 alias l='ls --color'
-alias please='sudo $(fc -ln -1)'
+alias pls='sudo $(fc -ln -1)'
 alias youtube-mp3='youtube-dl -i --yes-playlist -x --audio-format m4a --audio-quality 0 '
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias leave="bg %+ && disown %+ && exit"
