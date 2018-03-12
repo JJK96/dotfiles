@@ -106,3 +106,6 @@ alias repo-remove="repo-remove /var/cache/pacman/custom/custom.db.tar"
 alias repo-add="repo-add /var/cache/pacman/custom/custom.db.tar"
 alias upd="aur sync -u && sudo pacman -Syu"
 alias custom='repose -vf custom -r /var/cache/pacman/custom'
+
+#vim
+alias v="vim"
