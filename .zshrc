@@ -94,11 +94,12 @@ alias r2="r2 -A"
 alias html2jade="html2jade -n 4 --noemptypipe --bodyless"
 
 #git
-alias commit='git commit -m "`fortune`"'
-alias gpf="git add -A && commit && git pull && git push"
+alias gcf='git commit -m "`fortune`"'
+alias gpf="git add -A && gcf && git pull && git push"
 alias ga="git add -A"
 alias gp="git push"
 alias gs="git status"
+alias gc="git commit"
 
 #pacman
 alias repo-remove="repo-remove /var/cache/pacman/custom/custom.db.tar"
