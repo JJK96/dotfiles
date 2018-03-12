@@ -62,7 +62,7 @@ function chpwd() {
 }
 
 
-export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:/usr/local/bin"
+export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:/usr/local/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin"
 PATH="/home/jjk/perl5/bin${PATH:+:${PATH}}"; export PATH;
 
 PERL5LIB="/home/jjk/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
@@ -78,19 +78,30 @@ alias youtube-mp3='youtube-dl -i --yes-playlist -x --audio-format m4a --audio-qu
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias leave="bg %+ && disown %+ && exit"
 alias x="startx"
-alias commit='git commit -m "`fortune`"'
 alias giomount='cd /run/user/1000/gvfs/'
-alias term='urxvt &'
-alias custom='repose -vf custom -r /var/cache/pacman/custom'
+alias term='termite &'
 alias iv="sxiv -b"
 alias i3config="$EDITOR ~/.config/i3/config"
-alias upd="aur sync -u && sudo pacman -Syu"
 alias cleargpg="echo RELOADAGENT | gpg-connect-agent"
 alias xsel="xsel -b"
 alias wd="cd /home/jjk/Documents/mod11/design-project"
 alias pkgs='function _pkgs(){ pacman -Ss "$1" || aur search "$1";};_pkgs'
+alias aurinst='function _aurinst(){ aur sync "$1" && sudo pacman -S "$1";};_aurinst'
 alias p="zathura"
 alias ll="ls -lh --color"
 alias zip="zip -r"
 alias r2="r2 -A"
+alias html2jade="html2jade -n 4 --noemptypipe --bodyless"
 
+#git
+alias commit='git commit -m "`fortune`"'
+alias gpf="git add -A && commit && git pull && git push"
+alias ga="git add -A"
+alias gp="git push"
+alias gs="git status"
+
+#pacman
+alias repo-remove="repo-remove /var/cache/pacman/custom/custom.db.tar"
+alias repo-add="repo-add /var/cache/pacman/custom/custom.db.tar"
+alias upd="aur sync -u && sudo pacman -Syu"
+alias custom='repose -vf custom -r /var/cache/pacman/custom'

@@ -229,6 +229,4 @@ mode "resize" {
 
 # assign windows to workspace
 assign [class="^Rambox$"] 9
-assign [class="^Spotify$"] 8
-assign [class="^jetbrains\-idea$"] 2
 assign [class="^Signal\\ Beta$"] 9

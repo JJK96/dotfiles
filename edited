@@ -1,1 +1,2 @@
 /etc/default/tlp
+/etc/X11/xorg.conf.d/*

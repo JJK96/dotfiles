@@ -15,10 +15,9 @@ Plugin 'digitaltoad/vim-pug'
 call vundle#end()
 if &cp | set nocp | endif
 set background=dark
-colorscheme wal
+colorscheme solarized
 let g:solarized_termtrans=1
 set backspace=indent,eol,start
-set number
 set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=en
 set ruler
@@ -58,8 +57,4 @@ augroup END
 vmap <C-c> "+y
 nmap Y y$
 nmap M :w<CR>:@c<CR>
-let g:epad_host = "pad.noedel.win" " Hostname to connect to
-let g:epad_port = "9001"      " Port to connect to
-let g:epad_path = "p/"        " URL Path to the pad
 au BufRead,BufNewFile *.twig set ft=html
-set hlsearch
