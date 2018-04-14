@@ -122,7 +122,6 @@ dmenu #choose from list
 discount #markdown
 at #schedule commands
 certbot #ssl certificates
-composer #php package manager
 curlftpfs #mount ftp
 
 ## inactive use
@@ -163,6 +162,7 @@ bash #scripts
 bind-tools #requirement python
 cfunge #befunge
 clisp #lisp
+python-jedi #autocomplete python
 
 #games
 steam
@@ -181,7 +181,6 @@ tor-browser
 termite #terminal emulator
 teamviewer
 spotify
-rofi-git #application launcher
 rambox-bin #social media manager
 openlp #worship software
 mpv #media player
@@ -189,11 +188,14 @@ vlc #media player
 libreoffice-fresh
 kdenlive #video editing
 gvim #text editor
+kakoune #text editor (like vim)
 vis #text editor (like vim)
 irssi #irc client
 gimp #image editing
 firefox
 chromium
+audacity #sound editing
+rofi #application launcher
 
 #Fun
 fortune-mod #fortune cookies
@@ -219,15 +221,12 @@ xorg-drivers
 xorg
 
 #virtual machines / emulation
-wine-staging-nine #run windows programs
+wine #running windows programs
 virt-manager #manage qemu virtual machines
 qemu
 qemu-arch-extra
 dosbox #dos applications
 virtualbox-host-modules-arch #host modules
-
-#cloud
-dropbox
 
 #boot
 os-prober #detect other OSes
@@ -259,3 +258,4 @@ udevil #udev auto mount disks
 wpa_supplicant #wpa connections
 x264 #codec
 xorg-xinit #start x from tty
+bluez-utils #bluetooth
