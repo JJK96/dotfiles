@@ -5,7 +5,8 @@ setopt HIST_IGNORE_SPACE
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-export EDITOR=vim
+export EDITOR=kak
+export TERMINAL=termite
 export GPGKEY=35DA10798B42C1C8AEFEFEAC6487A893C19EA8BC
 export PASSWORD_STORE_GENERATED_LENGTH=30
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
@@ -79,12 +80,12 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias leave="bg %+ && disown %+ && exit"
 alias x="startx"
 alias giomount='cd /run/user/1000/gvfs/'
-alias term='termite &'
+alias term='termite & disown'
 alias iv="sxiv -b"
 alias i3config="$EDITOR ~/.config/i3/config"
 alias cleargpg="echo RELOADAGENT | gpg-connect-agent"
 alias xsel="xsel -b"
-alias wd="cd /home/jjk/Documents/mod11/design-project"
+alias wd="cd /home/jjk/Documents/mod11/design-project/codr"
 alias pkgs='function _pkgs(){ pacman -Ss "$1" || aur search "$1";};_pkgs'
 alias aurinst='function _aurinst(){ aur sync "$1" && sudo pacman -S "$1";};_aurinst'
 alias p="zathura"
@@ -97,7 +98,8 @@ alias html2jade="html2jade -n 4 --noemptypipe --bodyless"
 alias gcf='git commit -m "`fortune`"'
 alias gpf="git add -A && gcf && git pull && git push"
 alias ga="git add -A"
-alias gp="git push"
+alias gpl="git pull"
+alias gps="git push"
 alias gs="git status"
 alias gc="git commit"
 
@@ -108,4 +110,6 @@ alias upd="aur sync -u && sudo pacman -Syu"
 alias custom='repose -vf custom -r /var/cache/pacman/custom'
 
 #vim
-alias v="vim"
+alias k="kak"
+alias vim="kak"
+

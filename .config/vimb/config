@@ -1,4 +1,4 @@
-set editor-command=termite -e vim %s
+set editor-command=termite -e 'vim %s'
 set hint-keys=asdfjkl;
 set download-path=/tmp/Downloads
 nmap H :set status-bar!<CR>
@@ -8,7 +8,8 @@ nmap x :sh uget-gtk "$VIMB_URI" &<CR>
 set x-hint-command=:sh uget-gtk <C-R> &; <CR>
 
 shortcut-add dd=https://duckduckgo.com/?q=$0
-shortcut-default dd
+shortcut-add g=http://www.google.com/search?q=$0
+shortcut-default g
 
 aug download
 au DownloadFinished *.pdf shellcmd! zathura $(ls -t /tmp/Downloads | head -1)
