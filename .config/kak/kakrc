@@ -1,0 +1,42 @@
+colorscheme solarized-dark 
+
+# relative line numbers
+addhl global number_lines -relative
+addhl global wrap
+
+# indentation
+set global tabstop     4
+set global indentwidth 4
+
+# keep space around cursor
+set global scrolloff 10,10
+
+# Select whole lines when moving selection with J or K
+map global normal J J<a-x>
+map global normal K K<a-x>
+
+# vim old habits
+map global normal D '<a-l>d' -docstring 'delete to end of line'
+map global normal Y '<a-l>y' -docstring 'yank to end of line'
+
+# clipboard interaction
+map global user p '!xsel -bo<ret>'
+map global user y '<a-|>xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
+
+# compile markdown in background on save.
+hook global BufWritePost .*\.md %{ nop %sh{ ( pandoc -o /tmp/output.pdf $kak_buffile ) > /dev/null 2>&1 < /dev/null &}}
+
+# tab to select menu item.
+hook global InsertCompletionShow .* %{
+    map window insert <tab> <c-n>
+    map window insert <s-tab> <c-p>
+}
+
+hook global InsertCompletionHide .* %{
+    unmap window insert <tab> <c-n>
+    unmap window insert <s-tab> <c-p>
+}
+
+# Open file in new window
+def open-in-new-window -params 1 -file-completion %{ new edit %arg{@} }
+alias global e open-in-new-window
