@@ -111,5 +111,3 @@ alias custom='repose -vf custom -r /var/cache/pacman/custom'
 
 #vim
 alias k="kak"
-alias vim="kak"
-
