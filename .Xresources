@@ -128,8 +128,10 @@ URxvt*foreground: #2995FA
 ! URxvt*borderColor: colour
 
 ! Select the fonts to be used. This is a comma separated list of font names that are checked in order when trying to find glyphs for characters. The first font
-URxvt*font: 9x15Bold
-!URxvt*boldFont: fontlist
+! Urxvt*font: 9x15bold
+URxvt.font: xft:monaco:size=10
+URxvt.letterSpace: -1
+! URxvt*boldFont: fontlist
 
 ! 
 ! URxvt*italicFont: fontlist

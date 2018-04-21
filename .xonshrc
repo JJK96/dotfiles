@@ -1,0 +1,64 @@
+$VI_MODE = True
+$EDITOR = 'kak'
+$TERMINAL = 'termite'
+$GPGKEY='35DA10798B42C1C8AEFEFEAC6487A893C19EA8BC'
+$PASSWORD_STORE_GENERATED_LENGTH='30'
+$PASSWORD_STORE_ENABLE_EXTENSIONS='true'
+$PASSWORD_STORE_EXTENSIONS_DIR=$HOME + '/.config/pass/extensions'
+$PATH.append($HOME + '/bin')
+$PATH.append($HOME + '/bin/perl')
+$PATH.append($HOME + '/.config/composer/vendor/bin')
+$PATH.append('/usr/local/bin')
+$PATH.append($HOME + '/.yarn/bin')
+$PATH.append($HOME + '/.gem/ruby/2.5.0/bin')
+$PATH.append($HOME + 'perl5/bin')
+
+$PERL5LIB = ':' + $HOME + 'perl5/lib/perl5'
+$PERL_LOCAL_LIB_ROOT = ':' + $HOME + 'perl5'
+$PERL_MB_OPT = "--install_base \"$HOME + perl5\""
+$PERL_MM_OPT = ':' + 'INSTALL_BASE=' + $HOME + 'perl5'
+
+# aliases['s
+aliases['wine32'] = 'WINEPREFIX="$HOME/.wine32" wine'
+aliases['l'] = 'ls --color'
+aliases['pls'] = 'sudo $(fc -ln -1)'
+aliases['youtube-mp3'] = 'youtube-dl -i --yes-playlist -x --audio-format m4a --audio-quality 0 '
+aliases['sprunge'] = "curl -F 'sprunge=<-' http://sprunge.us"
+aliases['leave'] = "bg %+ && disown %+ && exit"
+aliases['x'] = "startx"
+aliases['giomount'] = 'cd /run/user/1000/gvfs/'
+aliases['term'] = 'termite & disown'
+aliases['iv'] = "sxiv -b"
+aliases['i3config'] = "$EDITOR ~/.config/i3/config"
+aliases['cleargpg'] = "echo RELOADAGENT | gpg-connect-agent"
+aliases['xsel'] = "xsel -b"
+aliases['wd'] = "cd /home/jjk/Documents/mod12"
+def _pkgs(args):
+    pacman -Ss @(args) || aur search @(args)
+aliases['pkgs'] = _pkgs
+def _aurinst(args):
+	aur sync @(args) && sudo pacman -S @(args)
+aliases['aurinst'] = _aurinst
+aliases['p'] = "zathura"
+aliases['ll'] = "ls -lh --color"
+aliases['zip'] = "zip -r"
+aliases['r2'] = "r2 -A"
+#aliases['html2jade'] = "html2jade -n 4 --noemptypipe --bodyless"
+
+#git
+aliases['gcf'] = 'git commit -m "`fortune`"'
+aliases['gpf'] = "git add -A && gcf && git pull && git push"
+aliases['ga'] = "git add -A"
+aliases['gpl'] = "git pull"
+aliases['gps'] = "git push"
+aliases['gs'] = "git status"
+aliases['gc'] = "git commit"
+
+#pacman
+aliases['repo-remove'] = "repo-remove /var/cache/pacman/custom/custom.db.tar"
+aliases['repo-add'] = "repo-add /var/cache/pacman/custom/custom.db.tar"
+aliases['upd'] = "aur sync -u && sudo pacman -Syu"
+aliases['custom'] = 'repose -vf custom -r /var/cache/pacman/custom'
+
+#vim
+aliases['k'] = "kak"
