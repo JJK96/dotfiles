@@ -20,13 +20,14 @@ application/x-extension-shtml=vimb.desktop
 application/xhtml+xml=vimb.desktop
 application/x-extension-xhtml=vimb.desktop
 application/x-extension-xht=vimb.desktop
+application/pdf=mupdf.desktop
 
 [Added Associations]
 text/plain=vim.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
 video/mp4=vlc.desktop;org.gnome.Totem.desktop;
 application/font-woff=org.gnome.gedit.desktop;
 text/html=firefox.desktop;vim.desktop;org.gnome.gedit.desktop;gvim.desktop;vimb.desktop;
-application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;zathura-pdf-mupdf.desktop;wine-extension-pdf.desktop;evince.desktop;apvlv.desktop;apvlv;
+application/pdf=mupdf.desktop;wine-extension-pdf.desktop;evince.desktop;apvlv.desktop;apvlv;
 text/x-python=vim.desktop;
 application/sql=gvim.desktop;vim.desktop;chromium.desktop;org.gnome.gedit.desktop;
 video/x-flv=vlc.desktop;

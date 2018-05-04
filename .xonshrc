@@ -21,10 +21,8 @@ $PERL_MM_OPT = ':' + 'INSTALL_BASE=' + $HOME + 'perl5'
 # aliases['s
 aliases['wine32'] = 'WINEPREFIX="$HOME/.wine32" wine'
 aliases['l'] = 'ls --color'
-aliases['pls'] = 'sudo $(fc -ln -1)'
 aliases['youtube-mp3'] = 'youtube-dl -i --yes-playlist -x --audio-format m4a --audio-quality 0 '
 aliases['sprunge'] = "curl -F 'sprunge=<-' http://sprunge.us"
-aliases['leave'] = "bg %+ && disown %+ && exit"
 aliases['x'] = "startx"
 aliases['giomount'] = 'cd /run/user/1000/gvfs/'
 aliases['term'] = 'termite & disown'
@@ -33,11 +31,14 @@ aliases['i3config'] = "$EDITOR ~/.config/i3/config"
 aliases['cleargpg'] = "echo RELOADAGENT | gpg-connect-agent"
 aliases['xsel'] = "xsel -b"
 aliases['wd'] = "cd /home/jjk/Documents/mod12"
+
 def _pkgs(args):
     pacman -Ss @(args) || aur search @(args)
 aliases['pkgs'] = _pkgs
+
 def _aurinst(args):
 	aur sync @(args) && sudo pacman -S @(args)
+
 aliases['aurinst'] = _aurinst
 aliases['p'] = "zathura"
 aliases['ll'] = "ls -lh --color"
@@ -57,7 +58,11 @@ aliases['gc'] = "git commit"
 #pacman
 aliases['repo-remove'] = "repo-remove /var/cache/pacman/custom/custom.db.tar"
 aliases['repo-add'] = "repo-add /var/cache/pacman/custom/custom.db.tar"
-aliases['upd'] = "aur sync -u && sudo pacman -Syu"
+
+def _upd(args):
+    aur sync -u && sudo pacman -Syu
+
+aliases['upd'] = _upd
 aliases['custom'] = 'repose -vf custom -r /var/cache/pacman/custom'
 
 #vim
