@@ -93,6 +93,7 @@ alias ll="ls -lh --color"
 alias zip="zip -r"
 alias r2="r2 -A"
 alias html2jade="html2jade -n 4 --noemptypipe --bodyless"
+alias lt="languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE "
 
 #git
 alias gcf='git commit -m "`fortune`"'
