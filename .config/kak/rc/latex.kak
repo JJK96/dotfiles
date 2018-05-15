@@ -6,7 +6,6 @@ hook global BufWritePost .*\.tex %{ nop %sh{ (
     function _find() {
     	file="$(find "$path" -maxdepth 1 -mindepth 1 -name main.tex)"
 	}
-	# _find
 	while ! [ $file ];
 	do
 		_find
@@ -14,6 +13,7 @@ hook global BufWritePost .*\.tex %{ nop %sh{ (
     done
     cd ${file%main.tex}
     pdflatex --enable-write18 main.tex && \
+    pkill -HUP mupdf
     bibtex main && \
     pdflatex --enable-write18 main.tex && \
     pdflatex --enable-write18 main.tex && \

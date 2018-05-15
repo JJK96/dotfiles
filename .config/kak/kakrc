@@ -11,6 +11,9 @@ set global indentwidth 4
 # keep space around cursor
 set global scrolloff 10,10
 
+# save on pressing enter
+map global normal <ret> :w<ret>
+
 # Select whole lines when moving selection with J or K
 map global normal J J<a-x>
 map global normal K K<a-x>
