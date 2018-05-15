@@ -22,6 +22,7 @@ map global normal Y '<a-l>y' -docstring 'yank to end of line'
 # clipboard interaction
 map global user p '!xsel -bo<ret>'
 map global user y '<a-|>xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
+map global user d '|xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
 
 # tab to select menu item.
 hook global InsertCompletionShow .* %{

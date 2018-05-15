@@ -94,6 +94,9 @@ alias zip="zip -r"
 alias r2="r2 -A"
 alias html2jade="html2jade -n 4 --noemptypipe --bodyless"
 alias lt="languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE "
+alias recomp="killall compton && compton & disown && wal -R && exit"
+# move workspace to other output.
+alias mvws="i3-msg move workspace to output "
 
 #git
 alias gcf='git commit -m "`fortune`"'
