@@ -1,21 +1,22 @@
 # latex
 
+hook global WinSetOption filetype=latex %{
+
 # Compile the first main.tex found
-hook global BufWritePost .*\.tex %{ nop %sh{ (
-    path=$(pwd)
-    function _find() {
-    	file="$(find "$path" -maxdepth 1 -mindepth 1 -name main.tex)"
-	}
-	while ! [ $file ];
-	do
-		_find
-	    path="$(readlink -f "$path"/..)"
-    done
-    cd ${file%main.tex}
-    pdflatex --enable-write18 main.tex && \
-    pkill -HUP mupdf
-    bibtex main && \
-    pdflatex --enable-write18 main.tex && \
-    pdflatex --enable-write18 main.tex && \
-    pkill -HUP mupdf
+hook window -group latex-compile BufWritePost .* %{ nop %sh{ (
+latex-compile-main
 ) > /tmp/tex.log 2>&1 < /dev/null &}}
+
+# Snippets
+
+define-command _enumerate %{execute-keys %{i\begin{enumerate}<ret>
+\item <ret>
+\end{enumerate}<esc>}}
+
+define-command _newitem %{execute-keys o\item<space>}
+
+}
+
+hook global WinSetOption filetype=(?!latex).* %{
+    remove-hooks global latex-compile
+}
