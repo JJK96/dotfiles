@@ -1,4 +1,4 @@
-set editor-command=termite -e 'vim %s'
+set editor-command=termite -e 'kak %s'
 set hint-keys=asdfjkl;
 set download-path=/tmp/Downloads
 nmap H :set status-bar!<CR>

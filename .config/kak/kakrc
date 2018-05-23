@@ -38,6 +38,16 @@ hook global InsertCompletionHide .* %{
     unmap window insert <s-tab> <c-p>
 }
 
+# tabs to spaces
+
+hook global InsertChar \t %{
+    exec -draft h@
+}
+
+hook global InsertKey <backspace> %{ try %{
+  exec -draft hGh<a-k>\A\h+\Z<ret>gihyp<lt>
+}}
+
 # Open file in new window
 def open-in-new-window -params 1 -file-completion %{ new edit %arg{@} }
 alias global e open-in-new-window
