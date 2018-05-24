@@ -192,6 +192,10 @@ bindsym $mod+Shift+0 move container to workspace 10
 #bindsym $mod+Shift+h move container to workspace prev
 #bindsym $mod+Shift+s mode "swap"
 
+# clear i3block notification
+
+bindsym $mod+z exec echo > /tmp/i3blocks/notification && pkill -RTMIN+12 i3blocks
+
 
 # reload the configuration file
 bindsym $mod+Control+c reload

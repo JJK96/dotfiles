@@ -29,18 +29,24 @@ add-highlighter shared/p4/code regex %{\b(lpm|exact|ternary|range|true|false|nul
 add-highlighter shared/p4/code regex %{\b(bit|bool|int|varbit|void|error)\b} 0:type
 add-highlighter shared/p4/code regex "\b(tuple|extern|enum|action|apply|control|default|exit|header|header_union|match_kind|package|parser|state|struct|switch|size|table|transition|typedef|verify)\b" 0:keyword
 add-highlighter shared/p4/code regex "\b(key|actions||default_action|entries|implementation|const|in|out|inout)\b" 0:attribute
-add-highlighter shared/p4/code regex "\b(update_checksum|apply|isValid)\b" 0:function
+add-highlighter shared/p4/code regex "\b(update_checksum|isValid)\b" 0:function
+add-highlighter shared/p4/code regex "(apply)\(" 1:function
 add-highlighter shared/p4/code regex "@(name|tableonly|defaultonly|globalname|atomic|hidden)" 0:meta
 add-highlighter shared/p4/code regex %{\b(_|NoError|PacketTooShort|NoMatch|StackOutOfBounds|OverwritingHeader|HeaderTooShort|ParserTiimeout)\b} 0:builtin
 
 add-highlighter shared/p4/comment regex "(?<!\w)@\w+\b" 0:green
 
 # integer literals
-add-highlighter shared/p4/code regex %{\b[0-9][0-9_]*\b} 0:value  
-add-highlighter shared/p4/code regex %{\b0[Xx][0-9a-fA-F]+\b} 0:value
-add-highlighter shared/p4/code regex %{\b0[dD][0-9_]+\b} 0:value
-add-highlighter shared/p4/code regex %{\b0[oO][0-7_]+\b} 0:value
-add-highlighter shared/p4/code regex %{\b0[bB][01_]+\b} 0:value
+%sh{ 
+    prefix="(\\\d+[ws])?"
+    printf %s\\n '
+        add-highlighter shared/p4/code regex %{\bPREFIX[0-9][0-9_]*\b} 0:value  
+        add-highlighter shared/p4/code regex %{\bPREFIX0[Xx][0-9a-fA-F]+\b} 0:value
+        add-highlighter shared/p4/code regex %{\bPREFIX0[dD][0-9_]+\b} 0:value
+        add-highlighter shared/p4/code regex %{\bPREFIX0[oO][0-7_]+\b} 0:value
+        add-highlighter shared/p4/code regex %{\bPREFIX0[bB][01_]+\b} 0:value
+        ' | sed -e "s/PREFIX/${prefix}/g"
+}
 
 
 

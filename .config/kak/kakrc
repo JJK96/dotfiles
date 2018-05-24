@@ -58,6 +58,10 @@ alias global e open-in-new-window
 
 # file types
 hook global BufCreate .*\.xsd %{ set buffer filetype xml }
+hook global BufCreate .*(sway|i3)/config %{
+    set buffer filetype i3
+}
+
 
 # autoload files in rc directory
 
