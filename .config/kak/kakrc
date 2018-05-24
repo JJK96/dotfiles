@@ -27,6 +27,10 @@ map global user p '!xsel -bo<ret>'
 map global user y '<a-|>xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
 map global user d '|xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
 
+# other mappings
+
+map global normal x <a-x>
+
 # tab to select menu item.
 hook global InsertCompletionShow .* %{
     map window insert <tab> <c-n>
