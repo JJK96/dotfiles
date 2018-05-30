@@ -205,6 +205,10 @@ bindsym $mod+Shift+r mode "resize"
 # exit i3 (logs you out of your X session)
 bindsym $mod+Control+e exec i3-msg exit
 
+# scratchpad
+bindsym $mod+Tab exec i3-msg scratchpad show
+bindsym $mod+Shift+Tab exec i3-msg move scratchpad
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode

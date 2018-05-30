@@ -21,6 +21,7 @@ map global normal K K<a-x>
 # vim old habits
 map global normal D '<a-l>d' -docstring 'delete to end of line'
 map global normal Y '<a-l>y' -docstring 'yank to end of line'
+map global normal <a-h> Gi
 
 # clipboard interaction
 map global user p '!xsel -bo<ret>'
@@ -64,6 +65,13 @@ hook global BufCreate .*(sway|i3)/config %{
 #connect to kakoune language server
 #%sh{kak-lsp --kakoune}
 
+#spell
+hook global WinSetOption filetype=(latex|markdown) %{
+    hook window BufWritePost .* %{
+        spell en-GB
+    }
+}
+
 # autoload files in rc directory
 
 %sh{
@@ -74,8 +82,3 @@ hook global BufCreate .*(sway|i3)/config %{
     autoload_directory ${kak_config}/rc
 }
 
-hook global WinSetOption filetype=(latex|markdown) %{
-    hook window BufWritePost .* %{
-        spell en-GB
-    }
-}

@@ -7,4 +7,5 @@ compton &
 redshift &
 termite -e irssi &
 rambox &
+kak -s default -d
 wal -R

@@ -96,6 +96,7 @@ alias html2jade="html2jade -n 4 --noemptypipe --bodyless"
 alias lt="languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE "
 alias recomp="killall compton && compton & disown && wal -R && exit"
 alias spell="aspell check --lang=en-GB "
+alias copyTijd="rclone copy /tmp/Downloads/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap"
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1" && exit};_mvws'
