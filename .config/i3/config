@@ -232,5 +232,5 @@ mode "resize" {
 
 
 # assign windows to workspace
-assign [class="^Rambox$"] 9
-assign [class="^Signal\\ Beta$"] 9
+assign [class="^Rambox$"] 10
+assign [class="^Signal\\ Beta$"] 10

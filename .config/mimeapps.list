@@ -24,6 +24,7 @@ application/pdf=mupdf.desktop
 text/x-shellscript=editor.desktop
 text/x-tex=editor.desktop
 text/x-php=editor.desktop
+text/x-c=editor.desktop
 text/xml=editor.desktop
 
 [Added Associations]

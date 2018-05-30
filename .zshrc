@@ -59,7 +59,7 @@ bindkey '^k' nextJob
 bindkey '^j' prevJob
 function chpwd() {
     emulate -L zsh
-    ls
+    ls --color
 }
 
 
@@ -95,6 +95,8 @@ alias r2="r2 -A"
 alias html2jade="html2jade -n 4 --noemptypipe --bodyless"
 alias lt="languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE "
 alias recomp="killall compton && compton & disown && wal -R && exit"
+alias spell="aspell check --lang=en-GB "
+
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1" && exit};_mvws'
 
@@ -113,5 +115,5 @@ alias repo-add="repo-add /var/cache/pacman/custom/custom.db.tar"
 alias upd="aur sync -u && sudo pacman -Syu"
 alias custom='repose -vf custom -r /var/cache/pacman/custom'
 
-#vim
+#kakoune
 alias k="kak"

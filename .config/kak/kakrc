@@ -1,15 +1,15 @@
 colorscheme solarized-dark 
 
 # relative line numbers
-addhl global number_lines -relative
-addhl global wrap
+add-highlighter global number_lines -relative
+add-highlighter global wrap
 
 # indentation
-set global tabstop     4
-set global indentwidth 4
+set-option global tabstop     4
+set-option global indentwidth 4
 
 # keep space around cursor
-set global scrolloff 10,10
+set-option global scrolloff 10,10
 
 # save on pressing enter
 map global normal <ret> :w<ret>
@@ -28,7 +28,6 @@ map global user y '<a-|>xsel -bi<ret>; :echo "copied selection to X11 clipboard"
 map global user d '|xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
 
 # other mappings
-
 map global normal x <a-x>
 
 # tab to select menu item.
@@ -53,7 +52,7 @@ hook global InsertKey <backspace> %{ try %{
 }}
 
 # Open file in new window
-def open-in-new-window -params 1 -file-completion %{ new edit %arg{@} }
+define-command open-in-new-window -params 1 -file-completion %{ new edit %arg{@} }
 alias global e open-in-new-window
 
 # file types
@@ -62,6 +61,8 @@ hook global BufCreate .*(sway|i3)/config %{
     set buffer filetype i3
 }
 
+#connect to kakoune language server
+#%sh{kak-lsp --kakoune}
 
 # autoload files in rc directory
 
@@ -71,4 +72,10 @@ hook global BufCreate .*(sway|i3)/config %{
             -exec printf 'try %%{ source "%s" } catch %%{ echo -debug Autoload: could not load "%s" }\n' '{}' '{}' \;
     }
     autoload_directory ${kak_config}/rc
+}
+
+hook global WinSetOption filetype=(latex|markdown) %{
+    hook window BufWritePost .* %{
+        spell en-GB
+    }
 }
