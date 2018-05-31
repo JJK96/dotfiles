@@ -62,6 +62,7 @@ function chpwd() {
     ls --color
 }
 
+COLORFGBG="default;default"
 
 export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:/usr/local/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin"
 PATH="/home/jjk/perl5/bin${PATH:+:${PATH}}"; export PATH;

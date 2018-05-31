@@ -1,0 +1,22 @@
+set smtp_authenticators = "login"
+set ssl_force_tls = yes
+
+folder-hook 'gmail' 'source ~/.mutt/gmail'
+# folder-hook 'personal'
+macro index 1 "<change-folder> =../gmail/inbox/<enter>"
+# macro index 2 
+macro index R "!mbsync -a^M" "Update through mbsync"
+set move = no
+
+# Read top-down mail instead of bottom-up
+set sort = reverse-threads
+
+## GooBook
+set query_command="goobook query '%s'"
+macro index,pager a "<pipe-message>goobook add<return>" "add sender to google contacts"
+bind editor <Tab> complete-query
+
+color normal white default
+
+source ~/.mutt/gmail
+source ~/.mutt/keybinds

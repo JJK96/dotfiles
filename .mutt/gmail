@@ -1,0 +1,11 @@
+set smtp_url = "smtp://jjkorpershoek96@smtp.gmail.com:587"
+set smtp_pass = `pass gmail`
+
+set folder = "~/.mutt/mailbox/gmail"
+set spoolfile = "~/.mutt/mailbox/gmail/Inbox"
+set postponed = "~/.mutt/mailbox/gmail/drafts"
+set trash = "+/trash"
+set record = ""
+
+set from = "jjkorpershoek96@gmail.com"
+set realname = "Jan-Jaap Korpershoek"

@@ -1,11 +1,13 @@
 libinput-gestures-setup start
 dunst &
+mail-notify &
 lxpolkit &
 xrandr --output eDP-1 --primary &
 nm-applet &
 compton &
 redshift &
-termite -e irssi &
+termite -e weechat &
 rambox &
+termite -e mutt &
 kak -s default -d
 wal -R

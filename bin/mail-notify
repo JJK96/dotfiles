@@ -1,0 +1,6 @@
+#!/bin/bash
+inotifywait -r -m --exclude ".mbsync" ~/.mutt/mailbox/gmail/Inbox -e create |
+while read path action file; do
+    notify-send "There is new mail"
+    pkill -RTMIN+12 i3blocks
+done
