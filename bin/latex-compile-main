@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 path=$(pwd)
+
 function _find() {
 	file="$(find "$path" -maxdepth 1 -mindepth 1 -name main.tex)"
 }

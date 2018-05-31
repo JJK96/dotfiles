@@ -31,6 +31,7 @@ export LS_COLORS
 autoload -Uz history-beginning-search-menu
 zle -N history-beginning-search-menu
 bindkey '^X^X' history-beginning-search-menu
+bindkey '^R' history-incremental-search-backward
 
 fgLast() {
     fg

@@ -19,3 +19,4 @@
 !wal/
 !.gitignore
 !kak
+!systemd

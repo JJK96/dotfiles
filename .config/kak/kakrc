@@ -30,6 +30,7 @@ map global user d '|xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret
 
 # other mappings
 map global normal x <a-x>
+map global normal <a-x> gi<a-l>
 
 # tab to select menu item.
 hook global InsertCompletionShow .* %{
@@ -55,6 +56,12 @@ hook global InsertKey <backspace> %{ try %{
 # Open file in new window
 define-command open-in-new-window -params 1 -file-completion %{ new edit %arg{@} }
 alias global e open-in-new-window
+
+# Scope per window
+#declare-option str pwd
+#hook global WinDisplay ^[^*].* %{
+#    change-directory %opt{pwd}
+#}
 
 # file types
 hook global BufCreate .*\.xsd %{ set buffer filetype xml }

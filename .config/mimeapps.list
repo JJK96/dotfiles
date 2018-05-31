@@ -26,6 +26,8 @@ text/x-tex=editor.desktop
 text/x-php=editor.desktop
 text/x-c=editor.desktop
 text/xml=editor.desktop
+inode/x-empty=editor.desktop
+text/x-makefile=editor.desktop
 
 [Added Associations]
 text/plain=editor.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;

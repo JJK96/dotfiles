@@ -11,6 +11,8 @@ set move = no
 # Read top-down mail instead of bottom-up
 set sort = reverse-threads
 
+set timeout=10
+
 ## GooBook
 set query_command="goobook query '%s'"
 macro index,pager a "<pipe-message>goobook add<return>" "add sender to google contacts"
