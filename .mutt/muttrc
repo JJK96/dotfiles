@@ -22,3 +22,4 @@ color normal white default
 
 source ~/.mutt/gmail
 source ~/.mutt/keybinds
+source ~/.mutt/colors

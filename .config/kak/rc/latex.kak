@@ -4,7 +4,7 @@ hook global WinSetOption filetype=latex %{
 
 # Compile the first main.tex found
 hook window -group latex-compile BufWritePost .* %{ nop %sh{ (
-latex-compile-main
+latex-compile-main ${kak_buffile%/*}
 ) > /tmp/tex.log 2>&1 < /dev/null &}}
 
 # Snippets

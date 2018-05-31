@@ -1,0 +1,3 @@
+#!/bin/bash
+echo hi
+echo $kak_buffile

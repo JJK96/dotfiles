@@ -65,9 +65,6 @@ alias global e open-in-new-window
 
 # file types
 hook global BufCreate .*\.xsd %{ set buffer filetype xml }
-hook global BufCreate .*(sway|i3)/config %{
-    set buffer filetype i3
-}
 
 #connect to kakoune language server
 #%sh{kak-lsp --kakoune}
@@ -88,4 +85,3 @@ hook global WinSetOption filetype=(latex|markdown) %{
     }
     autoload_directory ${kak_config}/rc
 }
-

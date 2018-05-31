@@ -101,7 +101,7 @@ alias spell="aspell check --lang=en-GB "
 alias copyTijd="rclone copy /tmp/Downloads/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap"
 
 # move workspace to other output.
-alias mvws='function _mvws(){i3-msg move workspace to output "$1" && exit};_mvws'
+alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
 
 #git
 alias gcf='git commit -m "`fortune`"'
