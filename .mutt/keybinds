@@ -1,6 +1,10 @@
 # Vim-like keybindings
 
+
 # Index
+
+#unbind g
+bind index g noop
 
 bind index j next-entry
 bind index k previous-entry
@@ -27,6 +31,11 @@ bind index L list-reply
 
 bind index h limit
 
+# sidebar
+macro index gn '<sidebar-next>'
+macro index gp '<sidebar-prev>'
+macro index go '<sidebar-open>'
+
 # '?' is used for search-opposite
 bind index \Ch help
 
@@ -34,6 +43,9 @@ bind index \Ch help
 push <collapse-all><last-entry>
 
 # Pager
+
+#unbind g
+bind pager g noop
 
 bind pager j next-line
 bind pager k previous-line
@@ -58,3 +70,13 @@ bind pager r reply
 bind pager a group-reply
 bind pager l list-reply
 bind pager L list-reply
+
+bind pager \Ch help
+
+
+# Attachments
+
+macro attach 'V' "<pipe-entry>browser<enter>"
+bind attach g noop
+bind attach gg first-entry
+bind attach G last-entry

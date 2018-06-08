@@ -27,9 +27,9 @@ hook global BufCreate .*\.p4 %{
 
 add-highlighter shared/p4/code regex %{\b(lpm|exact|ternary|range|true|false|null)\b} 0:value
 add-highlighter shared/p4/code regex %{\b(bit|bool|int|varbit|void|error)\b} 0:type
-add-highlighter shared/p4/code regex "\b(tuple|extern|enum|action|apply|control|default|exit|header|header_union|match_kind|package|parser|state|struct|switch|size|table|transition|typedef|verify)\b" 0:keyword
+add-highlighter shared/p4/code regex "\b(tuple|extern|enum|action|apply|control|default|exit|header|header_union|match_kind|package|parser|state|struct|switch|size|table|transition|typedef|verify|if|else)\b" 0:keyword
 add-highlighter shared/p4/code regex "\b(key|actions||default_action|entries|implementation|const|in|out|inout)\b" 0:attribute
-add-highlighter shared/p4/code regex "\b(update_checksum|isValid)\b" 0:function
+add-highlighter shared/p4/code regex "\b(update_checksum|(is|set)Valid)\b" 0:function
 add-highlighter shared/p4/code regex "(apply)\(" 1:function
 add-highlighter shared/p4/code regex "@(name|tableonly|defaultonly|globalname|atomic|hidden)" 0:meta
 add-highlighter shared/p4/code regex %{\b(_|NoError|PacketTooShort|NoMatch|StackOutOfBounds|OverwritingHeader|HeaderTooShort|ParserTiimeout)\b} 0:builtin
@@ -48,18 +48,7 @@ add-highlighter shared/p4/comment regex "(?<!\w)@\w+\b" 0:green
         ' | sed -e "s/PREFIX/${prefix}/g"
 }
 
-
-
-
 hook -group p4-highlight global WinSetOption filetype=p4 %{ add-highlighter window ref p4 }
 hook -group p4-highlight global WinSetOption filetype=(?!p4).* %{ remove-highlighter window/p4 }
 
-hook global WinSetOption filetype=p4 %[
-    hook -group c-family-indent window ModeChange insert:.* c-family-trim-autoindent
-    hook -group c-family-insert window InsertChar \n c-family-insert-on-newline
-    hook -group c-family-indent window InsertChar \n c-family-indent-on-newline
-    hook -group c-family-indent window InsertChar \{ c-family-indent-on-opening-curly-brace
-    hook -group c-family-indent window InsertChar \} c-family-indent-on-closing-curly-brace
-    hook -group c-family-insert window InsertChar \} c-family-insert-on-closing-curly-brace
-]
 

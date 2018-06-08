@@ -5,13 +5,30 @@ folder-hook 'gmail' 'source ~/.mutt/gmail'
 # folder-hook 'personal'
 macro index 1 "<change-folder> =../gmail/inbox/<enter>"
 # macro index 2 
-macro index R "!mbsync -a^M" "Update through mbsync"
+macro index R "!mbsync -a > /dev/null 2>&1 &^M" "Update through mbsync"
 set move = no
 
 # Read top-down mail instead of bottom-up
 set sort = reverse-threads
+set sort_aux = last-date-received
 
+# mailboxes displayed in the sidebar
+mailboxes ~/.mutt/mailbox/gmail/Inbox ~/.mutt/mailbox/gmail/[Gmail]/All\ Mail
+
+# sidebar
+set sidebar_visible = yes
+
+# Refresh mail faster
 set timeout=10
+
+# notification
+set new_mail_command="notify-send \
+'New Email' '%n new messages, %u unread.' &"
+
+# mailcap
+set mailcap_path    = ~/.mutt/mailcap
+auto_view text/html
+alternative_order text/plain text/html
 
 ## GooBook
 set query_command="goobook query '%s'"

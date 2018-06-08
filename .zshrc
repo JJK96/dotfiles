@@ -63,7 +63,7 @@ function chpwd() {
     ls --color
 }
 
-COLORFGBG="default;default"
+#COLORFGBG="default;default"
 
 export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:/usr/local/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin"
 PATH="/home/jjk/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -98,7 +98,7 @@ alias html2jade="html2jade -n 4 --noemptypipe --bodyless"
 alias lt="languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE "
 alias recomp="killall compton && compton & disown && wal -R && exit"
 alias spell="aspell check --lang=en-GB "
-alias copyTijd="rclone copy /tmp/Downloads/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap"
+alias copyTijd="rclone copy /tmp/Downloads/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap && rm /tmp/Downloads/Tijd\ Jan-Jaap.xlsx"
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
@@ -120,3 +120,6 @@ alias custom='repose -vf custom -r /var/cache/pacman/custom'
 
 #kakoune
 alias k="kak"
+
+#mutt
+alias mutt=neomutt

@@ -70,11 +70,22 @@ hook global BufCreate .*\.xsd %{ set buffer filetype xml }
 #%sh{kak-lsp --kakoune}
 
 #spell
-hook global WinSetOption filetype=(latex|markdown) %{
+hook global WinSetOption filetype=(latex|markdown|git-commit) %{
     hook window BufWritePost .* %{
         spell en-GB
     }
 }
+
+# better indentation
+
+hook global WinSetOption filetype=(p4|php) %[
+    hook -group c-family-indent window ModeChange insert:.* c-family-trim-autoindent
+    hook -group c-family-insert window InsertChar \n c-family-insert-on-newline
+    hook -group c-family-indent window InsertChar \n c-family-indent-on-newline
+    hook -group c-family-indent window InsertChar \{ c-family-indent-on-opening-curly-brace
+    hook -group c-family-indent window InsertChar \} c-family-indent-on-closing-curly-brace
+    hook -group c-family-insert window InsertChar \} c-family-insert-on-closing-curly-brace
+]
 
 # autoload files in rc directory
 
