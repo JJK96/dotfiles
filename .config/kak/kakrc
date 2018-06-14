@@ -57,12 +57,6 @@ hook global InsertKey <backspace> %{ try %{
 define-command open-in-new-window -params 1 -file-completion %{ new edit %arg{@} }
 alias global e open-in-new-window
 
-# Scope per window
-#declare-option str pwd
-#hook global WinDisplay ^[^*].* %{
-#    change-directory %opt{pwd}
-#}
-
 # file types
 hook global BufCreate .*\.xsd %{ set buffer filetype xml }
 
@@ -70,11 +64,21 @@ hook global BufCreate .*\.xsd %{ set buffer filetype xml }
 #%sh{kak-lsp --kakoune}
 
 #spell
+map global user s :spell-replace<ret>
+declare-option str language en-GB
 hook global WinSetOption filetype=(latex|markdown|git-commit) %{
     hook window BufWritePost .* %{
-        spell en-GB
+        spell %opt{language}
     }
 }
+
+# Disable clippy
+
+set-option global ui_options ncurses_assistant=off
+
+# XML tags
+
+map global object t c<lt>.*<gt>,<lt>/.*<gt><ret>
 
 # better indentation
 

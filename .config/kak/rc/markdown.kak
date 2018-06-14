@@ -1,6 +1,6 @@
-hook global WinSetOption filetype=markdown %{
-
 declare-option bool pdf false
+
+hook global WinSetOption filetype=markdown %{
 
 # compile markdown in background on save.
 hook window -group markdown-compile BufWritePost .* %{ nop %sh{ (

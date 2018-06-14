@@ -28,7 +28,7 @@ set new_mail_command="notify-send \
 # mailcap
 set mailcap_path    = ~/.mutt/mailcap
 auto_view text/html
-alternative_order text/plain text/html
+alternative_order text/html text/plain 
 
 ## GooBook
 set query_command="goobook query '%s'"

@@ -101,7 +101,7 @@ bindsym --release $mod+Print exec "scrot -s -e 'mv $f /tmp/'"
 # start dmenu (a program launcher)
 bindsym $mod+a exec "rofi -combi-modi drun,run,ssh -show combi"
 
-bindsym $mod+x exec "i3lock -ui ~/Pictures/BSOD.png"
+bindsym $mod+x exec "i3lock -ui ~/Pictures/BSOL.png"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
