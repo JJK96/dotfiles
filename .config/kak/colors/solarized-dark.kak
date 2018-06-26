@@ -45,26 +45,26 @@
         face global list               ${green}
 
         # builtin
-        face global PrimarySelection   ${base03},${blue}
-        face global SecondarySelection ${base01},${base1}
-        face global PrimaryCursor      ${base03},${base0}
-        face global SecondaryCursor    ${base03},${base01}
-        face global PrimaryCursorEol   ${base03},${base2}
-        face global SecondaryCursorEol ${base03},${base3}
-        face global LineNumbers        ${base01},${base02}
-        face global LineNumberCursor   ${base1},${base02}
-        face global LineNumbersWrapped ${base02},${base02}
-        face global MenuForeground     ${base03},${yellow}
-        face global MenuBackground     ${base1},${base02}
-        face global MenuInfo           ${base01}
-        face global Information        ${base02},${base1}
         face global Error              ${red},default+b
-        face global StatusLine         ${base1},${base02}+b
-        face global StatusLineMode     ${orange}
-        face global StatusLineInfo     ${cyan}
-        face global StatusLineValue    ${green}
-        face global StatusCursor       ${base00},${base3}
-        face global Prompt             ${yellow}+b
+        face global Information        ${base02},${base1}
+        face global LineNumberCursor   ${base1},${base02}
+        face global LineNumbers        ${base01},${base02}
+        face global LineNumbersWrapped ${base02},${base02}
         face global MatchingChar       ${red},${base01}+b
+        face global MenuBackground     ${base1},${base02}
+        face global MenuForeground     ${base03},${yellow}
+        face global MenuInfo           ${base01}
+        face global PrimaryCursor      ${base03},${base0}
+        face global PrimaryCursorEol   ${base03},${base2}
+        face global PrimarySelection   ${base03},${blue}
+        face global Prompt             ${yellow}+b
+        face global SecondaryCursor    ${base03},${base01}
+        face global SecondaryCursorEol ${base03},${base3}
+        face global SecondarySelection ${base01},${base1}
+        face global StatusCursor       ${base00},${base3}
+        face global StatusLine         ${base1},${base02}+b
+        face global StatusLineInfo     ${cyan}
+        face global StatusLineMode     ${orange}
+        face global StatusLineValue    ${green}
     "
 }

@@ -82,8 +82,6 @@ bar {
 }
 
 bindsym $mod+Control+p exec mypassmenu --type
-#keepass --auto-type
-bindsym $mod+Mod1+p exec keepass
 
 # start a terminal
 bindsym $mod+Return exec $terminal
@@ -209,6 +207,9 @@ bindsym $mod+Control+e exec i3-msg exit
 bindsym $mod+Tab exec i3-msg scratchpad show
 bindsym $mod+Shift+Tab exec i3-msg move scratchpad
 
+# quickswitch
+bindsym $mod+slash exec rofi -show window
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -223,8 +224,7 @@ mode "resize" {
         bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        #
-	#bindsym Left resize shrink width 10 px or 10 ppt
+    	#bindsym Left resize shrink width 10 px or 10 ppt
         #bindsym Down resize grow height 10 px or 10 ppt
         #bindsym Up resize shrink height 10 px or 10 ppt
         #bindsym Right resize grow width 10 px or 10 ppt

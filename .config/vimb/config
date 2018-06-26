@@ -4,6 +4,7 @@ set download-path=/tmp/Downloads
 nmap <C-o> :set status-bar!<CR>
 nnoremap H <C-o>
 nnoremap L <C-i>
+handler-add mailto=termite -e 'mutt %s'
 handler-add magnet=xdg-open %s
 handler-add lutris=lutris %s
 nmap x :sh uget-gtk "$VIMB_URI" &<CR>
@@ -11,6 +12,8 @@ set x-hint-command=:sh uget-gtk <C-R> &; <CR>
 
 shortcut-add dd=https://duckduckgo.com/?q=$0
 shortcut-add g=http://www.google.com/search?q=$0
+shortcut-add ts=http://www.thesaurus.com/browse/$0?s=t
+shortcut-add b=https://herzienestatenvertaling.nl/teksten/$0/$1/$2
 shortcut-default g
 
 aug download

@@ -1,7 +1,7 @@
 #!/bin/bash
 kak -clear
 if kak -l | grep default > /dev/null 2>&1; then 
-    $TERMINAL -e "$EDITOR -c default $@"
+    $TERMINAL -r "Kakoune" -e "$EDITOR -c default $@"
 else
-    $TERMINAL -e "$EDITOR -s default $@"
+    $TERMINAL -r "Kakoune" -e "$EDITOR -s default $@"
 fi

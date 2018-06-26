@@ -1,4 +1,4 @@
-colorscheme solarized-dark 
+colorscheme gruvbox
 
 # relative line numbers
 add-highlighter global number_lines -relative
@@ -24,9 +24,9 @@ map global normal Y '<a-l>y' -docstring 'yank to end of line'
 map global normal <a-h> Gi
 
 # clipboard interaction
-map global user p '!xsel -bo<ret>'
-map global user y '<a-|>xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
-map global user d '|xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
+map global user p -docstring 'paste from clipboard' '!xsel -bo<ret>'
+map global user y -docstring 'copy to clipboard' '<a-|>xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
+map global user d -docstring 'cut to clipboard' '|xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
 
 # other mappings
 map global normal x <a-x>
@@ -61,10 +61,12 @@ alias global e open-in-new-window
 hook global BufCreate .*\.xsd %{ set buffer filetype xml }
 
 #connect to kakoune language server
-#%sh{kak-lsp --kakoune}
+%sh{kak-lsp --kakoune}
+#lsp-start
+lsp-auto-hover-enable
 
 #spell
-map global user s :spell-replace<ret>
+map global user s -docstring 'spell replace' :spell-replace<ret>
 declare-option str language en-GB
 hook global WinSetOption filetype=(latex|markdown|git-commit) %{
     hook window BufWritePost .* %{
@@ -78,7 +80,7 @@ set-option global ui_options ncurses_assistant=off
 
 # XML tags
 
-map global object t c<lt>.*<gt>,<lt>/.*<gt><ret>
+map global object t -docstring 'xml tag' %{c<lt>.*?<gt>,<lt>/.*?<gt><ret>}
 
 # better indentation
 
@@ -90,6 +92,30 @@ hook global WinSetOption filetype=(p4|php) %[
     hook -group c-family-indent window InsertChar \} c-family-indent-on-closing-curly-brace
     hook -group c-family-insert window InsertChar \} c-family-insert-on-closing-curly-brace
 ]
+
+# rust
+
+hook global WinSetOption filetype=(rust) %[
+    set-option buffer formatcmd rustfmt
+]
+
+# synonyms
+
+define-command -override synonyms %{ %sh{
+    input=$(aiksaurus "$kak_selection")
+    if echo "$input" | grep '\*\*\*.*\*\*\*' 2>&1 > /dev/null; then
+        echo "info %{" "$(echo "$input" | head -n 2 )" "}"
+    fi
+    menu=$(echo "$input" | sed -e 's/ =/,/g;s/=//g' | \
+    awk -v RS= -v FS=, '{
+            printf "%s", "%{"$1"}" "%{menu -auto-single ";
+            for (i=3; i<=NF; i++)
+                printf "%s", "%{"$i"}" "%{execute-keys -itersel c"$i"<esc>be}";
+            printf "%s", "}";
+        }')
+    printf 'menu -auto-single %s' "${menu}"
+}}
+map global user w -docstring 'get synonyms' :synonyms<ret>
 
 # autoload files in rc directory
 

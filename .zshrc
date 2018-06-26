@@ -65,7 +65,7 @@ function chpwd() {
 
 #COLORFGBG="default;default"
 
-export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:/usr/local/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin"
+export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin"
 PATH="/home/jjk/perl5/bin${PATH:+:${PATH}}"; export PATH;
 
 PERL5LIB="/home/jjk/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
@@ -87,7 +87,6 @@ alias iv="sxiv -b"
 alias i3config="$EDITOR ~/.config/i3/config"
 alias cleargpg="echo RELOADAGENT | gpg-connect-agent"
 alias xsel="xsel -b"
-alias wd="cd /home/jjk/Documents/mod12"
 alias pkgs='function _pkgs(){ pacman -Ss "$@" || aur search "$@";};_pkgs'
 alias aurinst='function _aurinst(){ aur sync "$@" && sudo pacman -S "$@";};_aurinst'
 alias p="zathura"
@@ -99,11 +98,12 @@ alias lt="languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPAC
 alias recomp="killall compton && compton & disown && wal -R && exit"
 alias spell="aspell check --lang=en-GB "
 alias copyTijd="rclone copy /tmp/Downloads/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap && rm /tmp/Downloads/Tijd\ Jan-Jaap.xlsx"
+alias p='function _ps(){ ps -aux | grep $@ };_ps'
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
 
-#git
+# git
 alias gcf='git commit -m "`fortune`"'
 alias gpf="git add -A && gcf && git pull && git push"
 alias ga="git add -A"
@@ -112,14 +112,20 @@ alias gps="git push"
 alias gs="git status"
 alias gc="git commit"
 
-#pacman
+# pacman
 alias repo-remove="repo-remove /var/cache/pacman/custom/custom.db.tar"
 alias repo-add="repo-add /var/cache/pacman/custom/custom.db.tar"
 alias upd="aur sync -u && sudo pacman -Syu"
 alias custom='repose -vf custom -r /var/cache/pacman/custom'
 
-#kakoune
+# kakoune
 alias k="kak"
 
-#mutt
+# mutt
 alias mutt=neomutt
+
+# directories
+
+alias wd="cd /home/jjk/Documents/mod12"
+alias swifter="cd /srv/http/swifter/stamboek/"
+alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"

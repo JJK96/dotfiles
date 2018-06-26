@@ -1,0 +1,103 @@
+{
+    "layout": "splitv",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "floating": "auto_off",
+            "layout": "splith",
+            "percent": 0.828625235404896,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "pixel",
+                    "current_border_width": 2,
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 410,
+                       "width": 654,
+                       "x": 0,
+                       "y": 0
+                    },
+                    "name": "termite",
+                    "percent": 0.15625,
+                    "swallows": [
+                       {
+                       "class": "^Termite$",
+                       "window_role": "Ranger"
+                       }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "pixel",
+                    "floating": "auto_off",
+                    "layout": "tabbed",
+                    "percent": 0.84375,
+                    "type": "con",
+                    "nodes": [
+                        {
+                            "border": "pixel",
+                            "current_border_width": 2,
+                            "floating": "auto_off",
+                            "geometry": {
+                               "height": 410,
+                               "width": 654,
+                               "x": 0,
+                               "y": 0
+                            },
+                            "percent": 0.5,
+                            "swallows": [
+                               {
+                               "class": "^Termite$",
+                               "window_role": "Kakoune"
+                               }
+                            ],
+                            "type": "con"
+                        },
+                        {
+                            "border": "pixel",
+                            "current_border_width": 2,
+                            "floating": "auto_off",
+                            "geometry": {
+                               "height": 410,
+                               "width": 654,
+                               "x": 0,
+                               "y": 0
+                            },
+                            "percent": 0.5,
+                            "swallows": [
+                               {
+                               "class": "^Termite$",
+                               "window_role": "Kakoune"
+                               }
+                            ],
+                            "type": "con"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 410,
+               "width": 654,
+               "x": 0,
+               "y": 0
+            },
+            "name": "termite",
+            "percent": 0.171374764595104,
+            "swallows": [
+               {
+               "class": "^Termite$",
+               "window_role": "Terminal"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
