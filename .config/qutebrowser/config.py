@@ -18,6 +18,21 @@ config.set('content.javascript.enabled', True, 'chrome://*/*')
 # Type: Bool
 config.set('content.javascript.enabled', True, 'qute://*/*')
 
+# Directory to save downloads to. If unset, a sensible OS-specific
+# default is used.
+# Type: Directory
+c.downloads.location.directory = '/tmp'
+
+# Prompt the user for the download location. If set to false,
+# `downloads.location.directory` will be used.
+# Type: Bool
+c.downloads.location.prompt = False
+
+# Duration (in milliseconds) to wait before removing finished downloads.
+# If set to -1, downloads are never removed.
+# Type: Int
+c.downloads.remove_finished = 5
+
 # Editor (and arguments) to use for the `open-editor` command. The
 # following placeholders are defined: * `{file}`: Filename of the file
 # to be edited. * `{line}`: Line in which the caret is found in the
@@ -67,3 +82,7 @@ c.url.searchengines = {'DEFAULT': 'http://www.google.com/search?q={}', 'dd': 'ht
 # Page(s) to open at the start.
 # Type: List of FuzzyUrl, or FuzzyUrl
 c.url.start_pages = 'about:blank'
+
+# Bindings for passthrough mode
+config.bind('<Ctrl+q>', 'leave-mode', mode='passthrough')
+config.bind('<Ctrl+v>', None, mode='passthrough')

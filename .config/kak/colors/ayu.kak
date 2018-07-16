@@ -1,4 +1,4 @@
-%sh{
+evaluate-commands %sh{
     bg='rgb:212733'
 	line='rgb:151a1f'
 	error='rgb:ff3333'

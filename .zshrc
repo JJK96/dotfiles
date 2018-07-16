@@ -130,3 +130,7 @@ alias mutt=neomutt
 alias wd="cd /home/jjk/Documents/mod12"
 alias swifter="cd /srv/http/swifter/stamboek/"
 alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
+
+# Programs
+
+alias decktape="node /home/jjk/git/decktape/decktape.js --no-sandbox"

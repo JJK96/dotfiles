@@ -1,0 +1,5 @@
+#!/bin/bash
+
+inotifywait -mrq -e close_write . | while read f; do
+    $($@)
+done

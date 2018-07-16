@@ -1,7 +1,7 @@
 set smtp_authenticators = "login"
 set ssl_force_tls = yes
 
-folder-hook 'gmail' 'source ~/.mutt/gmail'
+folder-hook 'gmail' 'source ~/dotfiles/.mutt/gmail'
 # folder-hook 'personal'
 macro index 1 "<change-folder> =../gmail/inbox/<enter>"
 # macro index 2 
@@ -13,7 +13,7 @@ set sort = reverse-threads
 set sort_aux = last-date-received
 
 # mailboxes displayed in the sidebar
-mailboxes ~/.mutt/mailbox/gmail/Inbox ~/.mutt/mailbox/gmail/[Gmail]/All\ Mail
+mailboxes ~/dotfiles/.mutt/mailbox/gmail/Inbox ~/dotfiles/.mutt/mailbox/gmail/[Gmail]/All\ Mail
 
 # sidebar
 set sidebar_visible = yes
@@ -26,7 +26,7 @@ set new_mail_command="notify-send \
 'New Email' '%n new messages, %u unread.' &"
 
 # mailcap
-set mailcap_path    = ~/.mutt/mailcap
+set mailcap_path    = ~/dotfiles/.mutt/mailcap
 auto_view text/html
 alternative_order text/plain text/html 
 
@@ -37,6 +37,6 @@ bind editor <Tab> complete-query
 
 color normal white default
 
-source ~/.mutt/gmail
-source ~/.mutt/keybinds
-source ~/.mutt/colors
+source ~/dotfiles/.mutt/gmail
+source ~/dotfiles/.mutt/keybinds
+source ~/dotfiles/.mutt/colors
