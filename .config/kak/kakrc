@@ -64,8 +64,7 @@ alias global e open-in-new-window
 hook global BufCreate .*\.xsd %{ set buffer filetype xml }
 
 #connect to kakoune language server
-evaluate-commands %sh{kak-lsp --kakoune}
-#lsp-start
+eval %sh{kak-lsp --kakoune -s $kak_session}
 lsp-auto-hover-enable
 
 #spell
@@ -127,6 +126,14 @@ hook global WinSetOption filetype=(html) %[
         execute-keys %{h<a-?>\h<ret>|emmet<ret>f>;li}
     }
     map buffer insert <c-e> <esc>:emmet<ret>
+]
+
+hook global WinSetOption filetype=(xml) %[
+    set-option buffer formatcmd %{xmllint --format -}
+]
+
+hook global WinSetOption filetype=(json) %[
+    set-option buffer formatcmd %{python -m json.tool}
 ]
 
 # autoload files in rc directory
