@@ -1,8 +1,10 @@
 hook global WinSetOption filetype=(html) %[
     define-command emmet %{
-        execute-keys ";<a-?>\h+|^<ret>|%val{config}/bin/emmet-call<ret>"
+        execute-keys "<esc><a-?>\h+|^<ret>|%val{config}/bin/emmet-call<ret>"
+        execute-keys "<esc>uU)<a-;> ;: replace-next-hole<ret>"
     }
-    map buffer insert <c-e> <esc>:emmet<ret>
+    map global insert <a-E> ' <esc>;h: try snippet-word catch emmet<ret>'
+    map global insert <a-e> '<esc>: replace-next-hole<ret>'
 ]
 
 hook global WinSetOption filetype=(xml) %[

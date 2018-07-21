@@ -68,6 +68,9 @@ eval %sh{kak-lsp --kakoune -s $kak_session }
 #nop %sh{ (kak-lsp1 -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
 lsp-auto-hover-enable
 
+# snippets
+map global insert <a-E> '<esc>: try replace-next-hole catch snippet-word<ret>'
+
 #spell
 map global user s -docstring 'spell replace' :spell-replace<ret>
 declare-option str language en-GB
