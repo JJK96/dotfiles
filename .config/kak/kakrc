@@ -64,7 +64,8 @@ alias global e open-in-new-window
 hook global BufCreate .*\.xsd %{ set buffer filetype xml }
 
 #connect to kakoune language server
-eval %sh{kak-lsp --kakoune -s $kak_session}
+eval %sh{kak-lsp --kakoune -s $kak_session }
+#nop %sh{ (kak-lsp1 -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
 lsp-auto-hover-enable
 
 #spell
@@ -103,7 +104,7 @@ hook global WinSetOption filetype=(rust) %[
 
 # synonyms
 
-define-command -override synonyms %{ %sh{
+define-command synonyms %{ %sh{
     input=$(aiksaurus "$kak_selection")
     if echo "$input" | grep '\*\*\*.*\*\*\*' 2>&1 > /dev/null; then
         echo "info %{" "$(echo "$input" | head -n 2 )" "}"
@@ -118,23 +119,6 @@ define-command -override synonyms %{ %sh{
     printf 'menu -auto-single %s' "${menu}"
 }}
 map global user w -docstring 'get synonyms' :synonyms<ret>
-
-# html
-
-hook global WinSetOption filetype=(html) %[
-    define-command -override emmet %{
-        execute-keys %{h<a-?>\h<ret>|emmet<ret>f>;li}
-    }
-    map buffer insert <c-e> <esc>:emmet<ret>
-]
-
-hook global WinSetOption filetype=(xml) %[
-    set-option buffer formatcmd %{xmllint --format -}
-]
-
-hook global WinSetOption filetype=(json) %[
-    set-option buffer formatcmd %{python -m json.tool}
-]
 
 # autoload files in rc directory
 

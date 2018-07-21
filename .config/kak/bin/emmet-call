@@ -1,0 +1,7 @@
+#!/bin/bash
+input="$(cat)"
+indent="$(echo "$input" | sed -e "s/\(^[[:blank:]]*\).*/\1/")"
+IFS='' #preserve whitespace
+echo "$input" | emmet | while read l; do
+    printf "%s%s\\n" "$indent" "$l"
+done

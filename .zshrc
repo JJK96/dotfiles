@@ -14,7 +14,7 @@ export PASSWORD_STORE_EXTENSIONS_DIR="$HOME/.config/pass/extensions"
 setopt inc_append_history
 setopt autocd 
 setopt extendedglob
-setopt share_history
+#setopt share_history
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -22,10 +22,11 @@ zstyle :compinstall filename '/home/jjk/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-bindkey -v
 autoload -U promptinit
 promptinit
 prompt suse
+setopt PROMPT_SP
+PROMPT_EOL_MARK=''
 LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
 export LS_COLORS
 autoload -Uz history-beginning-search-menu
@@ -85,6 +86,7 @@ alias giomount='cd /run/user/1000/gvfs/'
 alias term='termite & disown'
 alias iv="sxiv -b"
 alias i3config="$EDITOR ~/.config/i3/config"
+alias kakrc="$EDITOR ~/.config/kak/kakrc"
 alias cleargpg="echo RELOADAGENT | gpg-connect-agent"
 alias xsel="xsel -b"
 alias pkgs='function _pkgs(){ pacman -Ss "$@" || aur search "$@";};_pkgs'
@@ -100,6 +102,7 @@ alias spell="aspell check --lang=en-GB "
 alias copyTijd="rclone copy /tmp/Downloads/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap && rm /tmp/Downloads/Tijd\ Jan-Jaap.xlsx"
 alias p='function _ps(){ ps -aux | grep $@ };_ps'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'
+alias mysql='mysql -u root'
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
