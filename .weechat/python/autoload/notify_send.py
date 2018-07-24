@@ -1,0 +1,1 @@
+/home/jjk/.weechat/python/notify_send.py
