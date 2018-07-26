@@ -1,7 +1,25 @@
 #!/bin/bash
 kak -clear
-if kak -l | grep default > /dev/null 2>&1; then 
-    $TERMINAL -r "Kakoune" -e "$EDITOR -c default $@"
+TEMPDIR="/tmp/kak-temp"
+if [ $KAK_SESSION ] && [ $KAK_CLIENT ]; then
+    command="x11-focus $KAK_CLIENT"
+    args=("$@")
+    # if there is standard input create a new file and open that
+    read -t 0.01 -d '' input
+    if [ ! -z "$input" ]; then
+        mkdir -p $TEMPDIR
+        temp=$(mktemp -p $TEMPDIR)
+        echo "$input" > $temp
+        args+=$temp
+    fi
+    for file in "${args[@]}"; do
+        command="$command;open-in-new-window $(realpath $file)"
+    done
+    echo "eval '$command'" | kak -p $KAK_SESSION
 else
-    $TERMINAL -r "Kakoune" -e "$EDITOR -s default $@"
+    if kak -l | grep default > /dev/null 2>&1; then 
+        $TERMINAL -r "Kakoune" -e "$EDITOR -c default $@"
+    else
+        $TERMINAL -r "Kakoune" -e "$EDITOR -s default $@"
+    fi
 fi

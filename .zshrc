@@ -103,6 +103,7 @@ alias copyTijd="rclone copy /tmp/Downloads/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap 
 alias p='function _ps(){ ps -aux | grep $@ };_ps'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'
 alias mysql='mysql -u root'
+alias ide='ide && exit'
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
@@ -129,11 +130,9 @@ alias k="kak"
 alias mutt=neomutt
 
 # directories
-
 alias wd="cd /home/jjk/Documents/mod12"
 alias swifter="cd /srv/http/swifter/stamboek/"
 alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
 
 # Programs
-
 alias decktape="node /home/jjk/git/decktape/decktape.js --no-sandbox"

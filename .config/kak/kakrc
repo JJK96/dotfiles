@@ -108,6 +108,17 @@ define-command synonyms %{ %sh{
 }}
 map global user w -docstring 'get synonyms' :synonyms<ret>
 
+# terminal
+define-command terminal -params .. %{
+  shell \
+    -export session \
+    -export client \
+    %sh(echo $TERMINAL) %arg(@) \
+    %sh(test $# = 0 &&
+      echo $SHELL
+    )
+}
+
 # autoload files in rc directory
 
 evaluate-commands %sh{
