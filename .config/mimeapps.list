@@ -32,14 +32,14 @@ text/x-c++=editor.desktop
 
 [Added Associations]
 text/plain=editor.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
-video/mp4=vlc.desktop;org.gnome.Totem.desktop;
+video/mp4=mpv.desktop;vlc.desktop;org.gnome.Totem.desktop;
 application/font-woff=org.gnome.gedit.desktop;
 text/html=editor.desktop;firefox.desktop;org.gnome.gedit.desktop;gvim.desktop;qutebrowser.desktop;
-application/pdf=mupdf.desktop;wine-extension-pdf.desktop;evince.desktop;apvlv.desktop;apvlv;
+application/pdf=mupdf.desktop;okularApplication_pdf.desktop;wine-extension-pdf.desktop;evince.desktop;apvlv.desktop;apvlv;
 text/x-python=editor.desktop;
 application/sql=gvim.desktop;editor.desktop;chromium.desktop;org.gnome.gedit.desktop;
 video/x-flv=vlc.desktop;
-image/jpeg=gimp.desktop;sxiv.desktop;wine-extension-jpe.desktop;eog.desktop;
+image/jpeg=gimp.desktop;nomacs.desktop;sxiv.desktop;wine-extension-jpe.desktop;eog.desktop;
 application/octet-stream=qutebrowser.desktop;editor.desktop;
 text/x-lua=editor.desktop;
 text/x-log=editor.desktop;
@@ -89,3 +89,8 @@ x-scheme-handler/mailto=exo-mail-reader.desktop
 image/webp=gimp.desktop;
 application/vnd.oasis.opendocument.text=libreoffice-writer.desktop;okularApplication_ooo.desktop;
 application/vnd.oasis.opendocument.graphics=libreoffice-draw.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;
+application/vnd.oasis.opendocument.spreadsheet=libreoffice-calc.desktop;
+inode/directory=nomacs.desktop;ristretto.desktop;
+video/quicktime=mpv.desktop;vlc.desktop;
+audio/mpeg=vlc.desktop;

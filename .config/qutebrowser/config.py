@@ -6,6 +6,13 @@
 # Uncomment this to still load settings configured via autoconfig.yml
 # config.load_autoconfig()
 
+# List of domains that should always be loaded, despite being ad-
+# blocked. Domains may contain * and ? wildcards and are otherwise
+# required to exactly match the requested domain. Local domains are
+# always exempt from hostblocking.
+# Type: List of String
+c.content.host_blocking.whitelist = ['piwik.org', 'www.googleadservices.com']
+
 # Enable JavaScript.
 # Type: Bool
 config.set('content.javascript.enabled', True, 'file://*')
@@ -31,7 +38,7 @@ c.downloads.location.prompt = False
 # Duration (in milliseconds) to wait before removing finished downloads.
 # If set to -1, downloads are never removed.
 # Type: Int
-c.downloads.remove_finished = 5
+c.downloads.remove_finished = 5000
 
 # Editor (and arguments) to use for the `open-editor` command. The
 # following placeholders are defined: * `{file}`: Filename of the file

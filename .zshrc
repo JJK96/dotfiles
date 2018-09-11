@@ -99,7 +99,7 @@ alias html2jade="html2jade -n 4 --noemptypipe --bodyless"
 alias lt="languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE "
 alias recomp="killall compton && compton & disown && wal -R && exit"
 alias spell="aspell check --lang=en-GB "
-alias copyTijd="rclone copy /tmp/Downloads/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap && rm /tmp/Downloads/Tijd\ Jan-Jaap.xlsx"
+alias copyTijd="rclone copy /tmp/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap && rm /tmp/Tijd\ Jan-Jaap.xlsx"
 alias p='function _ps(){ ps -aux | grep $@ };_ps'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'
 alias mysql='mysql -u root'
@@ -130,7 +130,7 @@ alias k="kak"
 alias mutt=neomutt
 
 # directories
-alias wd="cd /home/jjk/Documents/mod12"
+alias wd="cd /home/jjk/Documents/master/BML/"
 alias swifter="cd /srv/http/swifter/stamboek/"
 alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
 
