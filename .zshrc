@@ -130,7 +130,7 @@ alias k="kak"
 alias mutt=neomutt
 
 # directories
-alias wd="cd /home/jjk/Documents/master/BML/"
+alias wd="cd /home/jjk/Documents/master"
 alias swifter="cd /srv/http/swifter/stamboek/"
 alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
 

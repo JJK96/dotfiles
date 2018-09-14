@@ -84,8 +84,9 @@ php-xsl
 #utilities
 
 ## active use
-zathura #pdf viewer
-zathura-pdf-mupdf #needed for zathura
+aiksaurus #synonyms
+goobook-git #google contacts for mutt
+mupdf #pdf viewer
 youtube-dl #download from youtube
 xsel #clipboard management
 xautolock #lock screen automatically
@@ -114,7 +115,7 @@ nitrogen #set wallpaper
 newsboat #rss reader
 net-tools #ifconfig etc.
 neofetch #system information in terminal (screenfetch)
-libinput-gestures #gestures
+libinput-gestures-git #gestures
 howdoi #quickly find how to do something
 gparted #partition manager
 gnu-netcat #interact over network
@@ -173,9 +174,10 @@ digger
 cgoban3 #go (baduk)
 
 #Applications
+neomutt-git #email
 zsh #shell
 zsh-completions
-vimb-git #browser
+qutebrowser #browser
 transmission-qt #torrent client
 tor-browser 
 termite #terminal emulator
@@ -189,8 +191,9 @@ libreoffice-fresh
 kdenlive #video editing
 gvim #text editor
 kakoune #text editor (like vim)
+kak-lsp-git #kakoune language server
 vis #text editor (like vim)
-irssi #irc client
+weechat #irc client
 gimp #image editing
 firefox
 chromium
@@ -221,7 +224,8 @@ xorg-drivers
 xorg
 
 #virtual machines / emulation
-wine #running windows programs
+wine-staging #running windows programs
+winetricks #installing libraries for wine
 virt-manager #manage qemu virtual machines
 qemu
 qemu-arch-extra
@@ -259,3 +263,9 @@ wpa_supplicant #wpa connections
 x264 #codec
 xorg-xinit #start x from tty
 bluez-utils #bluetooth
+inotify-tools #needed for ~/bin/onchange
+
+#spelling check
+languagetool
+aspell-en
+aspell-nl

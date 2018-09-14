@@ -91,6 +91,6 @@ application/vnd.oasis.opendocument.text=libreoffice-writer.desktop;okularApplica
 application/vnd.oasis.opendocument.graphics=libreoffice-draw.desktop;
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;
 application/vnd.oasis.opendocument.spreadsheet=libreoffice-calc.desktop;
-inode/directory=nomacs.desktop;ristretto.desktop;
+inode/directory=Thunar.desktop;nomacs.desktop;ristretto.desktop;
 video/quicktime=mpv.desktop;vlc.desktop;
 audio/mpeg=vlc.desktop;

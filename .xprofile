@@ -6,7 +6,7 @@ nm-applet &
 compton &
 redshift &
 termite -e weechat &
-rambox &
-termite -e neomutt &
+#rambox &
+qutebrowser web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me &
 kak -s default -d
 wal -R

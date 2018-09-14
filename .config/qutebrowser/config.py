@@ -93,3 +93,4 @@ c.url.start_pages = 'about:blank'
 # Bindings for passthrough mode
 config.bind('<Ctrl+q>', 'leave-mode', mode='passthrough')
 config.bind('<Ctrl+v>', None, mode='passthrough')
+config.bind('ao', 'download-open')
