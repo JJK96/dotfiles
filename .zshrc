@@ -116,6 +116,7 @@ alias gpl="git pull"
 alias gps="git push"
 alias gs="git status"
 alias gc="git commit"
+alias gpatch="git format-patch -o /tmp origin"
 
 # pacman
 alias repo-remove="repo-remove /var/cache/pacman/custom/custom.db.tar"

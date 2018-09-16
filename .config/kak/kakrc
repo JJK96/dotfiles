@@ -1,5 +1,3 @@
-colorscheme gruvbox
-
 # relative line numbers
 add-highlighter global/ number-lines -relative
 add-highlighter global/ wrap
@@ -132,3 +130,5 @@ evaluate-commands %sh{
     }
     autoload_directory ${kak_config}/rc
 }
+
+colorscheme gruvbox
