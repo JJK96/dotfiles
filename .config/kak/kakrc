@@ -90,7 +90,7 @@ set-option global ui_options ncurses_assistant=off
 
 # XML tags
 
-map global object t -docstring 'xml tag' %{c<lt>.*?<gt>,<lt>/.*?<gt><ret>}
+map -docstring "xml tag object" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
 
 # synonyms
 # Depends on http://aiksaurus.sourceforge.net/

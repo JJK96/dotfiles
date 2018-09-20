@@ -29,6 +29,7 @@ text/xml=editor.desktop
 inode/x-empty=editor.desktop
 text/x-makefile=editor.desktop
 text/x-c++=editor.desktop
+x-scheme-handler/mailto=exo-mail-reader.desktop
 
 [Added Associations]
 text/plain=editor.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;

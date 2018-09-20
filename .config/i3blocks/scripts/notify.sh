@@ -56,8 +56,8 @@ then # called by i3blocks
   esac
 
   # Output the status block
-  echo $FULL_TEXT
-  echo $SHORT_TEXT
+  echo $FULL_TEXT | w3m -T text/html
+  echo $SHORT_TEXT | w3m -T text/html
   echo $COLOR
   exit $CODE
 

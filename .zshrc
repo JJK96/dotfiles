@@ -66,7 +66,7 @@ function chpwd() {
 
 #COLORFGBG="default;default"
 
-export PATH="${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin"
+export PATH="${PATH}:$HOME/bin:$HOME/.local/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin"
 PATH="/home/jjk/perl5/bin${PATH:+:${PATH}}"; export PATH;
 
 PERL5LIB="/home/jjk/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
@@ -137,3 +137,6 @@ alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
 
 # Programs
 alias decktape="node /home/jjk/git/decktape/decktape.js --no-sandbox"
+
+# web sessions
+alias courses="qutebrowser https://canvas.utwente.nl/courses/2479 https://learnintsec.org/courses/course-v1:UT+201700074B+2018Q1/courseware/d7394691d26f439082912a37c7f3bc62/ https://learnintsec.org/courses/course-v1:UT+201700074A+2018Q1/courseware/b95b477cab3d4668bdb46f57a1274261/ https://brightspace.tudelft.nl/d2l/home/140133 https://brightspace.tudelft.nl/d2l/home/126945 &disown %qutebrowser && exit"
