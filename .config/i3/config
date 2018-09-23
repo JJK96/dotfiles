@@ -93,7 +93,8 @@ bindsym $mod+q kill
 
 # screenshot
 bindsym Print exec "cd /tmp;scrot -u"
-bindsym --release $mod+Print exec "deepin-screenshot -s /tmp"
+#bindsym --release $mod+Print exec "deepin-screenshot -s /tmp"
+bindsym --release $mod+Print exec "cd /tmp;scrot -s"
 
 # start dmenu (a program launcher)
 bindsym $mod+a exec "rofi -combi-modi drun,run,ssh -show combi"

@@ -131,4 +131,6 @@ evaluate-commands %sh{
     autoload_directory ${kak_config}/rc
 }
 
+# plugin config
 colorscheme gruvbox
+set global snippet_files "%val{config}/snippets/snippets.yaml"

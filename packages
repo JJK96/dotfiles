@@ -124,9 +124,9 @@ discount #markdown
 at #schedule commands
 certbot #ssl certificates
 curlftpfs #mount ftp
+w3m #html to text
 
 ## inactive use
-tor #tor network
 tk #windowing toolkit
 redshift #make screen less blue during night time
 gnome-keyring #save passwords

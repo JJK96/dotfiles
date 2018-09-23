@@ -33,8 +33,8 @@ then # called by i3blocks
   # source the notification
   . $CACHE
 
-  FULL_TEXT="$SUMMARY $BODY"
-  SHORT_TEXT="$SUMMARY"
+  FULL_TEXT=$(echo "$SUMMARY $BODY" | w3m -T text/html)
+  SHORT_TEXT=$(echo "$SUMMARY" | w3m -T text/html)
 
   case $URGENCY in
     LOW)
@@ -56,8 +56,8 @@ then # called by i3blocks
   esac
 
   # Output the status block
-  echo $FULL_TEXT | w3m -T text/html
-  echo $SHORT_TEXT | w3m -T text/html
+  echo $FULL_TEXT
+  echo $SHORT_TEXT
   echo $COLOR
   exit $CODE
 
