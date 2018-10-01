@@ -95,3 +95,4 @@ application/vnd.oasis.opendocument.spreadsheet=libreoffice-calc.desktop;
 inode/directory=Thunar.desktop;nomacs.desktop;ristretto.desktop;
 video/quicktime=mpv.desktop;vlc.desktop;
 audio/mpeg=vlc.desktop;
+text/x-tex=editor.desktop;

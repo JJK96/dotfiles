@@ -9,8 +9,6 @@ hook window -group latex-compile BufWritePost .* %{ nop %sh{ (
     latex-compile-main ${kak_buffile%/*}
 ) > /tmp/tex.log 2>&1 < /dev/null &}}
 
-set -add buffer snippet_files "%val{config}/snippets/latex.yaml"
-
 hook global WinSetOption filetype=(?!latex).* %{
     remove-hooks global latex-compile
 }
