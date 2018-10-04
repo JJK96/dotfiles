@@ -66,8 +66,8 @@ function chpwd() {
 
 #COLORFGBG="default;default"
 
-export PATH="${PATH}:$HOME/bin:$HOME/.local/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin"
-PATH="/home/jjk/perl5/bin${PATH:+:${PATH}}"; export PATH;
+#export PATH="${PATH}:$HOME/bin:$HOME/.local/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin"
+#PATH="/home/jjk/perl5/bin${PATH:+:${PATH}}"; export PATH;
 
 PERL5LIB="/home/jjk/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="/home/jjk/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;

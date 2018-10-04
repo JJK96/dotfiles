@@ -31,7 +31,7 @@ map global normal x <a-x>
 map global normal <a-x> gi<a-l>
 
 # comment lines
-map global normal <a-m> %{_:try comment-block catch comment-line<ret>}
+map global user c %{_:try comment-block catch comment-line<ret>}
 
 # tab to select menu item.
 hook global InsertCompletionShow .* %{

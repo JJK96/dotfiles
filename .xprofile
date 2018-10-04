@@ -1,3 +1,5 @@
+source /home/jjk/.profile
+xmodmap ~/.Xmodmap
 libinput-gestures-setup start
 dunst &
 lxpolkit &
