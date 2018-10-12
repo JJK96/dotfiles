@@ -1,0 +1,29 @@
+#!/bin/bash
+
+previous=false
+while getopts "p" arg; do
+    case $arg in
+        p)
+        previous=true
+    esac
+done
+        
+id=$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')
+name=$(xprop -id $id | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
+case $name in
+    *"Firefox"* | *"Chromium"*)
+    if $previous; then
+        xdotool key ctrl+shift+Tab   
+    else
+        xdotool key ctrl+Tab   
+    fi
+    ;;
+    *)
+    if $previous; then
+        xdotool key super+h
+    else
+        xdotool key super+l
+    fi
+    ;;
+esac
+exit 0
