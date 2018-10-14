@@ -2,11 +2,10 @@
 (cat ~/.cache/wal/sequences &)
 # Lines configured by zsh-newuser-install
 setopt HIST_IGNORE_SPACE
+export EDITOR=kak
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-export EDITOR=kak
-export TERMINAL=termite
 export GPGKEY=35DA10798B42C1C8AEFEFEAC6487A893C19EA8BC
 export PASSWORD_STORE_GENERATED_LENGTH=30
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
@@ -26,9 +25,8 @@ autoload -U promptinit
 promptinit
 prompt suse
 setopt PROMPT_SP
+PROMPT="%B%F{4}$PROMPT%f%b"
 PROMPT_EOL_MARK=''
-LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
-export LS_COLORS
 autoload -Uz history-beginning-search-menu
 zle -N history-beginning-search-menu
 bindkey '^X^X' history-beginning-search-menu
@@ -104,6 +102,7 @@ alias p='function _ps(){ ps -aux | grep $@ };_ps'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'
 alias mysql='mysql -u root'
 alias ide='ide && exit'
+alias cls='printf "\033c"'
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
@@ -125,7 +124,8 @@ alias upd="aur sync -u && sudo pacman -Syu"
 alias custom='repose -vf custom -r /var/cache/pacman/custom'
 
 # kakoune
-alias k="kak"
+alias k='function _kak(){ kak "$@" && cat ~/.cache/wal/sequences };_kak'
+alias e="editor"
 
 # mutt
 alias mutt=neomutt
