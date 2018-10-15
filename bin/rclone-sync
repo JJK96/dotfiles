@@ -1,0 +1,2 @@
+#!/bin/sh
+rclone sync --filter-from ~/Documents/master/.rsync-filter --max-size 10M -v -P ~/Documents/master drive:master

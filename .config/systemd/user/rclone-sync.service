@@ -1,0 +1,5 @@
+[Unit]
+Description=Sync files between different remotes via rclone
+[Service]
+Type=simple
+ExecStart=/home/jjk/bin/rclone-sync
