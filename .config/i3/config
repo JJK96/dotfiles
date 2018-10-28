@@ -92,6 +92,10 @@ bindsym $mod+t exec thunar
 # kill focused window
 bindsym $mod+q kill
 
+# Switch dvorak
+bindsym $mod+0 exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
+bindsym $mod+braceleft exec setxkbmap -variant ""
+
 # screenshot
 bindsym Print exec "cd /tmp;scrot -u"
 bindsym --release $mod+Print exec "deepin-screenshot -s /tmp"

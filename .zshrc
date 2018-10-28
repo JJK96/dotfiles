@@ -120,7 +120,7 @@ alias gpatch="git format-patch -o /tmp origin"
 # pacman
 alias repo-remove="repo-remove /var/cache/pacman/custom/custom.db.tar"
 alias repo-add="repo-add /var/cache/pacman/custom/custom.db.tar"
-alias upd="aur sync -u && sudo pacman -Syu"
+alias upd="aur sync -u;sudo pacman -Syu"
 alias custom='repose -vf custom -r /var/cache/pacman/custom'
 
 # kakoune
