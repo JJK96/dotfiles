@@ -125,6 +125,8 @@ at #schedule commands
 certbot #ssl certificates
 curlftpfs #mount ftp
 w3m #html to text
+xcape #make key do something different when released on its own.
+playerctl #Send media keys to applications
 
 ## inactive use
 tk #windowing toolkit

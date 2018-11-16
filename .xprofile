@@ -1,5 +1,6 @@
 source /home/jjk/.profile
 xmodmap ~/.Xmodmap
+xcape -e "ISO_Level3_Shift=Escape"
 libinput-gestures-setup start
 dunst &
 lxpolkit &

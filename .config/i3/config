@@ -93,12 +93,12 @@ bindsym $mod+t exec thunar
 bindsym $mod+q kill
 
 # Switch dvorak
-bindsym $mod+0 exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
-bindsym $mod+braceleft exec setxkbmap -variant ""
+bindsym $mod+bracketleft exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
+bindsym $mod+backslash exec setxkbmap -variant ""
 
 # screenshot
 bindsym Print exec "cd /tmp;scrot -u"
-bindsym --release $mod+Print exec "deepin-screenshot -s /tmp"
+bindsym --release $mod+Print exec deepin-screenshot -s /tmp/ 2>&1 | grep -o '/tmp/Deepin[^"]*' | xargs xclip -selection clipboard -t image/png -i
 #bindsym --release $mod+Print exec "cd /tmp;scrot -s"
 
 # start dmenu (a program launcher)
@@ -115,6 +115,9 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer sset Master 5%+; pkill -RTMIN+10 i3blocks"
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer sset Master 5%-; pkill -RTMIN+10 i3blocks"
 bindsym XF86AudioMute exec --no-startup-id "amixer sset Master toggle; pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioPlay exec "playerctl play-pause"
+bindsym XF86AudioPrev exec "playerctl previous"
+bindsym XF86AudioNext exec "playerctl next"
 
 # change focus
 bindsym $mod+h focus left

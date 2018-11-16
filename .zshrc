@@ -100,7 +100,6 @@ alias spell="aspell check --lang=en-GB "
 alias copyTijd="rclone copy /tmp/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap && rm /tmp/Tijd\ Jan-Jaap.xlsx"
 alias p='function _ps(){ ps -aux | grep $@ };_ps'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'
-alias mysql='mysql -u root'
 alias ide='ide && exit'
 alias cls='printf "\033c"'
 
@@ -137,7 +136,7 @@ alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
 
 # Programs
 alias decktape="node /home/jjk/git/decktape/decktape.js --no-sandbox"
-alias mysql="mysql -u root"
+alias mysql='mysql --auto-rehash -u root'
 
 # web sessions
 alias courses="firefox https://canvas.utwente.nl/courses/2479 https://learnintsec.org/courses/course-v1:UT+201700074B+2018Q1/courseware/d7394691d26f439082912a37c7f3bc62/ https://learnintsec.org/courses/course-v1:UT+201700074A+2018Q1/courseware/b95b477cab3d4668bdb46f57a1274261/ https://brightspace.tudelft.nl/d2l/home/140133 https://brightspace.tudelft.nl/d2l/home/126945 & disown %firefox && exit"

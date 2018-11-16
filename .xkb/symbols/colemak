@@ -8,10 +8,10 @@ xkb_symbols "colemak" {
     name[Group1]= "English (Colemak)";
 
     key <TLDE> { [        grave,   asciitilde,      dead_tilde,       asciitilde ] };
-    key <AE01> { [            bracketleft,       exclam,      exclamdown,      onesuperior ] };
-    key <AE02> { [            bracketright,           at,       masculine,      twosuperior ] };
-    key <AE03> { [            quotedbl,     apostrophe,    threesuperior ] };
-    key <AE04> { [            dollar,       numbersign,            cent,         sterling ] };
+    key <AE01> { [            dollar,       numbersign,      exclamdown,      onesuperior ] };
+    key <AE02> { [            bracketleft,           at,       masculine,      twosuperior ] };
+    key <AE03> { [            bracketright,     exclam,    threesuperior ] };
+    key <AE04> { [            quotedbl,       apostrophe,            cent,         sterling ] };
     key <AE05> { [            equal,      percent,        EuroSign,              yen ] };
     key <AE06> { [            ampersand,  asciicircum,         hstroke,          Hstroke ] }; 
     key <AE07> { [            asciicircum,    underscore,             eth,              ETH ] };
