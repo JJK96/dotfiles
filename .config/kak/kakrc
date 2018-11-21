@@ -84,11 +84,13 @@ map global insert <a-e> '<esc>: replace-next-hole<ret>'
 #spell
 map global user s -docstring 'spell replace' :spell-replace<ret>
 declare-option str language en-GB
-# hook global WinSetOption filetype=(latex|markdown|git-commit) %{
-#     hook window BufWritePost .* %{
-#         spell %opt{language}
-#     }
-# }
+define-command spell-enable %{
+    #hook global WinSetOption filetype=(latex|markdown|git-commit) %{
+        hook window BufWritePost .* %{
+            spell %opt{language}
+        }
+    #}
+}
 
 # Disable clippy
 
