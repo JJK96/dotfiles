@@ -102,6 +102,7 @@ alias p='function _ps(){ ps -aux | grep $@ };_ps'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'
 alias ide='ide && exit'
 alias cls='printf "\033c"'
+alias escape='xcape -e "ISO_Level3_Shift=Escape"'
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
