@@ -1,0 +1,6 @@
+#!/bin/bash
+#remove xorg options
+setxkbmap -option
+optirun steam
+#restore xorg options
+cat /etc/X11/xorg.conf.d/00-keyboard.conf | grep Options | grep -v "#" | get 3 | xargs setxkbmap -option

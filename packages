@@ -84,49 +84,52 @@ php-xsl
 #utilities
 
 ## active use
-aiksaurus #synonyms
-goobook-git #google contacts for mutt
-mupdf #pdf viewer
-youtube-dl #download from youtube
-xsel #clipboard management
-xautolock #lock screen automatically
-xautoclick #auto clicker
-x11vnc #vnc server/client
-wireshark-gtk #sniff packets
-whois #find information about  web host
-wget #download stuff
-uget #download manager
-traceroute #find intermediate hops over internet
-tmux #terminal multiplexer
-system-config-printer #printer settings
-sxiv #image viewer
-seahorse #gui for gnome-keyring management
-scrot #screenshots
-rsync #copy lots of files
-rclone #sync dropbox and google drive
-radare2-git #reverse engineering toolkit
-pv #measure progress through pipe
-pdftk-bin #pdf toolkit
-pavucontrol #volume control
-pass #password store
-pandoc-bin #compile markdown and documents converting
-nmap #scan ports
-nitrogen #set wallpaper
-newsboat #rss reader
-net-tools #ifconfig etc.
-neofetch #system information in terminal (screenfetch)
-libinput-gestures-git #gestures
-howdoi #quickly find how to do something
-gparted #partition manager
-gnu-netcat #interact over network
-dmenu #choose from list
-discount #markdown
-at #schedule commands
-certbot #ssl certificates
-curlftpfs #mount ftp
-w3m #html to text
-xcape #make key do something different when released on its own.
-playerctl #Send media keys to applications
+ack                   # better grep
+aiksaurus             # synonyms
+at                    # schedule commands
+certbot               # ssl certificates
+curlftpfs             # mount ftp
+davfs2                # mount davfs i.e. nse cloud
+deepin-screenshot     # screenshots
+discount              # markdown
+dmenu                 # choose from list
+feh                   # background
+gnu-netcat            # interact over network
+goobook-git           # google contacts for mutt
+gparted               # partition manager
+howdoi                # quickly find how to do something
+libinput-gestures-git # gestures
+okular                # pdf viewer
+neofetch              # system information in terminal (screenfetch)
+net-tools             # ifconfig etc.
+newsboat              # rss reader
+nitrogen              # set wallpaper
+nmap                  # scan ports
+pandoc-bin            # compile markdown and documents converting
+pass                  # password store
+pavucontrol           # volume control
+pdftk-bin             # pdf toolkit
+playerctl             # Send media keys to applications
+pv                    # measure progress through pipe
+radare2-git           # reverse engineering toolkit
+rclone                # sync dropbox and google drive
+rsync                 # copy lots of files
+seahorse              # gui for gnome-keyring management
+sxiv                  # image viewer
+system-config-printer # printer settings
+tmux                  # terminal multiplexer
+traceroute            # find intermediate hops over internet
+uget                  # download manager
+w3m                   # html to text
+wget                  # download stuff
+whois                 # find information about  web host
+wireshark-gtk         # sniff packets
+x11vnc                # vnc server/client
+xautoclick            # auto clicker
+xautolock             # lock screen automatically
+xcape                 # make key do something different when released on its own.
+xsel                  # clipboard management
+youtube-dl            # download from youtube
 
 ## inactive use
 tk #windowing toolkit
@@ -192,7 +195,7 @@ vlc #media player
 libreoffice-fresh
 kdenlive #video editing
 gvim #text editor
-kakoune #text editor (like vim)
+kakoune-git #text editor (like vim)
 kak-lsp-git #kakoune language server
 vis #text editor (like vim)
 weechat #irc client
@@ -271,3 +274,7 @@ inotify-tools #needed for ~/bin/onchange
 languagetool
 aspell-en
 aspell-nl
+
+# Language servers
+php-language-server
+python-language-server
