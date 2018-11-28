@@ -179,6 +179,7 @@ digger
 cgoban3 #go (baduk)
 
 #Applications
+teamviwer-beta
 neomutt-git #email
 zsh #shell
 zsh-completions

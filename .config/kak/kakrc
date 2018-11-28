@@ -134,13 +134,15 @@ define-command terminal -params .. %{
 
 # autoload files in rc directory
 
-evaluate-commands %sh{
-    autoload_directory() {
-        find -L "$1" -type f -name '*\.kak' \
-            -exec printf 'try %%{ source "%s" } catch %%{ echo -debug Autoload: could not load "%s" }\n' '{}' '{}' \;
-    }
-    autoload_directory ${kak_config}/rc
-}
+# evaluate-commands %sh{
+#     autoload_directory() {
+#         find -L "$1" -type f -name '*\.kak' \
+#             -exec printf 'try %%{ source "%s" } catch %%{ echo -debug Autoload: could not load "%s" }\n' '{}' '{}' \;
+#     }
+#     autoload_directory ${kak_config}/rc
+# }
+
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
 
 # plugin config
 colorscheme gruvbox
