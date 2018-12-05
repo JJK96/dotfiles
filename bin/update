@@ -7,3 +7,5 @@ pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n
 composer global u
 # Nodejs
 yarn global upgrade 
+# Rust
+rustup update
