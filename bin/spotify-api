@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+SPOTIPY_USERNAME=`pass get username spotify` SPOTIPY_CLIENT_ID=`pass get client_id spotify` SPOTIPY_CLIENT_SECRET=`pass get client_secret spotify` python -i ~/bin/spotify/spotify-api.py
