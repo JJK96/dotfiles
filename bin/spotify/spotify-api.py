@@ -1,3 +1,9 @@
+# Usage:
+# Set environment variables:
+#       SPOTIPY_USERNAME
+#       SPOTIPY_CLIENT_ID
+#       SPOTIPY_CLIENT_SECRET
+# use functions defined here or use the `sp` object directly
 import pprint
 import spotipy
 from spotipy import util
