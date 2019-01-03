@@ -1,6 +1,8 @@
 # relative line numbers
-add-highlighter global/ number-lines -relative
+add-highlighter global/ number-lines -relative -hlcursor
 add-highlighter global/ wrap
+
+add-highlighter global/ show-matching
 
 # indentation
 set-option global tabstop     4
@@ -10,7 +12,10 @@ set-option global indentwidth 4
 set-option global scrolloff 10,10
 
 # save on pressing enter
-map global normal <ret> :w<ret>
+map global normal <ret> ": w<ret>"
+
+# remap grep-jump
+map global goto <ret> "<esc><ret>"
 
 # Select whole lines when moving selection with J or K
 map global normal J J<a-x>
@@ -54,9 +59,20 @@ hook global InsertChar \t %{
     exec -draft h@
 }
 
-hook global InsertKey <backspace> %{ try %{
-  exec -draft hGh<a-k>\A\h+\Z<ret>gihyp<lt>
-}}
+# hook global InsertKey <backspace> %{ try %{
+#   exec -draft hGh<a-k>\A\h+\Z<ret>gihyp<lt>
+# }}
+
+# Terminal, used by ide wrapper
+define-command -hidden _terminal -params .. %{
+  shell \
+    -export session \
+    -export client \
+    %sh(echo $TERMINAL) %arg(@) \
+    %sh(test $# = 0 &&
+      echo $SHELL
+    )
+}
 
 # Delete buffer and quit
 define-command dq %{db;q}
@@ -74,15 +90,11 @@ hook global BufCreate .*\.xsd %{ set buffer filetype xml }
 eval %sh{kak-lsp1 --kakoune -s $kak_session }
 # Debug output
 nop %sh{ (kak-lsp1 -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
+lsp-enable
 lsp-auto-hover-enable
-lsp-inline-diagnostics-disable
-
-# snippets
-map global insert <a-E> ' <esc>;h: snippet-word<ret>'
-map global insert <a-e> '<esc>: replace-next-hole<ret>'
 
 #spell
-map global user s -docstring 'spell replace' :spell-replace<ret>
+# map global user s -docstring 'spell replace' :spell-replace<ret>
 declare-option str language en-GB
 define-command spell-enable %{
     #hook global WinSetOption filetype=(latex|markdown|git-commit) %{
@@ -101,49 +113,37 @@ set-option global ui_options ncurses_assistant=off
 map -docstring "xml tag object" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
 
 # modeline
-set-option global modelinefmt %{{Error}%sh{[ $kak_opt_lsp_diagnostic_count -gt 0 ] && echo "$kak_opt_lsp_diagnostic_count"}{Default} %val{bufname} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]}
+set-option global modelinefmt %{{Error}%sh{[ $kak_opt_lsp_diagnostic_error_count -gt 0 ] && echo "$kak_opt_lsp_diagnostic_error_count"}{Default} %val{bufname} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]}
 
-# synonyms
-# Depends on http://aiksaurus.sourceforge.net/
-define-command synonyms %{ %sh{
-    input=$(aiksaurus "$kak_selection")
-    if echo "$input" | grep '\*\*\*.*\*\*\*' 2>&1 > /dev/null; then
-        echo "info %{" "$(echo "$input" | head -n 2 )" "}"
-    fi
-    menu=$(echo "$input" | sed -e 's/ =/,/g;s/=//g' | \
-    awk -v RS= -v FS=, '{
-            printf "%s", "%{"$1"}" "%{menu -auto-single ";
-            for (i=3; i<=NF; i++)
-                printf "%s", "%{"$i"}" "%{execute-keys -itersel c"$i"<esc>be}";
-            printf "%s", "}";
-        }')
-    printf 'menu -auto-single %s' "${menu}"
-}}
-map global user w -docstring 'get synonyms' :synonyms<ret>
-
-# terminal
-define-command terminal -params .. %{
-  shell \
-    -export session \
-    -export client \
-    %sh(echo $TERMINAL) %arg(@) \
-    %sh(test $# = 0 &&
-      echo $SHELL
-    )
-}
-
-# autoload files in rc directory
-
-# evaluate-commands %sh{
-#     autoload_directory() {
-#         find -L "$1" -type f -name '*\.kak' \
-#             -exec printf 'try %%{ source "%s" } catch %%{ echo -debug Autoload: could not load "%s" }\n' '{}' '{}' \;
-#     }
-#     autoload_directory ${kak_config}/rc
-# }
+# Plugins
 
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
+plug "andreyorst/fzf.kak" %{
+    map global user f -docstring 'Open fzf mode' %{: fzf-mode<ret>}
+    map global fzf g -docstring 'Open vcs mode' %{: fzf-vcs-mode<ret>}
+}
+plug "occivink/kakoune-phantom-selection" %{
+    declare-user-mode phantom-selection
+    map global user h -docstring "Phantom selections" ": enter-user-mode phantom-selection<ret>"
+    map global phantom-selection n -docstring "Next" ": phantom-sel-iterate-next<ret>"
+    map global phantom-selection p -docstring "Previous" ": phantom-sel-iterate-prev<ret>"
+    map global phantom-selection c -docstring "Clear" ": phantom-sel-select-all; phantom-sel-clear<ret>"
+    map global phantom-selection a -docstring "Add" ": phantom-sel-add-selection<ret>"
+}
+plug "occivink/kakoune-snippets" %{
+    declare-user-mode snippets
+    map global user s -docstring "Snippets" ": enter-user-mode snippets<ret>"
+    map global snippets n -docstring "Select next placeholder" ": snippets-select-next-placeholders<ret>"
+    map global snippets s -docstring "Snippet" ": snippets "
+    map global insert <a-e> "<esc>: try snippets-select-next-placeholders catch phantom-sel-iterate-next<ret>i"
+    add-highlighter global/ ranges snippets_placeholders 
+    source "%val{config}/snippets.kak"
+}
+plug "occivink/kakoune-sudo-write"
+plug "jjk96/kakoune-fireplace"
+plug "lenormf/kakoune-extra" load %{
+    syntastic.kak
+}
 
-# plugin config
+# Overwrites colors defined in kak-lsp
 colorscheme gruvbox
-set global snippet_files "%val{config}/snippets/snippets.yaml"

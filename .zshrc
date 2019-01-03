@@ -1,4 +1,5 @@
 # colorscheme
+source ~/.profile
 (cat ~/.cache/wal/sequences &)
 # Lines configured by zsh-newuser-install
 setopt HIST_IGNORE_SPACE
@@ -88,8 +89,8 @@ alias kakrc="$EDITOR ~/.config/kak/kakrc"
 alias cleargpg="echo RELOADAGENT | gpg-connect-agent"
 alias xsel="xsel -b"
 alias pkgs='function _pkgs(){ pacman -Ss "$@" || aur search "$@";};_pkgs'
+#alias yay='yay --editmenu'
 alias aurinst='function _aurinst(){ aur sync "$@" && sudo pacman -S "$@";};_aurinst'
-alias p="zathura"
 alias ll="ls -lh --color"
 alias zip="zip -r"
 alias r2="r2 -A"
@@ -99,10 +100,12 @@ alias recomp="killall compton && compton & disown && wal -R && exit"
 alias spell="aspell check --lang=en-GB "
 alias copyTijd="rclone copy /tmp/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap && rm /tmp/Tijd\ Jan-Jaap.xlsx"
 alias p='function _ps(){ ps -aux | grep $@ };_ps'
+alias n='netstat -plnt'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'
 alias ide='ide && exit'
 alias cls='printf "\033c"'
 alias escape='xcape -e "ISO_Level3_Shift=Escape"'
+alias notify-at='function _at(){echo "notify-send" "${@:2}" | at $1 };_at'
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
@@ -134,6 +137,8 @@ alias mutt=neomutt
 alias wd="cd /home/jjk/Documents/master"
 alias swifter="cd /srv/http/swifter/stamboek/"
 alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
+alias kaksrc="cd ~/git/kakoune-git/src/kakoune/"
+alias lspsrc="cd ~/git/kak-lsp-git/src/kak-lsp/"
 
 # Programs
 alias decktape="node /home/jjk/git/decktape/decktape.js --no-sandbox"

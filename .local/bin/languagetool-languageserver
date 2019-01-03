@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# PORT=20000
+# nc -l -p $PORT <&0 >&1 &
+# ~/git/languagetool-languageserver/build/install/languagetool-languageserver/bin/languagetool-languageserver $PORT > /dev/null
+
+java -jar ~/git/languagetool-languageserver/target/languagetool-languagserver-4.3-EXPERIMENTAL.jar

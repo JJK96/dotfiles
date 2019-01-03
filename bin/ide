@@ -1,4 +1,4 @@
 #!/bin/bash
 i3-msg "append_layout ~/.config/i3/layouts/ide.json"
-termite -r "Kakoune" -e 'kak -e "terminal -r Ranger -e ranger;terminal -r Terminal"' &
+termite -r "Kakoune" -e 'kak -e "_terminal -r Ranger -e ranger;_terminal -r Terminal"' &
 disown
