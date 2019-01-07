@@ -1,2 +1,4 @@
-text/html; w3m -I %{charset} -T text/html; copiousoutput;
-application/*; mutt_bgrun xdg-open '%s'
+#text/html; w3m -I %{charset} -T text/html; copiousoutput;
+text/html; firefox '%s' & sleep 1; copiousoutput;
+application/*; xdg-open '%s';
+image/*; xdg-open '%s';

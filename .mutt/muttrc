@@ -27,7 +27,7 @@ set new_mail_command="notify-send \
 
 # mailcap
 set mailcap_path    = ~/dotfiles/.mutt/mailcap
-auto_view text/html
+auto_view text/plain
 alternative_order text/plain text/html 
 
 ## GooBook

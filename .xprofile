@@ -9,6 +9,6 @@ nm-applet &
 compton &
 redshift &
 termite -e weechat &
-chromium web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me calendar.google.com drive.google.com &
+firefox web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me calendar.google.com drive.google.com &
 kak -s default -d
 wal -R
