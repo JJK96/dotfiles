@@ -1,7 +1,16 @@
 #!/bin/bash
 kak -clear
 TEMPDIR="/tmp/kak-temp"
-args=("$@")
+args=()
+open_command="open-in-new-window"
+for arg in "$@"; do
+    if [ "$arg" == "-t" ]; then
+        in_terminal=true
+        open_command="edit"
+    else 
+        args+=("$arg")
+    fi
+done 
 # if there is standard input create a new file and open that
 read -r -t 0.01 -d '' input
 if [ -n "$input" ]; then
@@ -17,12 +26,19 @@ if [ -z $KAK_SESSION ]; then
     fi
 fi
 if [ $KAK_CLIENT ]; then
-    command="$command;x11-focus $KAK_CLIENT"
+    command="x11-focus $KAK_CLIENT;"
 fi
 if [ ${#args[@]} == 0 ]; then
-   command="$command;new buffer *scratch*"
+   if [ -z $in_terminal ]; then
+        command="$command new "
+   fi
+   command="$command buffer *scratch*;"
 fi 
 for file in "${args[@]}"; do
-    command="$command;open-in-new-window $(realpath "$file")"
+    command="$command $open_command $(realpath "$file");"
 done
-echo "eval '$command'" | kak -p $KAK_SESSION
+if [ $in_terminal ]; then
+    kak -c $KAK_SESSION -e "$command"
+else
+    echo "eval '$command'" | kak -p $KAK_SESSION
+fi

@@ -127,7 +127,7 @@ alias upd="aur sync -u;sudo pacman -Syu"
 alias custom='repose -vf custom -r /var/cache/pacman/custom'
 
 # kakoune
-alias k='function _kak(){ kak "$@" && cat ~/.cache/wal/sequences };_kak'
+alias k='editor -t'
 alias e="editor"
 
 # mutt

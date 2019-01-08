@@ -144,6 +144,9 @@ plug "jjk96/kakoune-fireplace"
 plug "lenormf/kakoune-extra" load %{
     syntastic.kak
 }
+plug "alexherbo2/select.kak" %{
+    plug "alexherbo2/yank-ring.kak"
+}
 
 # Overwrites colors defined in kak-lsp
 colorscheme gruvbox
