@@ -1,0 +1,8 @@
+/* Place in /home/jjk/.mozilla/firefox/<profile_directory>/chrome/userChrome.css */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* set default namespace to XUL */
+
+#nav-bar {visibility: collapse;}
+#tabbrowser-tabs .tabbrowser-tab .tab-close-button { display:none!important; }
+#tabbrowser-tabs .tabs-newtab-button {display:none!important;}
+#webrtcIndicator { display: none; }

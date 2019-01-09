@@ -3,7 +3,7 @@ source ~/.profile
 (cat ~/.cache/wal/sequences &)
 # Lines configured by zsh-newuser-install
 setopt HIST_IGNORE_SPACE
-export EDITOR=kak
+export EDITOR="editor -t"
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
