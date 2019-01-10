@@ -25,14 +25,14 @@ if [ -z $KAK_SESSION ]; then
         kak -s $KAK_SESSION -d
     fi
 fi
-if [ $KAK_CLIENT ]; then
+if [ $KAK_CLIENT ] && [ ! $in_terminal ]; then
     command="x11-focus $KAK_CLIENT;"
 fi
 if [ ${#args[@]} == 0 ]; then
    if [ -z $in_terminal ]; then
         command="$command new "
    fi
-   command="$command buffer *scratch*;"
+   command="$command edit -scratch *scratch*;"
 fi 
 for file in "${args[@]}"; do
     command="$command $open_command $(realpath "$file");"

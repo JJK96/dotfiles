@@ -120,7 +120,6 @@ set-option global modelinefmt %{{Error}%sh{[ $kak_opt_lsp_diagnostic_error_count
 
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 plug "andreyorst/plug.kak" noload
-
 plug "andreyorst/fzf.kak" %{
     map global user f -docstring 'Open fzf mode' %{: fzf-mode<ret>}
     map global fzf g -docstring 'Open vcs mode' %{: fzf-vcs-mode<ret>}
@@ -151,7 +150,18 @@ plug "alexherbo2/select.kak" %{
     plug "alexherbo2/yank-ring.kak"
 }
 plug "Delapouite/kakoune-buffers" %{
-    map global user b ':enter-user-mode -lock buffers<ret>'   -docstring 'buffers (lock)…'
+    map global user b ': enter-user-mode -lock buffers<ret>'   -docstring 'buffers (lock)…'
+}
+plug "ul/kak-tree" %{
+    declare-user-mode tree
+    map global tree u ': tree-select-parent-node<ret>' -docstring 'parent'
+    map global tree n ': tree-select-next-node<ret>' -docstring 'next'
+    map global tree p ': tree-select-previous-node<ret>' -docstring 'previous'
+    map global tree c ': tree-select-children<ret>' -docstring 'children'
+    map global tree f ': tree-select-first-child<ret>' -docstring 'first child'
+    map global tree t ': tree-node-sexp<ret>' -docstring 'show syntax tree'
+    map global user t ': enter-user-mode tree<ret>' -docstring 'tree-sitter'
+    map global user T ': enter-user-mode -lock tree<ret>' -docstring 'tree-sitter'
 }
 
 # Overwrites colors defined in kak-lsp
