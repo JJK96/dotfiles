@@ -11,6 +11,9 @@ set-option global indentwidth 4
 # keep space around cursor
 set-option global scrolloff 10,10
 
+# Remove '_' from extra-word-chars
+set-option global extra_word_chars
+
 # save on pressing enter
 map global normal <ret> ": w<ret>"
 
@@ -27,7 +30,6 @@ map global normal Y '<a-l>y' -docstring 'yank to end of line'
 map global normal <a-h> Gi
 
 # user mappings
-
 map global user l -docstring 'lsp' ':enter-user-mode lsp<ret>'
 
 ## clipboard interaction
@@ -59,9 +61,8 @@ hook global InsertChar \t %{
     exec -draft h@
 }
 
-# hook global InsertKey <backspace> %{ try %{
-#   exec -draft hGh<a-k>\A\h+\Z<ret>gihyp<lt>
-# }}
+# Use termite
+set global termcmd "termite -e"
 
 # Terminal, used by ide wrapper
 define-command -hidden _terminal -params .. %{
@@ -76,7 +77,10 @@ define-command -hidden _terminal -params .. %{
 
 # Delete buffer and quit
 define-command -hidden _q %{db;quit}
+define-command -hidden _wq %{w;_q}
 alias global q _q
+alias global wq _wq
+map global normal <c-q> ": _q<ret>"
 
 # Open file in new window
 define-command open-in-new-window -params 1 -file-completion %{ new edit %arg{@} }

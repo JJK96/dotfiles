@@ -1,0 +1,14 @@
+#!/bin/bash
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+g=$(printf $GREEN)
+n=$(printf $NC)
+grep -B 1 '^bindsym' ~/.config/i3/config | \
+    sed "s/^# *\(.*\)$/${g}\1${n}/" | \
+    sed "s/--[^ ]\+ //g" | \
+    sed "s/bindsym \([^ ]\+\).*$/\1/" | \
+    sed 's/\$mod/Win/g' | \
+    sed 's/Return/Enter/g' | \
+    grep -v '\-\-' | \
+less -R

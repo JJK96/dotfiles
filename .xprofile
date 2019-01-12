@@ -9,6 +9,11 @@ nm-applet &
 compton &
 redshift &
 termite -e weechat &
-firefox -P social web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me calendar.google.com drive.google.com &
+firefox web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me calendar.google.com drive.google.com &
 kak -s default -d
 wal -R
+
+# Start scratchpad
+i3-msg "append_layout ~/.config/i3/layouts/scratchpad.json"
+termite -r "Kakoune" -e 'editor -t' &
+termite &

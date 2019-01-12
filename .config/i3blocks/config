@@ -111,7 +111,7 @@ interval=10
 # Date Time
 #
 [time]
-command=date '+%d-%m-%Y %H:%M:%S'
+command=date '+%Y-%m-%d %H:%M:%S'
 interval=5
 
 # Generic media player support

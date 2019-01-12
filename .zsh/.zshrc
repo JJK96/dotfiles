@@ -65,8 +65,6 @@ alias x="startx"
 alias giomount='cd /run/user/1000/gvfs/'
 alias term='termite & disown'
 alias iv="sxiv -b"
-alias i3config="$EDITOR ~/.config/i3/config"
-alias kakrc="$EDITOR ~/.config/kak/kakrc"
 alias cleargpg="echo RELOADAGENT | gpg-connect-agent"
 alias xsel="xsel -b"
 alias pkgs='function _pkgs(){ pacman -Ss "$@" || aur search "$@";};_pkgs'
@@ -94,11 +92,7 @@ alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
 # git
 alias gcf='git commit -m "`fortune`"'
 alias gpf="git add -A && gcf && git pull && git push"
-alias ga="git add -A"
-alias gpl="git pull"
-alias gps="git push"
 alias gs="git status"
-alias gc="git commit"
 alias gpatch="git format-patch -o /tmp origin"
 
 # pacman
@@ -127,3 +121,8 @@ alias mysql='mysql --auto-rehash -u root'
 
 # web sessions
 alias courses="firefox https://canvas.utwente.nl/courses/2479 https://learnintsec.org/courses/course-v1:UT+201700074B+2018Q1/courseware/d7394691d26f439082912a37c7f3bc62/ https://learnintsec.org/courses/course-v1:UT+201700074A+2018Q1/courseware/b95b477cab3d4668bdb46f57a1274261/ https://brightspace.tudelft.nl/d2l/home/140133 https://brightspace.tudelft.nl/d2l/home/126945 & disown %firefox && exit"
+
+# Frequently edited files
+alias i3config="$EDITOR ~/.config/i3/config"
+alias kakrc="$EDITOR ~/.config/kak/kakrc"
+alias zshrc="$EDITOR ~/.zsh/.zshrc"

@@ -1,27 +1,14 @@
 {
     "layout": "splitv",
-    "percent": 0.5,
     "type": "con",
     "nodes": [
         {
-            "border": "none",
-            "floating": "auto_off",
             "layout": "splith",
-            "percent": 0.828625235404896,
+            "percent": 0.8,
             "type": "con",
             "nodes": [
                 {
-                    "border": "none",
-                    "current_border_width": 2,
-                    "floating": "auto_off",
-                    "geometry": {
-                       "height": 410,
-                       "width": 654,
-                       "x": 0,
-                       "y": 0
-                    },
-                    "name": "termite",
-                    "percent": 0.15625,
+                    "percent": 0.3,
                     "swallows": [
                        {
                        "class": "^Termite$",
@@ -31,23 +18,11 @@
                     "type": "con"
                 },
                 {
-                    "border": "none",
-                    "floating": "auto_off",
                     "layout": "tabbed",
-                    "percent": 0.84375,
+                    "percent": 0.7,
                     "type": "con",
                     "nodes": [
                         {
-                            "border": "none",
-                            "current_border_width": 2,
-                            "floating": "auto_off",
-                            "geometry": {
-                               "height": 410,
-                               "width": 654,
-                               "x": 0,
-                               "y": 0
-                            },
-                            "percent": 0.5,
                             "swallows": [
                                {
                                "class": "^Termite$",
@@ -61,17 +36,7 @@
             ]
         },
         {
-            "border": "none",
-            "current_border_width": 2,
-            "floating": "auto_off",
-            "geometry": {
-               "height": 410,
-               "width": 654,
-               "x": 0,
-               "y": 0
-            },
-            "name": "termite",
-            "percent": 0.171374764595104,
+            "percent": 0.2,
             "swallows": [
                {
                "class": "^Termite$",

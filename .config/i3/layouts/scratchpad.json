@@ -1,0 +1,27 @@
+{
+    "floating": "auto_off",
+    "rect": {
+       "height": 810,
+       "width": 1280,
+       "x": 640,
+       "y": 145
+    },
+    "type": "floating_con",
+    "nodes": [
+        {
+            "layout": "tabbed",
+            "type": "con",
+            "nodes": [
+                {
+                    "swallows": [
+                       {
+                       "instance": "^termite$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+
