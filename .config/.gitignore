@@ -18,7 +18,6 @@
 !vis/
 !wal/
 !.gitignore
-!kak
 !systemd
 !composer
 !qutebrowser
