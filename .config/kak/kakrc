@@ -4,6 +4,9 @@ add-highlighter global/ wrap
 
 add-highlighter global/ show-matching
 
+# Disable clippy
+set-option global ui_options ncurses_assistant=off
+
 # indentation
 set-option global tabstop     4
 set-option global indentwidth 4
@@ -20,30 +23,27 @@ map global normal <ret> ": w<ret>"
 # remap grep-jump
 map global goto <ret> "<esc><ret>"
 
-# Select whole lines when moving selection with J or K
-map global normal J J<a-x>
-map global normal K K<a-x>
-
 # vim old habits
 map global normal D '<a-l>d' -docstring 'delete to end of line'
 map global normal Y '<a-l>y' -docstring 'yank to end of line'
 map global normal <a-h> Gi
 
+# calculate
+map global normal = '|calc<ret>'
+
+# Movement mode (depends on case.kak)
+map global user m -docstring "case based movement" ': enter-user-mode -lock movecase<ret>'
+
 # user mappings
-map global user l -docstring 'lsp' ':enter-user-mode lsp<ret>'
+map global user l -docstring 'lsp' ': enter-user-mode lsp<ret>'
 
 ## clipboard interaction
 map global user p -docstring 'paste from clipboard' '!xsel -bo<ret>'
-map global user y -docstring 'copy to clipboard' '<a-|>xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
-map global user d -docstring 'cut to clipboard' '|xsel -bi<ret>; :echo "copied selection to X11 clipboard"<ret>'
+map global user y -docstring 'copy to clipboard' '<a-|>xsel -bi<ret>; : echo "copied selection to X11 clipboard"<ret>'
+map global user d -docstring 'cut to clipboard' '|xsel -bi<ret>; : echo "copied selection to X11 clipboard"<ret>'
 
 ## comment lines
-map global user c -docstring 'toggle comment lines' %{_:try comment-block catch comment-line<ret>}
-
-# other mappings
-map global normal x <a-x>
-map global normal <a-x> gi<a-l>
-
+map global user c -docstring 'toggle comment lines' %{_: try comment-block catch comment-line<ret>}
 
 # tab to select menu item.
 hook global InsertCompletionShow .* %{
@@ -109,10 +109,6 @@ define-command spell-enable %{
     #}
 }
 
-# Disable clippy
-
-set-option global ui_options ncurses_assistant=off
-
 # XML tags
 
 map -docstring "xml tag object" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
@@ -164,8 +160,8 @@ plug "ul/kak-tree" %{
     map global tree c ': tree-select-children<ret>' -docstring 'children'
     map global tree f ': tree-select-first-child<ret>' -docstring 'first child'
     map global tree t ': tree-node-sexp<ret>' -docstring 'show syntax tree'
+    map global tree . ': enter-user-mode -lock tree<ret>' -docstring 'lock'
     map global user t ': enter-user-mode tree<ret>' -docstring 'tree-sitter'
-    map global user T ': enter-user-mode -lock tree<ret>' -docstring 'tree-sitter'
 }
 
 # Overwrites colors defined in kak-lsp
