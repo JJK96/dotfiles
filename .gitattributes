@@ -1,1 +1,3 @@
 .weechat/sec.conf filter=git-crypt diff=git-crypt
+.config/qutebrowser/bookmarks filter=git-crypt diff=git-crypt
+.config/qutebrowser/quickmarks filter=git-crypt diff=git-crypt
