@@ -104,7 +104,7 @@ bindsym $mod+q kill
 # Switch to colemak
 bindsym $mod+bracketleft exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
 # Switch back to normal (qwerty)
-bindsym $mod+backslash exec setxkbmap -variant ""
+bindsym $mod+bracketright exec setxkbmap -variant ""
 
 # Screenshot of whole screen
 bindsym Print exec "cd /tmp;scrot -u"
