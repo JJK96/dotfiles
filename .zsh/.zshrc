@@ -80,11 +80,13 @@ alias spell="aspell check --lang=en-GB "
 alias copyTijd="rclone copy /tmp/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap && rm /tmp/Tijd\ Jan-Jaap.xlsx"
 alias p='function _ps(){ ps -aux | grep $@ };_ps'
 alias n='netstat -plnt'
+alias o='xdg-open'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'
 alias ide='ide && exit'
 alias cls='printf "\033c"'
 alias escape='xcape -e "ISO_Level3_Shift=Escape"'
 alias notify-at='function _at(){echo "notify-send" "${@:2}" | at $1 };_at'
+alias webserver='python -m http.server'
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'
@@ -126,3 +128,6 @@ alias courses="firefox https://canvas.utwente.nl/courses/2479 https://learnintse
 alias i3config="$EDITOR ~/.config/i3/config"
 alias kakrc="$EDITOR ~/.config/kak/kakrc"
 alias zshrc="$EDITOR ~/.zsh/.zshrc"
+
+# Conversions
+alias frombinary="perl -lpe '\$_=pack\"B*\",\$_'"

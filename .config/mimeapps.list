@@ -31,6 +31,7 @@ text/x-makefile=editor.desktop
 text/x-c++=editor.desktop
 x-scheme-handler/mailto=exo-mail-reader.desktop
 inode/directory=Thunar.desktop;nomacs.desktop;ristretto.desktop;
+text/markdown=editor.desktop
 
 [Added Associations]
 text/plain=editor.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
@@ -41,7 +42,7 @@ application/pdf=okularApplication_pdf.desktop;userapp-"pdfpc %f"-G30CTZ.desktop;
 text/x-python=editor.desktop;
 application/sql=gvim.desktop;editor.desktop;chromium.desktop;org.gnome.gedit.desktop;
 video/x-flv=vlc.desktop;
-image/jpeg=sxiv.desktop;gimp.desktop;nomacs.desktop;wine-extension-jpe.desktop;eog.desktop;
+image/jpeg=gimp.desktop;sxiv.desktop;nomacs.desktop;wine-extension-jpe.desktop;eog.desktop;
 application/octet-stream=keepass.desktop;firefox.desktop;qutebrowser.desktop;editor.desktop;
 text/x-lua=editor.desktop;
 text/x-log=editor.desktop;
@@ -53,7 +54,7 @@ application/vnd.openxmlformats-officedocument.presentationml.presentation=libreo
 application/x-ms-dos-executable=wine.desktop;dosbox.desktop;
 application/zip=xarchiver.desktop;org.gnome.FileRoller.desktop;
 application/x-java-archive=userapp-java-UBVQAY.desktop;xarchiver.desktop;
-text/markdown=editor.desktop;
+text/markdown=editor.desktop;okularApplication_md.desktop;editor.desktop;userapp-"editor %s"-9SUVVZ.desktop;
 image/gif=eog.desktop;gimp.desktop;wine-extension-gif.desktop;
 audio/mp4=vlc.desktop;org.gnome.Totem.desktop;
 application/x-sqlite3=Visual_Paradigm_12.2-0.desktop;
