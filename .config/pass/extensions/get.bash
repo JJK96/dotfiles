@@ -5,14 +5,13 @@ local passfile="$PREFIX/$path.gpg"
 check_sneaky_paths "$path"
 
 if [[ -f $passfile ]]; then
-    offset=0
-    if [[ "${args[$offset]}" == "-c" ]]; then
+    if [[ "$1" == "-c" ]]; then
         clipboard=true
-        offset=$((offset + 1))
+        shift
     fi
     contents="$($GPG -d "${GPG_OPTS[@]}" "$passfile")"
-    if [[ ${#args[@]} -gt $((offset + 1)) ]]; then
-        output="$(echo "$contents" | grep -i ${args[$offset]} | awk '{for (i=2; i<=NF; i++) print $i}')"
+    if [[ $# -gt 1 ]]; then
+        output="$(echo "$contents" | grep -i $1 | awk '{for (i=2; i<=NF; i++) print $i}')"
     else
         output="$(echo "$contents" | head -n1)"
     fi
@@ -21,8 +20,6 @@ if [[ -f $passfile ]]; then
     else
         echo "$output"
     fi
-
-    #$GPG -d "${GPG_OPTS[@]}" "$passfile" | tail -n +2 || exit $?
 
 elif [[ -z $path ]]; then
     die ""
