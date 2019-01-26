@@ -26,11 +26,16 @@
 # Each block command defaults to the script name to avoid boilerplate.
 command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=15
-markup=none
+markup=pango
 
 [dunst]
 command=~/.config/i3blocks/scripts/notify.sh
 signal=12
+
+[spotify]
+command=~/.config/i3blocks/scripts/i3BlocksSpotify/spotify
+interval=repeat
+
 # Volume indicator
 #
 # The first parameter sets the step (and units to display)

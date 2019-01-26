@@ -1,0 +1,51 @@
+#!/bin/bash
+title=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'|egrep -A 1 "title"|cut -b 44-|cut -d '"' -f 1|egrep -v ^$`
+artist=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'|egrep -A 2 "artist"|cut -b 20-|cut -d '"' -f 2|egrep -v ^$|egrep -v array|egrep -v artist`
+
+playpause="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+nextsong="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+prevsong="dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+
+scrollfile="/tmp/.scrollposition"
+songfile="/tmp/.song"
+maxlen=45
+interval=0.1
+
+if [[ ! -z "$artist" ]]; then
+    song="$artist : $title          "
+    scrollposition=0
+    if [[ -f "${scrollfile}" ]] && [[ -f "${songfile}" ]] && [[ "${song}"==$(cat "${songfile}") ]]; then
+        scrollposition=$(cat "${scrollfile}")
+    fi
+
+    echo "${song}" > $songfile
+
+    textlen=${#song}
+    lastIndex=$(($textlen - 1))
+    var="if"
+
+    if [[ $textlen -lt $maxlen ]]; then
+        readuntil=$(($scrollposition - 1))
+        if [[ "$readuntil" -eq "-1" ]]; then
+            song="${song:$scrollposition:$lastIndex}"
+        else
+            song="${song:$scrollposition:$lastIndex}${song:0:$readuntil}"
+        fi
+    else
+        if [[ $(($scrollposition + $maxlen)) -le $lastIndex ]]; then
+            song="${song:$scrollposition:$maxlen}"
+        else
+            readuntil=$(($maxlen - 1 - $(($lastIndex - $scrollposition))))
+            song="${song:$scrollposition:$lastIndex}${song:0:$readuntil}"
+        fi
+    fi
+
+    scrollposition=$(($scrollposition + 1))
+    if [[ $scrollposition -gt $(($textlen - 1)) ]]; then
+        scrollposition=0
+    fi
+    echo "${scrollposition}" > $scrollfile
+    sleep "${interval}"
+    echo "${song//[&]/&amp;}"
+    echo "${song//[&]/&amp;}"
+fi

@@ -78,7 +78,7 @@ alias lt="languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPAC
 alias recomp="killall compton && compton & disown && wal -R && exit"
 alias spell="aspell check --lang=en-GB "
 alias copyTijd="rclone copy /tmp/Tijd\ Jan-Jaap.xlsx dropbox:Jan-Jaap && rm /tmp/Tijd\ Jan-Jaap.xlsx"
-alias p='function _ps(){ ps -aux | grep $@ };_ps'
+alias p='function _ps(){ ps -aux | grep $@ | grep -v grep };_ps'
 alias n='netstat -plnt'
 alias o='xdg-open'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'

@@ -33,8 +33,8 @@ then # called by i3blocks
   # source the notification
   . $CACHE
 
-  FULL_TEXT=$(echo "$SUMMARY $BODY" | w3m -T text/html)
-  SHORT_TEXT=$(echo "$SUMMARY" | w3m -T text/html)
+  FULL_TEXT=$(echo "$SUMMARY $BODY")
+  SHORT_TEXT=$(echo "$SUMMARY")
 
   case $URGENCY in
     LOW)
