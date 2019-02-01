@@ -33,7 +33,7 @@ command=~/.config/i3blocks/scripts/notify.sh
 signal=12
 
 [spotify]
-command=~/.config/i3blocks/scripts/i3BlocksSpotify/spotify
+command=~/.config/i3blocks/scripts/scroll ~/.config/i3blocks/scripts/spotify.py 40
 interval=repeat
 
 # Volume indicator

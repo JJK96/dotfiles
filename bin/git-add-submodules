@@ -1,0 +1,11 @@
+#!/bin/bash
+# Add all submodules in subdirectories of current directory to parent repo
+# https://stackoverflow.com/questions/10606101/automatically-add-all-submodules-to-a-repo
+for x in $(find . -type d) ; do
+    if [ -d "${x}/.git" ] ; then
+        cd "${x}"
+        origin="$(git config --get remote.origin.url)"
+        cd - 1>/dev/null
+        git submodule add "${origin}" "${x}"
+    fi
+done
