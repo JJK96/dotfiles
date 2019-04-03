@@ -1,0 +1,6 @@
+bindkey -M vicmd "n" down-line-or-history
+bindkey -M vicmd "e" up-line-or-history
+bindkey -M vicmd "i" vi-forward-char
+bindkey -M vicmd "j" vi-repeat-search
+bindkey -M vicmd "k" vi-forward-word-end
+bindkey -M vicmd "l" vi-insert

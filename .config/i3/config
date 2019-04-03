@@ -16,7 +16,7 @@ set $browser firefox
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 8
+font pango:Iosevka Semibold 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -89,7 +89,7 @@ bindsym $mod+Control+p exec mypassmenu --type
 # Terminal
 bindsym $mod+Return exec $terminal
 # Browser
-bindsym $mod+i exec $browser
+bindsym $mod+b exec $browser
 # Thunar: file manager
 bindsym $mod+t exec thunar
 # Ranger: terminal file manager
@@ -99,7 +99,7 @@ bindsym $mod+q kill
 
 # Switch to colemak
 bindsym $mod+bracketleft exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
-# Switch back to normal (qwerty)
+# Switch to qwerty
 bindsym $mod+bracketright exec setxkbmap -variant ""
 
 # Screenshot of whole screen
@@ -112,7 +112,7 @@ bindsym --release $mod+Print exec deepin-screenshot -s /tmp/ 2>&1 | grep -o '/tm
 bindsym $mod+a exec "rofi -combi-modi drun,run,ssh -show combi"
 
 # Lock the screen
-bindsym $mod+x exec "i3lock -ui ~/Pictures/BSOL.png"
+bindsym $mod+x exec "i3lock -ui ~/Pictures/vim_lock.png"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -137,9 +137,9 @@ bindsym XF86AudioNext exec "playerctl next"
 
 # Change focus
 bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+n focus down
+bindsym $mod+e focus up
+bindsym $mod+i focus right
 bindsym $mod+p focus parent
 
 # alternatively, you can use the cursor keys:
@@ -150,9 +150,9 @@ bindsym $mod+p focus parent
 
 # Move focused window
 bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+n move down
+bindsym $mod+Shift+e move up
+bindsym $mod+Shift+i move right
 
 # alternatively, you can use the cursor keys:
 #bindsym $mod+Shift+Left move left
@@ -164,7 +164,7 @@ bindsym $mod+Shift+l move right
 bindsym $mod+m split h
 
 # Split in vertical orientation
-bindsym $mod+n split v
+bindsym $mod+k split v
 
 # Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -172,7 +172,7 @@ bindsym $mod+f fullscreen toggle
 # Change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+j layout toggle split
 
 # Toggle tiling / floating
 bindsym $mod+space floating toggle
@@ -196,7 +196,7 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
-bindsym $mod+Control+l workspace next
+bindsym $mod+Control+i workspace next
 bindsym $mod+Control+h workspace prev
 bindsym $mod+c exec i3-input -F 'rename workspace to "%s"' -P 'New name: ' 
 
