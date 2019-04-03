@@ -5,20 +5,18 @@
 # this file and re-run i3-config-wizard(1).
 #
 
-# i3 config file (v4)
+# sway config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $terminal urxvt
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:monospace 8
+set $terminal termite
+#set $browser qutebrowser --enable-webengine-inspector
+set $browser firefox
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+font pango:Iosevka Semibold 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -29,44 +27,71 @@ font pango:monospace 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-new_window pixel
+default_border none
+default_floating_border none
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
-	tray_output primary
-        status_command i3blocks
+    tray_output all
+    status_command i3blocks
 	position top
 }
 
-# start a terminal
+# Open command info
+bindsym F1 exec $terminal -e "i3-help"
+
+# Type username password and submit
+bindsym $mod+Control+p exec mypassmenu --type
+
+# Terminal
 bindsym $mod+Return exec $terminal
-bindsym $mod+i exec firefox
-bindsym $mod+r exec $terminal -e ranger
+# Browser
+bindsym $mod+i exec $browser
+# Thunar: file manager
+bindsym $mod+t exec thunar
+# Ranger: terminal file manager
+bindsym $mod+r exec $terminal -e "ranger --cmd='cd /tmp'"
 # kill focused window
 bindsym $mod+q kill
 
-# screenshot
-# scrot & gimp - root
-bindsym Print exec scrot -e 'mv $f /tmp/'
-# scrot & gimp - select window or rectangle
-bindsym --release $mod+Print exec "scrot -s -e 'mv $f /tmp/'"
+# Switch to colemak
+bindsym $mod+bracketleft exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
+# Switch back to normal (qwerty)
+bindsym $mod+bracketright exec setxkbmap -variant ""
 
-# start dmenu (a program launcher)
-bindsym $mod+a exec rofi -combi-mode drun -show combi
+# Screenshot of whole screen
+bindsym Print exec "cd /tmp;scrot -u"
+# Screenshot of selected area
+bindsym --release $mod+Print exec deepin-screenshot -s /tmp/ 2>&1 | grep -o '/tmp/Deepin[^"]*' | xargs xclip -selection clipboard -t image/png -i
+#bindsym --release $mod+Print exec "cd /tmp;scrot -s"
 
-bindsym Control+Shift+l exec i3lock-fancy -p
+# Rofi: start a program
+bindsym $mod+a exec "rofi -combi-modi drun,run,ssh -show combi"
+
+# Lock the screen
+bindsym $mod+x exec "i3lock -ui ~/Pictures/BSOL.png"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 # multimedia
+# Brightness down
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+# Brightness up
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+# Volume up
 bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer sset Master 5%+; pkill -RTMIN+10 i3blocks"
+# Volume down
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer sset Master 5%-; pkill -RTMIN+10 i3blocks"
+# Volume mute
 bindsym XF86AudioMute exec --no-startup-id "amixer sset Master toggle; pkill -RTMIN+10 i3blocks"
-# change focus
+# Play/Pause
+bindsym XF86AudioPlay exec "playerctl play-pause"
+# Previous song
+bindsym XF86AudioPrev exec "playerctl previous"
+# Next song
+bindsym XF86AudioNext exec "playerctl next"
+
+# Change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -79,7 +104,7 @@ bindsym $mod+p focus parent
 #bindsym $mod+Up focus up
 #bindsym $mod+Right focus right
 
-# move focused window
+# Move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -91,21 +116,21 @@ bindsym $mod+Shift+l move right
 #bindsym $mod+Shift+Up move up
 #bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
+# Split in horizontal orientation
 bindsym $mod+m split h
 
-# split in vertical orientation
+# Split in vertical orientation
 bindsym $mod+n split v
 
-# enter fullscreen mode for the focused container
+# Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, tabbed, toggle split)
+# Change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
+# Toggle tiling / floating
 bindsym $mod+space floating toggle
 
 # change focus between tiling / floating windows
@@ -116,7 +141,7 @@ bindsym $mod+space floating toggle
 # focus the child container
 #bindsym $mod+d focus child
 
-# switch to workspace
+# Switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -131,7 +156,7 @@ bindsym $mod+Control+l workspace next
 bindsym $mod+Control+h workspace prev
 bindsym $mod+c exec i3-input -F 'rename workspace to "%s"' -P 'New name: ' 
 
-# move focused container to workspace
+# Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
@@ -142,18 +167,52 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
-#bindsym $mod+Shift+l move container to workspace next
-#bindsym $mod+Shift+h move container to workspace prev
+#bindsym $mod+Control+Shift+l move container to workspace next
+#bindsym $mod+Control+Shift+h move container to workspace prev
 #bindsym $mod+Shift+s mode "swap"
+# Workspaces from 11-20
+bindsym $mod+Control+1 workspace 11
+bindsym $mod+Control+2 workspace 12
+bindsym $mod+Control+3 workspace 13
+bindsym $mod+Control+4 workspace 14
+bindsym $mod+Control+5 workspace 15
+bindsym $mod+Control+6 workspace 16
+bindsym $mod+Control+7 workspace 17
+bindsym $mod+Control+8 workspace 18
+bindsym $mod+Control+9 workspace 19
+bindsym $mod+Control+0 workspace 20
+
+# Move to workspace 11-20
+bindsym $mod+Control+Shift+1 move container to workspace 11
+bindsym $mod+Control+Shift+2 move container to workspace 12
+bindsym $mod+Control+Shift+3 move container to workspace 13
+bindsym $mod+Control+Shift+4 move container to workspace 14
+bindsym $mod+Control+Shift+5 move container to workspace 15
+bindsym $mod+Control+Shift+6 move container to workspace 16
+bindsym $mod+Control+Shift+7 move container to workspace 17
+bindsym $mod+Control+Shift+8 move container to workspace 18
+bindsym $mod+Control+Shift+9 move container to workspace 19
+bindsym $mod+Control+Shift+0 move container to workspace 20
+# clear i3block notification
+
+# Remove notification
+bindsym $mod+z exec echo > /tmp/i3blocks/notification && pkill -RTMIN+12 i3blocks
 
 
 # reload the configuration file
 bindsym $mod+Control+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Control+r restart
+# Enter resizing mode
 bindsym $mod+Shift+r mode "resize"
-# exit i3 (logs you out of your X session)
-bindsym $mod+Control+e exit
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Control+e exec swaymsg exit
+
+# Scratchpad show
+bindsym $mod+Tab exec swaymsg scratchpad show
+# Move to scratchpad
+bindsym $mod+Shift+Tab exec swaymsg move scratchpad
+
+# Switch to window using rofi
+bindsym $mod+slash exec rofi -show window
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -169,8 +228,7 @@ mode "resize" {
         bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        #
-	#bindsym Left resize shrink width 10 px or 10 ppt
+    	#bindsym Left resize shrink width 10 px or 10 ppt
         #bindsym Down resize grow height 10 px or 10 ppt
         #bindsym Up resize shrink height 10 px or 10 ppt
         #bindsym Right resize grow width 10 px or 10 ppt
@@ -180,12 +238,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# assign windows to workspace
-assign [class="^Firefox$"] 1
-assign [class="^Rambox$"] 9
-assign [class="^Spotify$"] 8
-assign [class="^jetbrains\-idea$"] 2
 
-input 1739:31251:DLL07BF:01_06CB:7A13_To {
-    tap enabled
-}
+# assign windows to workspace
+assign [class="^Rambox$"] 10
+assign [class="^Signal\\ Beta$"] 10

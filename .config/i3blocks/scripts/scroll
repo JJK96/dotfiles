@@ -47,7 +47,8 @@ if [[ "${OUT_TEXT}" ]]; then
   MAX_OFFSET=$((TEXT_LENGTH +ADD_LENGTH -1))
 
   if [[ "${TEXT_LENGTH}" -lt "${MAX_LENGTH}" ]]; then
-    MAX_LENGTH="${TEXT_LENGTH}"
+     echo "${TEXT_LINE}"
+     exit
   fi
 
   if [[ "${SCROLL_POS}" -gt "${MAX_OFFSET}" ]]; then
