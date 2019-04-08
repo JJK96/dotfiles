@@ -1,2 +1,14 @@
 set editing-mode vi
 set keymap vi
+
+$if mode=vi
+"i": forward-char
+"n": next-history
+"e": previous-history
+"K": vi-end-word
+"k": vi-end-word
+"L": vi-insert-beg
+"l": vi-insertion-mode
+"J": vi-search-again
+"j": vi-search-again
+$endif
