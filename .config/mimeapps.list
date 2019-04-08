@@ -34,7 +34,7 @@ inode/directory=Thunar.desktop;nomacs.desktop;ristretto.desktop;
 text/markdown=editor.desktop
 
 [Added Associations]
-text/plain=editor.desktop;gvim.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
+text/plain=userapp-"editor"-T232ZZ.desktop;editor.desktop;gvim.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
 video/mp4=mpv.desktop;vlc.desktop;org.gnome.Totem.desktop;
 application/font-woff=org.gnome.gedit.desktop;
 text/html=editor.desktop;firefox.desktop;org.gnome.gedit.desktop;gvim.desktop;qutebrowser.desktop;
@@ -101,7 +101,7 @@ text/x-tex=editor.desktop;
 application/x-keepass2=keepass.desktop;
 text/x-csrc=editor.desktop;
 application/x-osu-lazer-beatmap=osu-lazer.desktop;
-text/csv=editor.desktop;libreoffice-calc.desktop;
+text/csv=libreoffice-calc.desktop;editor.desktop;
 application/x-audacity-project=audacity.desktop;
 application/epub+zip=com.github.babluboy.bookworm.desktop;okularApplication_epub.desktop;
 text/x-matlab=editor.desktop;
@@ -112,3 +112,4 @@ text/x-makefile=editor.desktop;
 image/svg+xml=inkscape.desktop;
 audio/wav=vlc.desktop;
 video/x-theora+ogg=vlc.desktop;
+application/vnd.lotus-approach=userapp-"editor"-FFOVVZ.desktop;
