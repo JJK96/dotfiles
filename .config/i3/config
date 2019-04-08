@@ -83,6 +83,9 @@ bar {
 # Open command info
 bindsym F1 exec $terminal -e "i3-help"
 
+# Open editor
+bindsym $mod+l exec editor
+
 # Type username password and submit
 bindsym $mod+Control+p exec mypassmenu --type
 
