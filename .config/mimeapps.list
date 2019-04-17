@@ -34,7 +34,7 @@ inode/directory=Thunar.desktop;nomacs.desktop;ristretto.desktop;
 text/markdown=editor.desktop
 
 [Added Associations]
-text/plain=userapp-"editor"-T232ZZ.desktop;editor.desktop;gvim.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
+text/plain=editor.desktop;userapp-"editor"-T232ZZ.desktop;gvim.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
 video/mp4=mpv.desktop;vlc.desktop;org.gnome.Totem.desktop;
 application/font-woff=org.gnome.gedit.desktop;
 text/html=editor.desktop;firefox.desktop;org.gnome.gedit.desktop;gvim.desktop;qutebrowser.desktop;
@@ -113,3 +113,6 @@ image/svg+xml=inkscape.desktop;
 audio/wav=vlc.desktop;
 video/x-theora+ogg=vlc.desktop;
 application/vnd.lotus-approach=userapp-"editor"-FFOVVZ.desktop;
+text/x-chdr=editor.desktop;emacs.desktop;
+video/webm=vlc.desktop;
+text/x-cmake=editor.desktop;
