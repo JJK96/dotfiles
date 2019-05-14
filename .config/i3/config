@@ -115,7 +115,7 @@ bindsym --release $mod+Print exec deepin-screenshot -s /tmp/ 2>&1 | grep -o '/tm
 bindsym $mod+a exec "rofi -combi-modi drun,run,ssh -show combi"
 
 # Lock the screen
-bindsym $mod+x exec "i3lock -ui ~/Pictures/vim_lock.png"
+bindsym $mod+x exec "i3lock -ui ~/Pictures/active_wallpaper"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -179,6 +179,8 @@ bindsym $mod+j layout toggle split
 
 # Toggle tiling / floating
 bindsym $mod+space floating toggle
+# Toggle sticky window
+bindsym $mod+shift+space sticky toggle
 
 # change focus between tiling / floating windows
 #bindsym $mod+space focus mode_toggle

@@ -22,7 +22,7 @@ case $name in
     if $previous; then
         xdotool key super+h
     else
-        xdotool key super+l
+        xdotool key super+i
     fi
     ;;
 esac
