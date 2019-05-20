@@ -1,5 +1,6 @@
 #themes
 terminus-font
+ttf-iosevka #nice monospace font
 oomox #generate gtk theme using pywal
 lxappearance #adapt gtk themes
 arc-gtk-theme 
@@ -61,20 +62,29 @@ texlive-publishers
 texlive-science
 
 ##python libraries
-python-docx #read docx
-python-matplotlib #plot stuff
-python-numpy #calculate stuff
-python-opencv #image detection
-python-pip #package manager
-python-pywal #set themes
+python-matplotlib   #plot stuff
+python-numpy
+python-scapy        #send packets
+python-scipy        #scientific calculations
+python-pandas       #handle machine learning corpi
+python-pillow       #computer vision
+python-pycryptodome #crypto
+python-spotipy      #spotify interaction
+python-virtualenv   #virtual environment
+python-docx         #read docx
+python-matplotlib   #plot stuff
+python-numpy        #calculate stuff
+python-opencv       #image detection
+python-pip          #package manager
+python-pywal        #set themes
 python-pywapi 
-python-sympy #symbolic calculation
+python-sympy        #symbolic calculation
 python-websockets
 python2-anyjson
-python2-jedi #autocomplete
+python2-jedi        #autocomplete
 python2-pip
-python2-pwntools #hacking
-python2-pyserial #read serial connections
+python2-pwntools    #hacking
+python2-pyserial    #read serial connections
 
 ##php plugins
 php-gd
@@ -84,13 +94,16 @@ php-xsl
 #utilities
 
 ## active use
+time                  # timing
 ack                   # better grep
+shellcheck            # check shell scripts
 aiksaurus             # synonyms
 at                    # schedule commands
 certbot               # ssl certificates
 curlftpfs             # mount ftp
 davfs2                # mount davfs i.e. nse cloud
 deepin-screenshot     # screenshots
+scrot                 # screenshots
 discount              # markdown
 dmenu                 # choose from list
 feh                   # background
@@ -100,6 +113,8 @@ gparted               # partition manager
 howdoi                # quickly find how to do something
 libinput-gestures-git # gestures
 okular                # pdf viewer
+mupdf                 # pdf viewer
+libmupdf              # pdf viewer
 neofetch              # system information in terminal (screenfetch)
 net-tools             # ifconfig etc.
 newsboat              # rss reader
@@ -107,6 +122,7 @@ nitrogen              # set wallpaper
 nmap                  # scan ports
 pandoc-bin            # compile markdown and documents converting
 pass                  # password store
+keepass
 pavucontrol           # volume control
 pdftk-bin             # pdf toolkit
 playerctl             # Send media keys to applications
@@ -116,6 +132,7 @@ rclone                # sync dropbox and google drive
 rsync                 # copy lots of files
 seahorse              # gui for gnome-keyring management
 sxiv                  # image viewer
+nomacs                # image viewer
 system-config-printer # printer settings
 tmux                  # terminal multiplexer
 traceroute            # find intermediate hops over internet
@@ -130,47 +147,59 @@ xautolock             # lock screen automatically
 xcape                 # make key do something different when released on its own.
 xsel                  # clipboard management
 youtube-dl            # download from youtube
+asciinema             # terminal recordings
+blueman               # bluetooth manager
+docker
 
 ## inactive use
-tk #windowing toolkit
-redshift #make screen less blue during night time
+playerctl-git #control spotify using commands
+git-crypt     #put encrypted data on git
+dxvk-bin      #vulkan
+tk            #windowing toolkit
+redshift      #make screen less blue during night time
 gnome-keyring #save passwords
-dnsmasq #dns
-ddclient #dynamic dns client
-binwalk #view files in .img
-cups #printing
-xsane #printing
-hplip #printing hp
+dnsmasq       #dns
+ddclient      #dynamic dns client
+binwalk       #view files in .img
+cups          #printing
+xsane         #printing
+hplip         #printing hp
 
 #file management
 vifm #file manager (used by aurutils)
-thunar #file manager
-thunar-volman #automatic removable devices
-ranger #file manager
-ntfs-3g #ntfs support
-mtpfs #mtp support
-gvfs-mtp #mtp support thunar
-gvfs-smb #smb support thunar
-atool #archive support in ranger.
+thunar            #file manager
+thunar-volman     #automatic removable devices
+ranger            #file manager
+ntfs-3g           #ntfs support
+mtpfs             #mtp support
+gvfs-mtp          #mtp support thunar
+gvfs-smb          #smb support thunar
+atool             #archive support in ranger.
 ffmpegthumbnailer #video thumbnail ranger
 
 #package management
 pkgfile #find which package a file belongs to
 repose #handle custom repository
-aurutils-git #aur helper
+yay #aur helper
 namcap #check pkgbuilds
 
 #programming languages
-yarn #node package manager
+rustup                       #rust
+npm                          #nodejs package manager
+jdk-openjdk                  #java
+yarn                         #node package manager
 php
-ghc #haskell
-bash #scripts
-bind-tools #requirement python
-cfunge #befunge
-clisp #lisp
-python-jedi #autocomplete python
+ghc                          #haskell
+bash                         #scripts
+bind-tools                   #requirement python
+cfunge                       #befunge
+clisp                        #lisp
+python-jedi                  #autocomplete python
+jupyter                      #notebooks
+jupyter_contrib_nbextensions #jupyter extensions
 
 #games
+ltris #tetris
 steam
 srb2
 minecraft
@@ -179,48 +208,65 @@ digger
 cgoban3 #go (baduk)
 
 #Applications
+virtualbox
+teamviewer-beta
+pulseeffects    #pulseaudio effects
+postman-bin     #send http requests
+pdfpc           #pdf presenter
+kazam           #screen recording
+graphviz        #visualize dot files
+handbrake       #video converter
+gtypist         #typing software
+espeak          #Speak text
+cheese          #webcam software
 teamviwer-beta
-neomutt-git #email
-zsh #shell
+neomutt-git     #email
+zsh             #shell
+oh-my-zsh-git   #shell extensions
+dash            #faster shell
 zsh-completions
-qutebrowser #browser
+qutebrowser     #browser
 transmission-qt #torrent client
 tor-browser 
-termite #terminal emulator
+termite         #terminal emulator
 teamviewer
 spotify
-rambox-bin #social media manager
-openlp #worship software
-mpv #media player
-vlc #media player
+rambox-bin      #social media manager
+openlp          #worship software
+mpv             #media player
+vlc             #media player
 libreoffice-fresh
-kdenlive #video editing
-gvim #text editor
-kakoune-git #text editor (like vim)
-kak-lsp-git #kakoune language server
-vis #text editor (like vim)
-weechat #irc client
-gimp #image editing
+kdenlive        #video editing
+gvim            #text editor
+kakoune-git     #text editor (like vim)
+kak-lsp-git     #kakoune language server
+vis             #text editor (like vim)
+weechat         #irc client
+gimp            #image editing
 firefox
 chromium
-audacity #sound editing
-rofi #application launcher
+audacity        #sound editing
+rofi            #application launcher
+filezilla       #ftp
 
 #Fun
 fortune-mod #fortune cookies
 cmatrix #matrix terminal
 cowsay
 figlet #big text figures
+toilet #big text figures
 
 #Window manager
-sway #i3 for wayland
-dunst-git #notifications
-statnot #notifications
-compton #compositor
-i3-style #colorschemes i3
-i3-wm #window manager
-i3blocks #customizable status bar
-i3lock #lock screen
+lightdm          #display manager
+lightdm-gtk-greeter
+sway             #i3 for wayland
+dunst-git        #notifications
+statnot          #notifications
+compton          #compositor
+i3-style         #colorschemes i3
+i3-wm            #window manager
+i3blocks         #customizable status bar
+i3lock           #lock screen
 perl-anyevent-i3 #communicate with i3
 
 #groups
@@ -245,31 +291,31 @@ syslinux
 efibootmgr #needed for grub on efi
 
 #System
-intel-ucode #microcode
-iw #wireless configuration
-lib32-libpulse #sound support wine
-lib32-openal #wine audio
-lib32-virtualgl #bumblebee
-linux-lts #fallback kernel
-lxqt-policykit #popup asking for password
-lxsession #something with polkit
+intel-ucode            #microcode
+iw                     #wireless configuration
+lib32-libpulse         #sound support wine
+lib32-openal           #wine audio
+lib32-virtualgl        #bumblebee
+linux-lts              #fallback kernel
+lxqt-policykit         #popup asking for password
+lxsession              #something with polkit
 network-manager-applet #icon for network manager
 networkmanager
 networkmanager-openvpn
 networkmanager-pptp
-ntp #time synchronization
-openssh #ssh
-postfix #mail server
+ntp                    #time synchronization
+openssh                #ssh
+postfix                #mail server
 pulseaudio-alsa
 pulseaudio-equalizer
-samba #shares and printers
-tlp #power management
-udevil #udev auto mount disks
-wpa_supplicant #wpa connections
-x264 #codec
-xorg-xinit #start x from tty
-bluez-utils #bluetooth
-inotify-tools #needed for ~/bin/onchange
+samba                  #shares and printers
+tlp                    #power management
+udevil                 #udev auto mount disks
+wpa_supplicant         #wpa connections
+x264                   #codec
+xorg-xinit             #start x from tty
+bluez-utils            #bluetooth
+inotify-tools          #needed for ~/bin/onchange
 
 #spelling check
 languagetool
@@ -279,3 +325,30 @@ aspell-nl
 # Language servers
 php-language-server
 python-language-server
+cquery
+javascript-typescript-langserver
+jdtls
+vscode-html-languageserver-bin
+vue-language-server
+
+# cross compiling
+mingw-w64-adwaita-icon-theme
+mingw-w64-atk
+mingw-w64-cairo-bootstrap
+mingw-w64-crt
+mingw-w64-fontconfig
+mingw-w64-freetype2-bootstrap
+mingw-w64-gcc
+mingw-w64-gdk-pixbuf2
+mingw-w64-glib2
+mingw-w64-gtk3
+mingw-w64-libepoxy
+mingw-w64-libidn2
+mingw-w64-libpng
+mingw-w64-libtiff
+mingw-w64-lzo
+mingw-w64-nettle
+mingw-w64-pango
+mingw-w64-pixman
+mingw-w64-rust-bin
+mingw-w64-xz
