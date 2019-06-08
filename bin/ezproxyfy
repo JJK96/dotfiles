@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+# transform an url so that it uses ezproxy2.utwente.nl
+# used for viewing scientific papers outside the UT
+
+xsel -bo | xargs python -c "
+import sys                     
+url = sys.argv[1]                     
+url = url.split('/') 
+url[2] = url[2].replace('.','-') + '.ezproxy2.utwente.nl'
+print('/'.join(url))
+" | xsel -bi

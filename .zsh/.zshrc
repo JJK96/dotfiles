@@ -7,18 +7,23 @@ setopt inc_append_history
 setopt autocd 
 setopt extendedglob
 #setopt share_history
-bindkey -v
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/jjk/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+# Search in history
 autoload -Uz history-beginning-search-menu
 zle -N history-beginning-search-menu
-bindkey '^X^X' history-beginning-search-menu
-bindkey '^R' history-incremental-search-backward
 
+# Search through history based on currently typed text
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+# easier job management
 fgLast() {
     fg
 }
@@ -41,18 +46,10 @@ prevJob() {
 zle -N nextJob
 zle -N prevJob
 zle -N fgLast
-bindkey '^Z' fgLast
-bindkey '^k' nextJob
-bindkey '^j' prevJob
 function chpwd() {
     emulate -L zsh
     ls --color
 }
-
-PERL5LIB="/home/jjk/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/jjk/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/jjk/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/jjk/perl5"; export PERL_MM_OPT;
 
 # aliases
 alias wine32='WINEPREFIX="$HOME/.wine32" wine'

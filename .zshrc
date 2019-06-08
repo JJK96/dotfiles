@@ -104,3 +104,4 @@ fi
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh/.zshrc
 source $HOME/.zsh/keybinds
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

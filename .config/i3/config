@@ -115,7 +115,7 @@ bindsym --release $mod+Print exec deepin-screenshot -s /tmp/ 2>&1 | grep -o '/tm
 bindsym $mod+a exec "rofi -combi-modi drun,run,ssh -show combi"
 
 # Lock the screen
-bindsym $mod+x exec "i3lock -ui ~/Pictures/active_wallpaper"
+bindsym $mod+x exec "i3lock -ui ~/Pictures/active_lockscreen"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -144,6 +144,10 @@ bindsym $mod+n focus down
 bindsym $mod+e focus up
 bindsym $mod+i focus right
 bindsym $mod+p focus parent
+
+# Change focus to next visible
+bindsym $mod+u exec --no-startup-id ~/.config/i3/bin/focus_next_visible.py
+bindsym $mod+Shift+u exec --no-startup-id ~/.config/i3/bin/focus_next_visible.py reverse
 
 # alternatively, you can use the cursor keys:
 #bindsym $mod+Left focus left
@@ -274,9 +278,9 @@ mode "resize" {
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
         bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym n resize grow height 10 px or 10 ppt
+        bindsym e resize shrink height 10 px or 10 ppt
+        bindsym i resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
     	#bindsym Left resize shrink width 10 px or 10 ppt

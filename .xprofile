@@ -10,7 +10,7 @@ nm-applet &
 compton &
 redshift &
 #termite -e weechat &
-firefox web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me calendar.google.com drive.google.com https://riot.im/app/ &
+#firefox web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me calendar.google.com drive.google.com https://riot.im/app/ https://mattermost.ewi.tudelft.nl &
 kak -s default -d
 wal -R
 xset s off

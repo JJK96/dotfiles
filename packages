@@ -223,6 +223,7 @@ teamviwer-beta
 neomutt-git     #email
 zsh             #shell
 oh-my-zsh-git   #shell extensions
+zsh-autosuggestions #as-you-type completion
 dash            #faster shell
 zsh-completions
 qutebrowser     #browser

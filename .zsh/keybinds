@@ -1,5 +1,15 @@
-bindkey -M vicmd "n" down-line-or-history
-bindkey -M vicmd "e" up-line-or-history
+bindkey -v
+
+# insert mode
+bindkey '^X^X' history-beginning-search-menu
+bindkey '^R' history-incremental-search-backward
+bindkey '^Z' fgLast
+bindkey '^k' nextJob
+bindkey '^j' prevJob
+
+# vi mode
+bindkey -M vicmd "n" down-line-or-beginning-search
+bindkey -M vicmd "e" up-line-or-beginning-search
 bindkey -M vicmd "i" vi-forward-char
 bindkey -M vicmd "j" vi-repeat-search
 bindkey -M vicmd "k" vi-forward-word-end
