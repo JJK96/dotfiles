@@ -1,0 +1,4 @@
+#!/bin/bash
+cp ~/.config/llpp.conf /tmp/llpp.conf
+trap 'rm /tmp/llpp.conf' EXIT
+/usr/bin/llpp -c /tmp/llpp.conf $@
