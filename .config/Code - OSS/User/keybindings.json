@@ -1,0 +1,278 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "l",
+        "command": "dance.insert.before",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "i",
+        "command": "-dance.insert.before",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "n",
+        "command": "dance.down",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "j",
+        "command": "-dance.down",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+n",
+        "command": "dance.down.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "j",
+        "command": "-dance.down.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+h",
+        "command": "dance.left.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "h",
+        "command": "-dance.left.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "i",
+        "command": "dance.right",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "l",
+        "command": "-dance.right",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+i",
+        "command": "dance.right.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "l",
+        "command": "-dance.right.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "e",
+        "command": "dance.up",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "k",
+        "command": "-dance.up",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+e",
+        "command": "dance.up.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "k",
+        "command": "-dance.up.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+'",
+        "command": "dance.registers.select",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "unknown",
+        "command": "-dance.registers.select",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "/",
+        "command": "dance.search",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "unknown",
+        "command": "-dance.search",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+/",
+        "command": "dance.search.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+unknown",
+        "command": "-dance.search.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+/",
+        "command": "dance.search.backwards",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+unknown",
+        "command": "-dance.search.backwards",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+meta+/",
+        "command": "dance.search.backwards.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+alt+unknown",
+        "command": "-dance.search.backwards.extend",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+alt+9",
+        "command": "dance.rotate.content.backwards",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+unknown",
+        "command": "-dance.rotate.content.backwards",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+alt+0",
+        "command": "dance.rotate.content",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+unknown",
+        "command": "-dance.rotate.content",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+0",
+        "command": "dance.rotate",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "unknown",
+        "command": "-dance.rotate",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+9",
+        "command": "dance.rotate.backwards",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "unknown",
+        "command": "-dance.rotate.backwards",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+`",
+        "command": "dance.toUpperCase",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "unknown",
+        "command": "-dance.toUpperCase",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+alt+o",
+        "command": "dance.newLine.above",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+o",
+        "command": "dance.newLine.below",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": ".",
+        "command": "dance.history.repeat",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+7",
+        "command": "dance.selections.align",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "unknown",
+        "command": "-dance.selections.align",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+,",
+        "command": "dance.deindent",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "unknown",
+        "command": "-dance.deindent",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "shift+alt+7",
+        "command": "dance.selections.align.copy",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+unknown",
+        "command": "-dance.selections.align.copy",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "k",
+        "command": "dance.select.word.end",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "e",
+        "command": "-dance.select.word.end",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+k",
+        "command": "dance.select.word.alt.end",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+e",
+        "command": "-dance.select.word.alt.end",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+i",
+        "command": "dance.select.toLineEnd",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+l",
+        "command": "-dance.select.toLineEnd",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+l",
+        "command": "dance.objects.select.inner",
+        "when": "editorTextFocus && dance.mode == 'insert'"
+    },
+    {
+        "key": "alt+i",
+        "command": "-dance.objects.select.inner",
+        "when": "editorTextFocus && dance.mode == 'insert'"
+    },
+    {
+        "key": "alt+l",
+        "command": "dance.objects.select.inner",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    },
+    {
+        "key": "alt+i",
+        "command": "-dance.objects.select.inner",
+        "when": "editorTextFocus && dance.mode == 'normal'"
+    }
+]
