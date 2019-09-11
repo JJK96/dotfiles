@@ -2,6 +2,7 @@
 #
 # Please see man i3blocks for a complete reference!
 # The man page is also hosted at http://vivien.github.io/i3blocks
+# Depends on i3blocks-contrib
 #
 # List of valid properties:
 #
@@ -24,7 +25,7 @@
 #
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
-command=/usr/lib/i3blocks/$BLOCK_NAME
+command=/usr/lib/i3blocks/$BLOCK_NAME/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
@@ -42,7 +43,7 @@ interval=repeat
 # The second parameter overrides the mixer selection
 # See the script for details.
 [volume]
-label=VOL
+label=VOL 
 #label=♪
 instance=Master
 #instance=PCM
@@ -100,7 +101,7 @@ signal=10
 #
 # The battery instance defaults to 0.
 [battery]
-label=BAT
+label=BAT 
 #instance=0
 interval=30
 
