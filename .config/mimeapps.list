@@ -32,6 +32,7 @@ text/x-c++=editor.desktop
 x-scheme-handler/mailto=exo-mail-reader.desktop
 inode/directory=Thunar.desktop;nomacs.desktop;ristretto.desktop;
 text/markdown=userapp-editor"-QNPF3Z.desktop
+x-scheme-handler/postman=Postman.desktop
 
 [Added Associations]
 text/plain=editor.desktop;gvim.desktop;userapp-"editor"-T232ZZ.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
@@ -48,7 +49,7 @@ text/x-lua=editor.desktop;
 text/x-log=editor.desktop;
 text/x-arduino=arduino.desktop;
 text/x-c++src=editor.desktop;
-image/png=nomacs.desktop;gimp.desktop;sxiv.desktop;eog.desktop;
+image/png=gimp.desktop;sxiv.desktop;nomacs.desktop;eog.desktop;
 application/x-cd-image=gnome-disk-image-mounter.desktop;xarchiver.desktop;org.gnome.FileRoller.desktop;
 application/vnd.openxmlformats-officedocument.presentationml.presentation=libreoffice-impress.desktop;xarchiver.desktop;
 application/x-ms-dos-executable=wine.desktop;dosbox.desktop;
@@ -101,7 +102,7 @@ text/x-tex=editor.desktop;
 application/x-keepass2=keepass.desktop;
 text/x-csrc=editor.desktop;
 application/x-osu-lazer-beatmap=osu-lazer.desktop;
-text/csv=libreoffice-calc.desktop;editor.desktop;
+text/csv=editor.desktop;libreoffice-calc.desktop;
 application/x-audacity-project=audacity.desktop;
 application/epub+zip=com.github.babluboy.bookworm.desktop;okularApplication_epub.desktop;
 text/x-matlab=editor.desktop;

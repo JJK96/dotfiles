@@ -6,6 +6,7 @@ bindkey '^R' history-incremental-search-backward
 bindkey '^Z' fgLast
 bindkey '^k' nextJob
 bindkey '^j' prevJob
+bindkey '^[n' end-of-line
 
 # vi mode
 bindkey -M vicmd "n" down-line-or-beginning-search

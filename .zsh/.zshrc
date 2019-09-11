@@ -109,7 +109,7 @@ alias mutt=neomutt
 
 # directories
 alias wd="cd /home/jjk/Documents/master"
-alias swifter="cd /srv/http/swifter/stamboek/"
+alias swifter="cd /srv/http/swifter/stamboek/;sudo systemctl start httpd mariadb"
 alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
 alias kaksrc="cd ~/git/kakoune-git/src/kakoune/"
 alias lspsrc="cd ~/git/kak-lsp-git/src/kak-lsp/"

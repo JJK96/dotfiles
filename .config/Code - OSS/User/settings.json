@@ -55,6 +55,6 @@
         }
     ],
     "editor.multiCursorModifier": "ctrlCmd",
-    "editor.lineNumbers": "relative",
+    "editor.lineNumbers": "on",
     "keyboard.dispatch": "keyCode"
 }
