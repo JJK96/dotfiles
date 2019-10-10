@@ -1,12 +1,13 @@
 #!/bin/bash
 # first argument should be public ip
 # if second argument is given it is the port
-if [ $# -lt 1 ]; then
-    echo "usage: $0 <ip address>"
-    exit 1
-fi
+ip=$(get_ipaddr)
 port=8080
 if [ $# -gt 1 ]; then
     port=$2
 fi
-cvlc -vvv v4l2:///dev/video0:chroma=mp4v --v4l2-width 1920 --v4l2-height 1080 --sout "#transcode{vcodec=mp4v,acodec=mp4a,fps=30}:rtp{mux=ts,sdp=rtsp://$1:$port/live.sdp}"
+temp=$(mktemp).png
+url=rtsp://$ip:$port/live.sdp
+qrencode $url -o $temp
+xdg-open $temp &
+cvlc -vvv v4l2:///dev/video0:chroma=mp4v --v4l2-width 1920 --v4l2-height 1080 --sout "#transcode{vcodec=mp4v,acodec=mp4a,fps=30}:rtp{mux=ts,sdp=$url}"

@@ -1,0 +1,5 @@
+#!/bin/bash
+temp=$(mktemp).png
+qrencode $(get_ipaddr):8000 -o $temp
+xdg-open $temp &
+python -m http.server
