@@ -1,3 +1,4 @@
 #!/bin/sh
 rclone sync --filter-from ~/Documents/master/.rsync-filter --max-size 20M -v -P ~/Documents/master drive:master
 rclone sync --filter-from ~/Documents/nse/nestor/.rclone-filter --max-size 20M -v -P ~/Documents/nse/nestor drive:navigators/nestor
+rclone sync -v -P ~/Pictures/ drive:images

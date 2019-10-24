@@ -259,7 +259,7 @@ bindsym $mod+Control+r restart
 # Enter resizing mode
 bindsym $mod+Shift+r mode "resize"
 # Exit i3 (logs you out of your X session)
-bindsym $mod+Control+e exec i3-msg exit
+bindsym $mod+Control+f exec i3-msg exit
 
 # Scratchpad show
 bindsym $mod+Tab exec i3-msg scratchpad show

@@ -1,3 +1,6 @@
 /etc/default/tlp
 /etc/X11/xorg.conf.d/*
 /etc/php/php.ini
+/etc/modules-load.d/bbswitch.conf
+/etc/modprobe.d/bbswitch.conf 
+/etc/pacman.conf

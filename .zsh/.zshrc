@@ -83,7 +83,6 @@ alias ide='ide && exit'
 alias cls='printf "\033c"'
 alias escape='xcape -e "ISO_Level3_Shift=Escape"'
 alias notify-at='function _at(){echo "notify-send" "${@:2}" | at $1 };_at'
-alias webserver='python -m http.server'
 
 # move workspace to other output.
 alias mvws='function _mvws(){i3-msg move workspace to output "$1"};_mvws'

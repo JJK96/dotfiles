@@ -8,9 +8,10 @@ lxpolkit &
 xrandr --output eDP-1 --primary &
 nm-applet &
 compton &
-redshift &
+# redshift &
 #termite -e weechat &
 #firefox web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me calendar.google.com drive.google.com https://riot.im/develop/ &
 kak -s default -d
 wal -R
 xset s off
+kdeconnect-indicator &
