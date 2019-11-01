@@ -1,0 +1,3 @@
+cd ~/.screenlayout
+layout=$(ls | rofi -dmenu)
+./$layout
