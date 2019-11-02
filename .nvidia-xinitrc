@@ -1,0 +1,6 @@
+arandr &
+setxkbmap -option
+source ~/.xprofile
+xrandr --output HDMI-1-1 --primary &
+lutris &
+i3
