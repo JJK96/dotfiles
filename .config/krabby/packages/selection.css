@@ -1,0 +1,46 @@
+/* Dracula theme – https://draculatheme.com */
+
+.primary-selection {
+  --primary-selection-color: hsl(326, 100%, 74%); /* Pink */
+  outline: var(--primary-selection-color) solid thin !important;
+  border: thin solid var(--primary-selection-color) !important;
+}
+
+.secondary-selection {
+  --secondary-selection-color: hsl(265, 89%, 78%); /* Purple */
+  outline: var(--secondary-selection-color) dotted thin !important;
+  border: thin dotted var(--secondary-selection-color) !important;
+}
+
+:root.primary-selection {
+  margin: 2px !important;
+}
+
+.primary-phantom {
+  --primary-phantom-color: hsl(135, 94%, 65%); /* Green */
+  outline: var(--primary-phantom-color) solid thin !important;
+  border: thin solid var(--primary-phantom-color) !important;
+}
+
+.secondary-phantom {
+  --secondary-phantom-color: hsl(135, 94%, 65%); /* Green */
+  outline: var(--secondary-phantom-color) dotted thin !important;
+  border: thin dotted var(--secondary-phantom-color) !important;
+}
+
+:root.primary-phantom {
+  margin: 2px !important;
+}
+
+/* Overlapping selections (selections on phantoms) */
+.primary-selection.primary-phantom, .primary-selection.secondary-phantom {
+  --primary-selection-color: hsl(265, 89%, 78%); /* Purple */
+  outline: var(--primary-selection-color) solid thin !important;
+  border: thin solid var(--primary-selection-color) !important;
+}
+
+.secondary-selection.primary-phantom, .secondary-selection.secondary-phantom {
+  --secondary-selection-color: hsl(326, 100%, 74%); /* Pink */
+  outline: var(--secondary-selection-color) dotted thin !important;
+  border: thin dotted var(--secondary-selection-color) !important;
+}
