@@ -75,6 +75,9 @@ class Modal {
         font-weight: bold;
         padding: 10px 0;
       }
+      #help main .keys {
+        white-space: nowrap;
+      }
       #notification {
         user-select: none;
         position: fixed;
@@ -185,7 +188,11 @@ class Modal {
         altKey: event.altKey,
         ctrlKey: event.ctrlKey,
         shiftKey: event.shiftKey,
-        code: event.key.toLowerCase(),
+        // Use event.key for layout-independent keys.
+        // Motivation: Swap Caps Lock and Escape.
+        // Use Space instead of ' '
+        // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values#Whitespace_keys
+        code: this.keyMap[event.code] ? event.code : /\s/.test(event.key) ? event.code : event.key
       }
       const key = JSON.stringify(keyChord)
       const command = this.context.commands[key]
@@ -302,7 +309,7 @@ class Modal {
           keyChord.metaKey = true
           break
         default:
-          keyChord.code = key.toLowerCase();
+          keyChord.code = key
       }
     }
     return keyChord
@@ -361,6 +368,7 @@ class Modal {
       table.append(row)
       // Table header cell
       const header = document.createElement('th')
+      header.classList.add('keys')
       const keys = this.keyValues(JSON.parse(keyChord))
       for (const key of keys) {
         const atom = document.createElement('kbd')

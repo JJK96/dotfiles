@@ -8,13 +8,22 @@ class Hint {
   static NAVIGATION_KEYS() {
     return ['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'End', 'Home', 'PageDown', 'PageUp']
   }
+  static KEY_MAP() {
+    return {
+      Digit1: '1', Digit2: '2', Digit3: '3', Digit4: '4', Digit5: '5', Digit6: '6', Digit7: '7', Digit8: '8', Digit9: '9', Digit0: '0',
+      KeyQ: 'q', KeyW: 'w', KeyE: 'e', KeyR: 'r', KeyT: 't', KeyY: 'y', KeyU: 'u', KeyI: 'i', KeyO: 'o', KeyP: 'p',
+      KeyA: 'a', KeyS: 's', KeyD: 'd', KeyF: 'f', KeyG: 'g', KeyH: 'h', KeyJ: 'j', KeyK: 'k', KeyL: 'l',
+      KeyZ: 'z', KeyX: 'x', KeyC: 'c', KeyV: 'v', KeyB: 'b', KeyN: 'n', KeyM: 'm'
+    }
+  }
   constructor() {
     this.selectors = '*'
-    this.keys = "arstdhneiowfuyplvk"
+    this.keys = ['KeyA', 'KeyJ', 'KeyS', 'KeyK', 'KeyD', 'KeyL', 'KeyG', 'KeyH', 'KeyE', 'KeyW', 'KeyO', 'KeyR', 'KeyU', 'KeyV', 'KeyN', 'KeyC', 'KeyM']
     this.lock = false
     this.hints = []
     this.inputKeys = []
     this.validatedElements = []
+    this.keyMap = Hint.KEY_MAP()
     // Events
     this.events = {}
     this.events['validate'] = []
@@ -100,6 +109,8 @@ class Hint {
       // and stop the propagation of the event.
       event.preventDefault()
       event.stopImmediatePropagation()
+      // Use event.key for layout-independent keys.
+      // Motivation: Swap Caps Lock and Escape.
       switch (event.key) {
         case 'Escape':
           this.stop()
@@ -111,7 +122,7 @@ class Hint {
           this.processKeys(this.inputKeys, true)
           break
         default:
-          this.processKeys(this.inputKeys.concat(event.key))
+          this.processKeys(this.inputKeys.concat(event.code))
       }
     }
     this.onViewChange = (event) => {
@@ -164,7 +175,7 @@ class Hint {
       for (const [index, code] of label.entries()) {
         const atom = document.createElement('span')
         atom.classList.add('character', code === this.inputKeys[index] ? 'active' : 'normal')
-        atom.textContent = code
+        atom.textContent = this.keyMap[code]
         container.append(atom)
       }
       const rectangle = element.getBoundingClientRect()
