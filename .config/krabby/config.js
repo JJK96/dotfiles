@@ -22,142 +22,156 @@ key_map = {
       KeyZ: 'KeyZ', KeyX: 'KeyX', KeyC: 'KeyC', KeyV: 'KeyV', KeyB: 'KeyB', KeyN: 'KeyJ', KeyM: 'KeyM'
 }
 
-// Mappings ────────────────────────────────────────────────────────────────────
+const krabby = new Krabby({ dormant: false })
+
+// Mappings ──────────────────────────────────────────────────────────────────
 
 // Help
-modal.map('Page', ['F1'], () => modal.help(), 'Show help')
-modal.map('Page', ['Shift', 'F1'], () => window.open('https://github.com/alexherbo2/krabby/tree/master/doc'), 'Open the documentation in a new tab')
+krabby.modes.modal.map('Page', ['F1'], () => krabby.modes.modal.help(), 'Show help')
+krabby.modes.modal.map('Page', ['Shift', 'F1'], () => window.open('https://github.com/alexherbo2/krabby/tree/master/doc'), 'Open the documentation in a new tab')
 
 // Tab search
-modal.map('Command', [key_map['KeyQ']], () => dmenu.send('tab-search'), 'Tab search with dmenu')
+krabby.modes.modal.map('Command', [key_map['KeyQ']], () => krabby.extensions.dmenu.send('tab-search'), 'Tab search with dmenu')
 
 // Scroll
-modal.map('Command', [key_map['KeyJ']], (event) => scroll.down(event.repeat), 'Scroll down')
-modal.map('Command', [key_map['KeyK']], (event) => scroll.up(event.repeat), 'Scroll up')
-modal.map('Command', [key_map['KeyL']], (event) => scroll.right(event.repeat), 'Scroll right')
-modal.map('Command', [key_map['KeyH']], (event) => scroll.left(event.repeat), 'Scroll left')
+krabby.modes.modal.map('Command', [key_map['KeyN']], (event) => krabby.scroll.down(event.repeat), 'Scroll down')
+krabby.modes.modal.map('Command', [key_map['KeyE']], (event) => krabby.scroll.up(event.repeat), 'Scroll up')
+krabby.modes.modal.map('Command', [key_map['KeyI']], (event) => krabby.scroll.right(event.repeat), 'Scroll right')
+krabby.modes.modal.map('Command', [key_map['KeyH']], (event) => krabby.scroll.left(event.repeat), 'Scroll left')
 
 // Scroll faster
-modal.map('Command', ['Shift', key_map['KeyJ']], () => scroll.pageDown(), 'Scroll page down')
-modal.map('Command', ['Shift', key_map['KeyK']], () => scroll.pageUp(), 'Scroll page up')
-modal.map('Command', [key_map['KeyG']], () => scroll.top(), 'Scroll to the top of the page')
-modal.map('Command', ['Shift', key_map['KeyG']], () => scroll.bottom(), 'Scroll to the bottom of the page')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyN']], () => krabby.scroll.pageDown(), 'Scroll page down')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyE']], () => krabby.scroll.pageUp(), 'Scroll page up')
+krabby.modes.modal.map('Command', [key_map['KeyG']], () => krabby.scroll.top(), 'Scroll to the top of the page')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyG']], () => krabby.scroll.bottom(), 'Scroll to the bottom of the page')
 
 // Navigation
-modal.map('Command', ['Shift', key_map['KeyH']], () => history.back(), 'Go back in history')
-modal.map('Command', ['Shift', key_map['KeyL']], () => history.forward(), 'Go forward in history')
-modal.map('Command', [key_map['KeyU']], () => location.assign('..'), 'Go up in hierarchy')
-modal.map('Command', ['Shift', key_map['KeyU']], () => location.assign('/'), 'Go to the home page')
-modal.map('Command', ['Alt', key_map['KeyU']], () => location.assign('.'), 'Remove any URL parameter')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyH']], () => history.back(), 'Go back in history')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyI']], () => history.forward(), 'Go forward in history')
+krabby.modes.modal.map('Command', [key_map['KeyU']], () => location.assign('..'), 'Go up in hierarchy')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyU']], () => location.assign('/'), 'Go to the home page')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyU']], () => location.assign('.'), 'Remove any URL parameter')
 
 // Zoom
-modal.map('Command', ['Shift', 'Equal'], () => commands.send('zoom-in'), 'Zoom in')
-modal.map('Command', ['Minus'], () => commands.send('zoom-out'), 'Zoom out')
-modal.map('Command', ['Equal'], () => commands.send('zoom-reset'), 'Reset to default zoom level')
+krabby.modes.modal.map('Command', ['Shift', 'Equal'], () => krabby.extensions.commands.send('zoom-in'), 'Zoom in')
+krabby.modes.modal.map('Command', ['Minus'], () => krabby.extensions.commands.send('zoom-out'), 'Zoom out')
+krabby.modes.modal.map('Command', ['Equal'], () => krabby.extensions.commands.send('zoom-reset'), 'Reset to default zoom level')
 
 // Create tabs
-modal.map('Command', [key_map['KeyT']], () => commands.send('new-tab'), 'New tab')
-modal.map('Command', ['Shift', key_map['KeyT']], () => commands.send('restore-tab'), 'Restore tab')
-modal.map('Command', [key_map['KeyB']], () => commands.send('duplicate-tab'), 'Duplicate tab')
+krabby.modes.modal.map('Command', [key_map['KeyT']], () => krabby.extensions.commands.send('new-tab'), 'New tab')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyT']], () => krabby.extensions.commands.send('restore-tab'), 'Restore tab')
+krabby.modes.modal.map('Command', [key_map['KeyB']], () => krabby.extensions.commands.send('duplicate-tab'), 'Duplicate tab')
 
 // Create windows
-modal.map('Command', [key_map['KeyN']], () => commands.send('new-window'), 'New window')
-modal.map('Command', ['Shift', key_map['KeyN']], () => commands.send('new-incognito-window'), 'New incognito window')
+krabby.modes.modal.map('Command', [key_map['KeyK']], () => krabby.extensions.commands.send('new-window'), 'New window')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyK']], () => krabby.extensions.commands.send('new-incognito-window'), 'New incognito window')
 
 // Close tabs
-modal.map('Command', [key_map['KeyX']], () => commands.send('close-tab'), 'Close tab')
-modal.map('Command', ['Shift', key_map['KeyX']], () => commands.send('close-other-tabs'), 'Close other tabs')
-modal.map('Command', ['Alt', key_map['KeyX']], () => commands.send('close-right-tabs'), 'Close tabs to the right')
+krabby.modes.modal.map('Command', [key_map['KeyX']], () => krabby.extensions.commands.send('close-tab'), 'Close tab')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyX']], () => krabby.extensions.commands.send('close-other-tabs'), 'Close other tabs')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyX']], () => krabby.extensions.commands.send('close-right-tabs'), 'Close tabs to the right')
 
 // Refresh tabs
-modal.map('Command', [key_map['KeyR']], () => location.reload(), 'Reload the page')
-modal.map('Command', ['Shift', key_map['KeyR']], () => location.reload(true), 'Reload the page, ignoring cached content')
-modal.map('Command', ['Alt', key_map['KeyR']], () => commands.send('reload-all-tabs'), 'Reload all tabs')
+krabby.modes.modal.map('Command', [key_map['KeyR']], () => location.reload(), 'Reload the page')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyR']], () => location.reload(true), 'Reload the page, ignoring cached content')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyR']], () => krabby.extensions.commands.send('reload-all-tabs'), 'Reload all tabs')
 
 // Switch tabs
-modal.map('Command', ['Alt', key_map['KeyL']], () => commands.send('next-tab'), 'Next tab')
-modal.map('Command', ['Alt', key_map['KeyH']], () => commands.send('previous-tab'), 'Previous tab')
-modal.map('Command', ['Digit1'], () => commands.send('first-tab'), 'First tab')
-modal.map('Command', ['Digit0'], () => commands.send('last-tab'), 'Last tab')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyI']], () => krabby.extensions.commands.send('next-tab'), 'Next tab')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyH']], () => krabby.extensions.commands.send('previous-tab'), 'Previous tab')
+krabby.modes.modal.map('Command', ['Digit1'], () => krabby.extensions.commands.send('first-tab'), 'First tab')
+krabby.modes.modal.map('Command', ['Digit0'], () => krabby.extensions.commands.send('last-tab'), 'Last tab')
 
 // Move tabs
-modal.map('Command', ['Alt', 'Shift', key_map['KeyL']], () => commands.send('move-tab-right'), 'Move tab right')
-modal.map('Command', ['Alt', 'Shift', key_map['KeyH']], () => commands.send('move-tab-left'), 'Move tab left')
-modal.map('Command', ['Alt', 'Digit1'], () => commands.send('move-tab-first'), 'Move tab first')
-modal.map('Command', ['Alt', 'Digit0'], () => commands.send('move-tab-last'), 'Move tab last')
+krabby.modes.modal.map('Command', ['Alt', 'Shift', key_map['KeyI']], () => krabby.extensions.commands.send('move-tab-right'), 'Move tab right')
+krabby.modes.modal.map('Command', ['Alt', 'Shift', key_map['KeyH']], () => krabby.extensions.commands.send('move-tab-left'), 'Move tab left')
+krabby.modes.modal.map('Command', ['Alt', 'Digit1'], () => krabby.extensions.commands.send('move-tab-first'), 'Move tab first')
+krabby.modes.modal.map('Command', ['Alt', 'Digit0'], () => krabby.extensions.commands.send('move-tab-last'), 'Move tab last')
 
 // Detach tabs
-modal.map('Command', [key_map['KeyD']], () => commands.send('detach-tab'), 'Detach tab')
-modal.map('Command', ['Shift', key_map['KeyD']], () => commands.send('attach-tab'), 'Attach tab')
+krabby.modes.modal.map('Command', [key_map['KeyD']], () => krabby.extensions.commands.send('detach-tab'), 'Detach tab')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyD']], () => krabby.extensions.commands.send('attach-tab'), 'Attach tab')
 
 // Discard tabs
-modal.map('Command', [key_map['KeyZ']], () => commands.send('discard-tab'), 'Discard tab')
+krabby.modes.modal.map('Command', ['Shift', 'Escape'], () => krabby.extensions.commands.send('discard-tab'), 'Discard tab')
 
 // Mute tabs
-modal.map('Command', ['Alt', key_map['KeyM']], () => commands.send('mute-tab'), 'Mute tab')
-modal.map('Command', ['Alt', 'Shift', key_map['KeyM']], () => commands.send('mute-all-tabs'), 'Mute all tabs')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyM']], () => krabby.extensions.commands.send('mute-tab'), 'Mute tab')
+krabby.modes.modal.map('Command', ['Alt', 'Shift', key_map['KeyM']], () => krabby.extensions.commands.send('mute-all-tabs'), 'Mute all tabs')
 
 // Pin tabs
-modal.map('Command', ['Alt', key_map['KeyP']], () => commands.send('pin-tab'), 'Pin tab')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyP']], () => krabby.extensions.commands.send('pin-tab'), 'Pin tab')
 
 // Link hints
-modal.map('Command', [key_map['KeyF']], () => hint().start(), 'Focus link')
-modal.map('Command', ['Shift', key_map['KeyF']], () => hint({ selections, lock: true }).start(), 'Select multiple links')
-modal.map('Command', [key_map['KeyI']], () => hint({ selectors: HINT_TEXT_SELECTORS }).start(), 'Focus input')
-modal.map('Command', [key_map['KeyV']], () => hint({ selectors: HINT_VIDEO_SELECTORS }).start(), 'Focus video')
+krabby.modes.modal.map('Command', [key_map['KeyF']], () => krabby.modes.hint({ selections: krabby.selections, selectors: krabby.env.HINT_SELECTORS }).start(), 'Focus link')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyF']], () => krabby.modes.hint({ selections: krabby.selections, selectors: krabby.env.HINT_SELECTORS, lock: true }).start(), 'Select multiple links')
+krabby.modes.modal.map('Command', [key_map['KeyL']], () => krabby.modes.hint({ selectors: krabby.env.HINT_TEXT_SELECTORS }).start(), 'Focus input')
+krabby.modes.modal.map('Command', [key_map['KeyV']], () => krabby.modes.hint({ selectors: krabby.env.HINT_VIDEO_SELECTORS }).start(), 'Focus video')
 
 // Open links
-modal.map('Link', ['Enter'], () => click(selections), 'Open link')
-modal.map('Link', ['Control', 'Enter'], () => click(selections, { ctrlKey: true }), 'Open link in new tab')
-modal.map('Link', ['Shift', 'Enter'], () => click(selections, { shiftKey: true }), 'Open link in new window')
-modal.map('Link', ['Alt', 'Enter'], () => click(selections, { altKey: true }), 'Download link')
-modal.map('Link', [key_map['KeyO']], () => open(selections), 'Open link in the associated application')
+krabby.modes.modal.map('Command', ['Enter'], () => krabby.commands.click(krabby.selections), 'Open selection')
+krabby.modes.modal.map('Link', ['Enter'], () => krabby.commands.click(krabby.selections), 'Open link')
+krabby.modes.modal.map('Link', ['Control', 'Enter'], () => krabby.commands.openInNewTab(krabby.selections), 'Open link in new tab')
+krabby.modes.modal.map('Link', ['Shift', 'Enter'], () => krabby.commands.openInNewWindow(krabby.selections), 'Open link in new window')
+krabby.modes.modal.map('Link', ['Alt', 'Enter'], () => krabby.commands.download(krabby.selections), 'Download link')
+krabby.modes.modal.map('Link', ['Alt', 'Shift', 'Enter'], () => krabby.commands.open(krabby.selections), 'Open link in the associated application')
 
 // Selection manipulation
-modal.map('Command', [key_map['KeyS']], () => selections.add(document.activeElement), 'Select active element')
-modal.map('Command', ['Shift', key_map['KeyS']], () => select(selections), 'Select elements that match the specified group of selectors')
-modal.map('Command', ['Shift', 'Digit5'], () => selections.set([document.documentElement]), 'Select document')
-modal.map('Command', ['Shift', 'Digit0'], () => selections.next(), 'Focus next selection')
-modal.map('Command', ['Shift', 'Digit9'], () => selections.previous(), 'Focus previous selection')
-modal.map('Command', ['Space'], () => selections.clear(), 'Clear selections')
-modal.map('Command', ['Control', 'Space'], () => selections.focus(), 'Focus main selection')
-modal.map('Command', ['Alt', 'Space'], () => selections.remove(), 'Remove main selection')
-modal.map('Command', ['Alt', key_map['KeyA']], () => selections.parent(), 'Select parent elements')
-modal.map('Command', ['Alt', key_map['KeyI']], () => selections.children(), 'Select child elements')
-modal.map('Command', ['Alt', 'Shift', key_map['KeyI']], () => selections.select('a'), 'Select links')
-modal.map('Command', ['Alt', key_map['KeyK']], () => keep(selections, true, 'textContent'), 'Keep selections that match the given RegExp')
-modal.map('Command', ['Alt', 'Shift', key_map['KeyK']], () => keep(selections, true, 'href'), 'Keep links that match the given RegExp')
-modal.map('Command', ['Alt', key_map['KeyJ']], () => keep(selections, false, 'textContent'), 'Clear selections that match the given RegExp')
-modal.map('Command', ['Alt', 'Shift', key_map['KeyJ']], () => keep(selections, false, 'href'), 'Clear links that match the given RegExp')
+krabby.modes.modal.map('Command', [key_map['KeyS']], () => krabby.selections.add(document.activeElement), 'Select active element')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyS']], () => krabby.commands.select(krabby.selections), 'Select elements that match the specified group of selectors')
+krabby.modes.modal.map('Command', ['Shift', 'Digit5'], () => krabby.selections.set([document.documentElement]), 'Select document')
+krabby.modes.modal.map('Command', ['Shift', 'Digit0'], () => krabby.selections.next(), 'Focus next selection')
+krabby.modes.modal.map('Command', ['Shift', 'Digit9'], () => krabby.selections.previous(), 'Focus previous selection')
+krabby.modes.modal.map('Command', ['Space'], () => krabby.selections.clear(), 'Clear selections')
+krabby.modes.modal.map('Command', ['Control', 'Space'], () => krabby.selections.focus(), 'Focus main selection')
+krabby.modes.modal.map('Command', ['Alt', 'Space'], () => krabby.selections.remove(), 'Remove main selection')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyA']], () => krabby.selections.parent(), 'Select parent elements')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyL']], () => krabby.selections.children(), 'Select child elements')
+krabby.modes.modal.map('Command', ['Alt', 'Shift', key_map['KeyL']], () => krabby.selections.select('a'), 'Select links')
+krabby.modes.modal.map('Command', ['Alt', 'Shift', 'Digit0'], () => krabby.selections.nextSibling(), 'Select next sibling elements')
+krabby.modes.modal.map('Command', ['Alt', 'Shift', 'Digit9'], () => krabby.selections.previousSibling(), 'Select previous sibling elements')
+krabby.modes.modal.map('Command', ['BracketLeft'], () => krabby.selections.firstChild(), 'Select first child elements')
+krabby.modes.modal.map('Command', ['BracketRight'], () => krabby.selections.lastChild(), 'Select last child elements')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyE']], () => krabby.commands.keep(krabby.selections, true, 'textContent'), 'Keep selections that match the given RegExp')
+krabby.modes.modal.map('Command', ['Alt', 'Shift', key_map['KeyE']], () => krabby.commands.keep(krabby.selections, true, 'href'), 'Keep links that match the given RegExp')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyN']], () => krabby.commands.keep(krabby.selections, false, 'textContent'), 'Clear selections that match the given RegExp')
+krabby.modes.modal.map('Command', ['Alt', 'Shift', key_map['KeyN']], () => krabby.commands.keep(krabby.selections, false, 'href'), 'Clear links that match the given RegExp')
+
+// Phantom selections
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyZ']], () => krabby.selections.save(), 'Save selections')
+krabby.modes.modal.map('Command', [key_map['KeyZ']], () => krabby.selections.restore(), 'Restore selections')
 
 // Unfocus
-modal.map('Page', ['Escape'], () => document.activeElement.blur(), 'Unfocus active element')
+krabby.modes.modal.map('Page', ['Escape'], () => document.activeElement.blur(), 'Unfocus active element')
 
 // Pass keys
-modal.map('Page', ['Alt', 'Escape'], pass, 'Pass all keys to the page')
-pass.map('Page', ['Alt', 'Escape'], modal, 'Stop passing keys to the page')
+krabby.modes.modal.map('Page', ['Alt', 'Escape'], krabby.modes.pass, 'Pass all keys to the page')
+krabby.modes.pass.map('Page', ['Alt', 'Escape'], krabby.modes.modal, 'Stop passing keys to the page')
 
 // Clipboard
-modal.map('Command', [key_map['KeyY']], () => copyToClipboard(location.href, 'Page address copied'), 'Copy page address')
-modal.map('Command', ['Alt', key_map['KeyY']], () => copyToClipboard(document.title, 'Page title copied'), 'Copy page title')
-modal.map('Command', ['Shift', key_map['KeyY']], () => copyToClipboard(`[${document.title}](${location.href})`, 'Page address and title copied'), 'Copy page address and title')
-modal.map('Link', [key_map['KeyY']], () => yank(selections, (selection) => selection.href, 'Link address copied'), 'Copy link address')
-modal.map('Link', ['Alt', key_map['KeyY']], () => yank(selections, (selection) => selection.textContent, 'Link text copied'), 'Copy link text')
-modal.map('Link', ['Shift', key_map['KeyY']], () => yank(selections, (selection) => `[${selection.textContent}](${selection.href})`, 'Link address and text copied'), 'Copy link address and text')
+krabby.modes.modal.map('Command', [key_map['KeyY']], () => krabby.commands.copyToClipboard(location.href, 'Page address copied'), 'Copy page address')
+krabby.modes.modal.map('Command', ['Alt', key_map['KeyY']], () => krabby.commands.copyToClipboard(document.title, 'Page title copied'), 'Copy page title')
+krabby.modes.modal.map('Command', ['Shift', key_map['KeyY']], () => krabby.commands.copyToClipboard(`[${document.title}](${location.href})`, 'Page address and title copied'), 'Copy page address and title')
+krabby.modes.modal.map('Link', [key_map['KeyY']], () => krabby.commands.yank(krabby.selections, (selection) => selection.href, 'Link address copied'), 'Copy link address')
+krabby.modes.modal.map('Link', ['Alt', key_map['KeyY']], () => krabby.commands.yank(krabby.selections, (selection) => selection.textContent, 'Link text copied'), 'Copy link text')
+krabby.modes.modal.map('Link', ['Shift', key_map['KeyY']], () => krabby.commands.yank(krabby.selections, (selection) => `[${selection.textContent}](${selection.href})`, 'Link address and text copied'), 'Copy link address and text')
+krabby.modes.modal.map('Image', [key_map['KeyY']], () => krabby.commands.yank(krabby.selections, (selection) => selection.src, 'Image address copied'), 'Copy image address')
+krabby.modes.modal.map('Image', ['Alt', key_map['KeyY']], () => krabby.commands.yank(krabby.selections, (selection) => selection.alt, 'Image description copied'), 'Copy image description')
+krabby.modes.modal.map('Image', ['Shift', key_map['KeyY']], () => krabby.commands.yank(krabby.selections, (selection) => `[${selection.alt}](${selection.src})`, 'Image address and description copied'), 'Copy image address and description')
 
 // Player
-modal.map('Video', ['Space'], () => player().pause(), 'Pause video')
-modal.map('Video', [key_map['KeyM']], () => player().mute(), 'Mute video')
-modal.map('Video', [key_map['KeyL']], () => player().seekRelative(5), 'Seek forward 5 seconds')
-modal.map('Video', [key_map['KeyH']], () => player().seekRelative(-5), 'Seek backward 5 seconds')
-modal.map('Video', [key_map['KeyG']], () => player().seekAbsolutePercent(0), 'Seek to the beginning')
-modal.map('Video', ['Shift', key_map['KeyG']], () => player().seekAbsolutePercent(1), 'Seek to the end')
-modal.map('Video', [key_map['KeyK']], () => player().increaseVolume(0.1), 'Increase volume')
-modal.map('Video', [key_map['KeyJ']], () => player().decreaseVolume(0.1), 'Decrease volume')
-modal.map('Video', [key_map['KeyF']], () => player().fullscreen(), 'Toggle full-screen mode')
-modal.map('Video', [key_map['KeyP']], () => player().pictureInPicture(), 'Toggle picture-in-picture mode')
+krabby.modes.modal.map('Video', ['Space'], () => krabby.commands.player().pause(), 'Pause video')
+krabby.modes.modal.map('Video', [key_map['KeyM']], () => krabby.commands.player().mute(), 'Mute video')
+krabby.modes.modal.map('Video', [key_map['KeyI']], () => krabby.commands.player().seekRelative(5), 'Seek forward 5 seconds')
+krabby.modes.modal.map('Video', [key_map['KeyH']], () => krabby.commands.player().seekRelative(-5), 'Seek backward 5 seconds')
+krabby.modes.modal.map('Video', [key_map['KeyG']], () => krabby.commands.player().seekAbsolutePercent(0), 'Seek to the beginning')
+krabby.modes.modal.map('Video', ['Shift', key_map['KeyG']], () => krabby.commands.player().seekAbsolutePercent(1), 'Seek to the end')
+krabby.modes.modal.map('Video', [key_map['KeyE']], () => krabby.commands.player().increaseVolume(0.1), 'Increase volume')
+krabby.modes.modal.map('Video', [key_map['KeyN']], () => krabby.commands.player().decreaseVolume(0.1), 'Decrease volume')
+krabby.modes.modal.map('Video', [key_map['KeyF']], () => krabby.commands.player().fullscreen(), 'Toggle full-screen mode')
+krabby.modes.modal.map('Video', [key_map['KeyP']], () => krabby.commands.player().pictureInPicture(), 'Toggle picture-in-picture mode')
 
 // mpv
-modal.map('Video', ['Enter'], () => mpvResume(), 'Play with mpv')
-modal.map('Link', [key_map['KeyM']], () => mpv({ selections }), 'Play with mpv')
-modal.map('Link', ['Alt', 'KeyM'], () => mpv({ selections, reverse: true }), 'Play with mpv in reverse order')
+krabby.modes.modal.map('Video', ['Enter'], () => krabby.commands.mpvResume(), 'Play with mpv')
+krabby.modes.modal.map('Link', [key_map['KeyM']], () => krabby.commands.mpv({ selections: krabby.selections }), 'Play with mpv')
+krabby.modes.modal.map('Link', ['Alt', key_map['KeyM']], () => krabby.commands.mpv({ selections: krabby.selections, reverse: true }), 'Play with mpv in reverse order')
