@@ -1,0 +1,2 @@
+UNIPICKER_SELECT_COMMAND="rofi -dmenu -matching regex"
+UNIPICKER_SYMBOLS_FILE="$HOME/.config/unipicker/symbols"
