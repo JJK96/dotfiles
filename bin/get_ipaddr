@@ -1,1 +1,9 @@
-ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'
+#!/bin/bash
+#
+# -e: external ip
+
+if [ $# -gt 0 ] && [ "$1" == '-e' ]; then
+    curl https://api.ipify.org
+else
+    ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'
+fi
