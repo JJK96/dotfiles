@@ -1,5 +1,7 @@
 // Configuration for Krabby (https://github.com/alexherbo2/krabby/blob/master/src/krabby.js)
 
+// Keymaps for colemak
+
 Modal.KEY_MAP = () => {
     return {
       Backquote: { key: '`', shiftKey: '~' }, Digit1: { key: '1', shiftKey: '!' }, Digit2: { key: '2', shiftKey: '@' }, Digit3: { key: '3', shiftKey: '#' }, Digit4: { key: '4', shiftKey: '$' }, Digit5: { key: '5', shiftKey: '%' }, Digit6: { key: '6', shiftKey: '^' }, Digit7: { key: '7', shiftKey: '&' }, Digit8: { key: '8', shiftKey: '*' }, Digit9: { key: '9', shiftKey: '(' }, Digit0: { key: '0', shiftKey: ')' }, Minus: { key: '-', shiftKey: '_' }, Equal: { key: '=', shiftKey: '+' },
@@ -17,6 +19,8 @@ Hint.KEY_MAP = () => {
       KeyZ: 'z', KeyX: 'x', KeyC: 'c', KeyV: 'v', KeyB: 'b', KeyN: 'k', KeyM: 'm'
     }
 }
+
+// Reverse keymap for more comprehensible bindings
 
 key_map = {
       KeyQ: 'KeyQ', KeyW: 'KeyW', KeyE: 'KeyK', KeyR: 'KeyS', KeyT: 'KeyF', KeyY: 'KeyO', KeyU: 'KeyI', KeyI: 'KeyL', KeyO: 'Semicolon', KeyP: 'KeyR',
@@ -177,3 +181,16 @@ krabby.modes.modal.map('Video', [key_map['KeyP']], () => krabby.commands.player(
 krabby.modes.modal.map('Video', ['Enter'], () => krabby.commands.mpvResume(), 'Play with mpv')
 krabby.modes.modal.map('Link', [key_map['KeyM']], () => krabby.commands.mpv({ selections: krabby.selections }), 'Play with mpv')
 krabby.modes.modal.map('Link', ['Alt', key_map['KeyM']], () => krabby.commands.mpv({ selections: krabby.selections, reverse: true }), 'Play with mpv in reverse order')
+
+// ezproxyfy
+
+function ezproxyfy() {
+    //replace url with new url using ezproxy2.utwente.nl
+    url = window.location.href
+    url = url.split('/')
+    url[2] = url[2].replace(/\./g,'-') + '.ezproxy2.utwente.nl'
+    url = url.join('/')
+    window.location.replace(url)
+}
+
+krabby.modes.modal.map('Command', [key_map['KeyP']], ezproxyfy, 'Ezproxyfy url')
