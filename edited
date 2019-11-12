@@ -4,3 +4,5 @@
 /etc/modules-load.d/bbswitch.conf
 /etc/modprobe.d/bbswitch.conf 
 /etc/pacman.conf
+/etc/httpd/conf/extra/httpd-ssl.conf
+/etc/httpd/conf/httpd.conf
