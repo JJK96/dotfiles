@@ -27,7 +27,7 @@ Master :gmail-remote:
 Slave :gmail-local:
 # Exclude everything under the internal [Gmail] folder, except the interesting folders
 # Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
-Patterns INBOX "[Gmail]/Sent Mail" "[Gmail]/All Mail"
+Patterns INBOX "[Gmail]/Sent Mail" "[Gmail]/All Mail" "[Gmail]/Starred" "[Gmail]/Drafts" "[Gmail]/Trash"
 MaxMessages 100
 ExpireUnread yes
 # Or include everything

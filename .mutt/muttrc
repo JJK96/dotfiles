@@ -3,8 +3,6 @@ set ssl_force_tls = yes
 
 folder-hook 'gmail' 'source ~/dotfiles/.mutt/gmail'
 # folder-hook 'personal'
-macro index 1 "<change-folder> =../gmail/inbox/<enter>"
-# macro index 2 
 macro index R "!mbsync -a > /dev/null 2>&1 &^M" "Update through mbsync"
 set move = no
 
@@ -13,7 +11,7 @@ set sort = reverse-threads
 set sort_aux = last-date-received
 
 # mailboxes displayed in the sidebar
-mailboxes ~/dotfiles/.mutt/mailbox/gmail/Inbox ~/dotfiles/.mutt/mailbox/gmail/[Gmail]/All\ Mail
+mailboxes ~/dotfiles/.mutt/mailbox/gmail/Inbox ~/dotfiles/.mutt/mailbox/gmail/[Gmail]/All\ Mail ~/dotfiles/.mutt/mailbox/gmail/[Gmail]/Sent\ Mail ~/dotfiles/.mutt/mailbox/gmail/[Gmail]/Trash
 
 # sidebar
 set sidebar_visible = yes

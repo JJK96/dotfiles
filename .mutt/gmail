@@ -3,8 +3,11 @@ set smtp_pass = `pass gmail`
 
 set folder = "~/dotfiles/.mutt/mailbox/gmail"
 set spoolfile = "~/dotfiles/.mutt/mailbox/gmail/Inbox"
-set postponed = "~/dotfiles/.mutt/mailbox/gmail/drafts"
-set trash = "+/trash"
+set postponed = "~/dotfiles/.mutt/mailbox/gmail/[Gmail]/Drafts"
+set record = "~/dotfiles/.mutt/mailbox/gmail/[Gmail]/Sent Mail"
+set trash = "~/dotfiles/.mutt/mailbox/gmail/[Gmail]/Trash"
 
 set from = "jjkorpershoek96@gmail.com"
 set realname = "Jan-Jaap Korpershoek"
+
+macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"

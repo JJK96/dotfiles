@@ -6,15 +6,15 @@
 #unbind g
 bind index g noop
 
-bind index j next-entry
-bind index k previous-entry
-bind index J next-thread
-bind index K previous-thread
+bind index n next-entry
+bind index e previous-entry
+bind index N next-thread
+bind index e previous-thread
 
 bind index / search
 bind index ? search-reverse
-bind index n search-next
-bind index N search-opposite
+bind index j search-next
+bind index J search-opposite
 
 bind index gg first-entry
 bind index G last-entry
@@ -27,7 +27,7 @@ bind index z collapse-all
 
 bind index r reply
 bind index a group-reply
-bind index L list-reply
+bind index I list-reply
 
 bind index h limit
 
@@ -47,8 +47,8 @@ push <collapse-all><last-entry>
 #unbind g
 bind pager g noop
 
-bind pager j next-line
-bind pager k previous-line
+bind pager n next-line
+bind pager e previous-line
 
 # The mouse wheel seems to send <up><up><up>/<down><down><down> by default with
 # GNOME Terminal. Use it to scroll through messages.
@@ -57,8 +57,8 @@ bind pager <up>   previous-line
 
 bind pager / search
 bind pager ? search-reverse
-bind pager n search-next
-bind pager N search-opposite
+bind pager j search-next
+bind pager J search-opposite
 
 bind pager gg top
 bind pager G bottom
@@ -68,8 +68,8 @@ bind pager \Cu half-up
 
 bind pager r reply
 bind pager a group-reply
-bind pager l list-reply
-bind pager L list-reply
+bind pager i list-reply
+bind pager I list-reply
 
 bind pager \Ch help
 
@@ -79,4 +79,10 @@ bind pager \Ch help
 macro attach 'V' "<pipe-entry>browser<enter>"
 bind attach g noop
 bind attach gg first-entry
-bind attach G last-entry
+bind attach G last-entry 
+
+# Query
+
+bind query n next-entry
+bind query e previous-entry
+
