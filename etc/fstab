@@ -7,6 +7,12 @@ UUID=c41b677b-6e29-4414-8e06-c0a9ac9fdb72 /home        	btrfs     	rw,relatime,s
 # btrbk backups
 UUID=c41b677b-6e29-4414-8e06-c0a9ac9fdb72 /mnt/btr_pool/        btrfs     	rw,relatime,subvol=/	0 0
 
+# srv
+UUID=c41b677b-6e29-4414-8e06-c0a9ac9fdb72 /srv        btrfs     	rw,relatime,subvol=/srv	0 0
+
+# mysql
+UUID=c41b677b-6e29-4414-8e06-c0a9ac9fdb72 /var/lib/mysql        btrfs     	rw,relatime,subvol=/mysql	0 0
+
 # windows mount
 #UUID=84E8927EE8926E64   /run/media/jjk/OS   ntfs-3g    defaults,ro 0   0
 
