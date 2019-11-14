@@ -1,0 +1,16 @@
+# /dev/sdb5
+UUID=c41b677b-6e29-4414-8e06-c0a9ac9fdb72 /         	btrfs     	rw,relatime,subvol=/root	0 0
+
+# /home
+UUID=c41b677b-6e29-4414-8e06-c0a9ac9fdb72 /home        	btrfs     	rw,relatime,subvol=/home	0 0
+
+# btrbk backups
+UUID=c41b677b-6e29-4414-8e06-c0a9ac9fdb72 /mnt/btr_pool/        btrfs     	rw,relatime,subvol=/	0 0
+
+# windows mount
+#UUID=84E8927EE8926E64   /run/media/jjk/OS   ntfs-3g    defaults,ro 0   0
+
+# /dev/sdb1 LABEL=ESP
+UUID=024C-5B04      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro	0 2
+
+UUID=0b5f1574-3b78-4fe2-85bc-675db74538f8 none swap defaults,discard 0 0
