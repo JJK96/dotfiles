@@ -3,7 +3,7 @@ export TERMINAL=termite
 export BROWSER=firefox
 mkdir -p /tmp/Downloads
 
-export PATH="$HOME/.local/bin:${PATH}:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.config/kak/bin:$HOME/perl5/bin:$HOME/Documents/nse/internetcie/bin"
+export PATH="$HOME/.local/bin:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.config/kak/bin:$HOME/perl5/bin:$HOME/Documents/nse/internetcie/bin:${PATH}"
 
 export GPGKEY=35DA10798B42C1C8AEFEFEAC6487A893C19EA8BC
 export PASSWORD_STORE_GENERATED_LENGTH=30

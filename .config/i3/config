@@ -81,7 +81,7 @@ bar {
 }
 
 # Open command info
-bindsym F1 exec $terminal -e "i3-help"
+bindsym $mod+F1 exec $terminal -e "i3-help"
 
 # Open editor
 bindsym $mod+l exec editor
@@ -89,6 +89,8 @@ bindsym $mod+l exec editor
 # Type username password and submit
 bindsym $mod+Control+p exec mypassmenu --type
 
+# Copy unicode character to clipboard
+bindsym $mod+Control+u exec unipicker --copy
 # Terminal
 bindsym $mod+Return exec $terminal
 # Browser
@@ -99,6 +101,8 @@ bindsym $mod+t exec thunar
 bindsym $mod+r exec $terminal -e "ranger --cmd='cd /tmp'"
 # kill focused window
 bindsym $mod+q kill
+# Change screen layout
+bindsym $mod+Shift+s exec screenlayout
 
 # Switch to colemak
 bindsym $mod+bracketleft exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
@@ -149,11 +153,11 @@ bindsym $mod+p focus parent
 bindsym $mod+u exec --no-startup-id ~/.config/i3/bin/focus_next_visible.py
 bindsym $mod+Shift+u exec --no-startup-id ~/.config/i3/bin/focus_next_visible.py reverse
 
-# alternatively, you can use the cursor keys:
-#bindsym $mod+Left focus left
-#bindsym $mod+Down focus down
-#bindsym $mod+Up focus up
-#bindsym $mod+Right focus right
+# Rotate screen
+bindsym $mod+Control+Left exec rotate left
+bindsym $mod+Control+Down exec rotate inverted
+bindsym $mod+Control+Up exec rotate normal
+bindsym $mod+Control+Right exec rotate right
 
 # Move focused window
 bindsym $mod+Shift+h move left

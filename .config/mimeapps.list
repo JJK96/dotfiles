@@ -36,7 +36,7 @@ x-scheme-handler/postman=Postman.desktop
 x-scheme-handler/discord-367827983903490050=discord-367827983903490050.desktop
 
 [Added Associations]
-text/plain=osu-lazer.desktop;editor.desktop;gvim.desktop;userapp-"editor"-T232ZZ.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
+text/plain=userapp-editor"-QNPF3Z.desktop;osu-lazer.desktop;editor.desktop;gvim.desktop;userapp-"editor"-T232ZZ.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;
 video/mp4=mpv.desktop;vlc.desktop;org.gnome.Totem.desktop;
 application/font-woff=org.gnome.gedit.desktop;
 text/html=editor.desktop;firefox.desktop;org.gnome.gedit.desktop;gvim.desktop;qutebrowser.desktop;

@@ -7,7 +7,7 @@ dunst &
 lxpolkit &
 xrandr --output eDP-1 --primary &
 nm-applet &
-compton &
+picom & 
 # redshift &
 #termite -e weechat &
 #firefox web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me calendar.google.com drive.google.com https://riot.im/develop/ &
