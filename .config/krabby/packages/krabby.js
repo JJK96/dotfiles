@@ -13,15 +13,19 @@ function Krabby({ dormant = true } = {}) {
       this.env.PLATFORM = 'firefox'
       this.env.COMMANDS_EXTENSION_ID = 'commands@alexherbo2.github.com'
       this.env.SHELL_EXTENSION_ID = 'shell@alexherbo2.github.com'
+      this.env.EDITOR_EXTENSION_ID = 'editor@alexherbo2.github.com'
       this.env.DMENU_EXTENSION_ID = 'dmenu@alexherbo2.github.com'
       break
     case (typeof chrome !== 'undefined'):
       this.env.PLATFORM = 'chrome'
       this.env.COMMANDS_EXTENSION_ID = 'cabmgmngameccclicfmcpffnbinnmopc'
       this.env.SHELL_EXTENSION_ID = 'ohgecdnlcckpfnhjepfdcdgcfgebkdgl'
+      this.env.EDITOR_EXTENSION_ID = 'oaagifcpibmdpajhjfcdjliekffjcnnk'
       this.env.DMENU_EXTENSION_ID = 'gonendiemfggilnopogmkafgadobkoeh'
       break
   }
+
+  this.env.EDITOR = undefined
 
   // Extensions ────────────────────────────────────────────────────────────────
 
@@ -39,6 +43,13 @@ function Krabby({ dormant = true } = {}) {
   this.extensions.shell.port = chrome.runtime.connect(this.env.SHELL_EXTENSION_ID)
   this.extensions.shell.send = (command, ...arguments) => {
     this.extensions.shell.port.postMessage({ command, arguments })
+  }
+
+  // Editor
+  this.extensions.editor = {}
+  this.extensions.editor.port = chrome.runtime.connect(this.env.EDITOR_EXTENSION_ID)
+  this.extensions.editor.send = (command, ...arguments) => {
+    this.extensions.editor.port.postMessage({ command, arguments })
   }
 
   // dmenu
@@ -140,20 +151,17 @@ function Krabby({ dormant = true } = {}) {
   this.env.HINT_TEXT_SELECTORS = 'input:not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="file"]), textarea, select'
   this.env.HINT_VIDEO_SELECTORS = 'video'
 
-  this.modes.hint = ({ selections, selectors = '*', lock = false } = {}) => {
+  this.modes.hint = ({ selections, selectors = '*', filters = [Hint.isClickable], lock = false } = {}) => {
     const hint = new Hint
     hint.selectors = selectors
+    hint.filters = filters
     hint.lock = lock
     hint.on('validate', (target) => {
+      Hint.focus(target)
       if (hint.lock) {
         if (selections.includes(target)) {
           selections.remove(target)
         } else {
-          selections.add(target)
-        }
-      } else {
-        target.focus()
-        if (document.activeElement !== target) {
           selections.add(target)
         }
       }
@@ -179,7 +187,10 @@ function Krabby({ dormant = true } = {}) {
   // Selections ────────────────────────────────────────────────────────────────
 
   this.selections = new SelectionList
-  this.selections.on('selection-change', (selections) => this.statusLine.update())
+  this.selections.on('selection-change', (selections) => {
+    this.modes.modal.updateContext()
+    this.statusLine.update()
+  })
 
   // Tools ─────────────────────────────────────────────────────────────────────
 
@@ -200,27 +211,27 @@ function Krabby({ dormant = true } = {}) {
     }
   }
 
-  this.commands.openInNewTab = (selections) => {
+  this.commands.openInNewTab = (selections, callback = (link) => link.href) => {
     for (const link of this.commands.getElements(selections)) {
-      this.extensions.commands.send('new-tab', link.href)
+      this.extensions.commands.send('new-tab', callback(link))
     }
   }
 
-  this.commands.openInNewWindow = (selections) => {
+  this.commands.openInNewWindow = (selections, callback = (link) => link.href) => {
     for (const link of this.commands.getElements(selections)) {
-      this.extensions.commands.send('new-window', link.href)
+      this.extensions.commands.send('new-window', callback(link))
     }
   }
 
-  this.commands.download = (selections) => {
+  this.commands.download = (selections, callback = (link) => link.href) => {
     for (const link of this.commands.getElements(selections)) {
-      this.extensions.commands.send('download', link.href)
+      this.extensions.commands.send('download', callback(link))
     }
   }
 
-  this.commands.open = (selections) => {
+  this.commands.open = (selections, callback = (link) => link.href) => {
     for (const link of this.commands.getElements(selections)) {
-      this.extensions.shell.send(this.env.OPENER, link.href)
+      this.extensions.shell.send(this.env.OPENER, callback(link))
     }
   }
 
@@ -231,9 +242,7 @@ function Krabby({ dormant = true } = {}) {
   }
 
   this.commands.yank = (selections, callback, message) => {
-    const text = selections.length
-      ? selections.map(callback).join('\n')
-      : callback(document.activeElement)
+    const text = this.commands.getElements(selections).map(callback).join('\n')
     this.commands.copyToClipboard(text, message)
   }
 
@@ -242,10 +251,8 @@ function Krabby({ dormant = true } = {}) {
     this.commands.notify(message)
   }
 
-  this.commands.mpv = ({ selections, reverse = false } = {}) => {
-    const playlist = selections.length
-      ? selections.map((link) => link.href)
-      : [document.activeElement.href]
+  this.commands.mpv = ({ selections, callback = (link) => link.href, reverse = false } = {}) => {
+    const playlist = this.commands.getElements(selections).map(callback)
     if (reverse) {
       playlist.reverse()
     }
@@ -285,154 +292,165 @@ function Krabby({ dormant = true } = {}) {
   // Mappings ──────────────────────────────────────────────────────────────────
 
   // Help
-  this.modes.modal.map('Page', ['F1'], () => this.modes.modal.help(), 'Show help')
-  this.modes.modal.map('Page', ['Shift', 'F1'], () => window.open('https://github.com/alexherbo2/this/tree/master/doc'), 'Open the documentation in a new tab')
+  this.modes.modal.map('Page', ['F1'], () => this.modes.modal.help(), 'Show help', 'Help')
+  this.modes.modal.map('Page', ['Shift', 'F1'], () => window.open('https://github.com/alexherbo2/this/tree/master/doc'), 'Open the documentation in a new tab', 'Help')
+
+  // External editor
+  this.modes.modal.map('Text', ['Alt', 'KeyI'], () => this.extensions.editor.send('edit', this.env.EDITOR), 'Open your favorite editor', 'External editor')
 
   // Tab search
-  this.modes.modal.map('Command', ['KeyQ'], () => this.extensions.dmenu.send('tab-search'), 'Tab search with dmenu')
+  this.modes.modal.map('Command', ['KeyQ'], () => this.extensions.dmenu.send('tab-search'), 'Tab search with dmenu', 'Tab search')
 
   // Scroll
-  this.modes.modal.map('Command', ['KeyJ'], (event) => this.scroll.down(event.repeat), 'Scroll down')
-  this.modes.modal.map('Command', ['KeyK'], (event) => this.scroll.up(event.repeat), 'Scroll up')
-  this.modes.modal.map('Command', ['KeyL'], (event) => this.scroll.right(event.repeat), 'Scroll right')
-  this.modes.modal.map('Command', ['KeyH'], (event) => this.scroll.left(event.repeat), 'Scroll left')
+  this.modes.modal.map('Command', ['KeyJ'], (event) => this.scroll.down(event.repeat), 'Scroll down', 'Scroll')
+  this.modes.modal.map('Command', ['KeyK'], (event) => this.scroll.up(event.repeat), 'Scroll up', 'Scroll')
+  this.modes.modal.map('Command', ['KeyL'], (event) => this.scroll.right(event.repeat), 'Scroll right', 'Scroll')
+  this.modes.modal.map('Command', ['KeyH'], (event) => this.scroll.left(event.repeat), 'Scroll left', 'Scroll')
 
   // Scroll faster
-  this.modes.modal.map('Command', ['Shift', 'KeyJ'], () => this.scroll.pageDown(), 'Scroll page down')
-  this.modes.modal.map('Command', ['Shift', 'KeyK'], () => this.scroll.pageUp(), 'Scroll page up')
-  this.modes.modal.map('Command', ['KeyG'], () => this.scroll.top(), 'Scroll to the top of the page')
-  this.modes.modal.map('Command', ['Shift', 'KeyG'], () => this.scroll.bottom(), 'Scroll to the bottom of the page')
+  this.modes.modal.map('Command', ['Shift', 'KeyJ'], () => this.scroll.pageDown(), 'Scroll page down', 'Scroll faster')
+  this.modes.modal.map('Command', ['Shift', 'KeyK'], () => this.scroll.pageUp(), 'Scroll page up', 'Scroll faster')
+  this.modes.modal.map('Command', ['KeyG'], () => this.scroll.top(), 'Scroll to the top of the page', 'Scroll faster')
+  this.modes.modal.map('Command', ['Shift', 'KeyG'], () => this.scroll.bottom(), 'Scroll to the bottom of the page', 'Scroll faster')
 
   // Navigation
-  this.modes.modal.map('Command', ['Shift', 'KeyH'], () => history.back(), 'Go back in history')
-  this.modes.modal.map('Command', ['Shift', 'KeyL'], () => history.forward(), 'Go forward in history')
-  this.modes.modal.map('Command', ['KeyU'], () => location.assign('..'), 'Go up in hierarchy')
-  this.modes.modal.map('Command', ['Shift', 'KeyU'], () => location.assign('/'), 'Go to the home page')
-  this.modes.modal.map('Command', ['Alt', 'KeyU'], () => location.assign('.'), 'Remove any URL parameter')
+  this.modes.modal.map('Command', ['Shift', 'KeyH'], () => history.back(), 'Go back in history', 'Navigation')
+  this.modes.modal.map('Command', ['Shift', 'KeyL'], () => history.forward(), 'Go forward in history', 'Navigation')
+  this.modes.modal.map('Command', ['KeyU'], () => location.assign('..'), 'Go up in hierarchy', 'Navigation')
+  this.modes.modal.map('Command', ['Shift', 'KeyU'], () => location.assign('/'), 'Go to the home page', 'Navigation')
+  this.modes.modal.map('Command', ['Alt', 'KeyU'], () => location.assign('.'), 'Remove any URL parameter', 'Navigation')
 
   // Zoom
-  this.modes.modal.map('Command', ['Shift', 'Equal'], () => this.extensions.commands.send('zoom-in'), 'Zoom in')
-  this.modes.modal.map('Command', ['Minus'], () => this.extensions.commands.send('zoom-out'), 'Zoom out')
-  this.modes.modal.map('Command', ['Equal'], () => this.extensions.commands.send('zoom-reset'), 'Reset to default zoom level')
+  this.modes.modal.map('Command', ['Shift', 'Equal'], () => this.extensions.commands.send('zoom-in'), 'Zoom in', 'Zoom')
+  this.modes.modal.map('Command', ['Minus'], () => this.extensions.commands.send('zoom-out'), 'Zoom out', 'Zoom')
+  this.modes.modal.map('Command', ['Equal'], () => this.extensions.commands.send('zoom-reset'), 'Reset to default zoom level', 'Zoom')
 
   // Create tabs
-  this.modes.modal.map('Command', ['KeyT'], () => this.extensions.commands.send('new-tab'), 'New tab')
-  this.modes.modal.map('Command', ['Shift', 'KeyT'], () => this.extensions.commands.send('restore-tab'), 'Restore tab')
-  this.modes.modal.map('Command', ['KeyB'], () => this.extensions.commands.send('duplicate-tab'), 'Duplicate tab')
+  this.modes.modal.map('Command', ['KeyT'], () => this.extensions.commands.send('new-tab'), 'New tab', 'Create tabs')
+  this.modes.modal.map('Command', ['Shift', 'KeyT'], () => this.extensions.commands.send('restore-tab'), 'Restore tab', 'Create tabs')
+  this.modes.modal.map('Command', ['KeyB'], () => this.extensions.commands.send('duplicate-tab'), 'Duplicate tab', 'Create tabs')
 
   // Create windows
-  this.modes.modal.map('Command', ['KeyN'], () => this.extensions.commands.send('new-window'), 'New window')
-  this.modes.modal.map('Command', ['Shift', 'KeyN'], () => this.extensions.commands.send('new-incognito-window'), 'New incognito window')
+  this.modes.modal.map('Command', ['KeyN'], () => this.extensions.commands.send('new-window'), 'New window', 'Create windows')
+  this.modes.modal.map('Command', ['Shift', 'KeyN'], () => this.extensions.commands.send('new-incognito-window'), 'New incognito window', 'Create windows')
 
   // Close tabs
-  this.modes.modal.map('Command', ['KeyX'], () => this.extensions.commands.send('close-tab'), 'Close tab')
-  this.modes.modal.map('Command', ['Shift', 'KeyX'], () => this.extensions.commands.send('close-other-tabs'), 'Close other tabs')
-  this.modes.modal.map('Command', ['Alt', 'KeyX'], () => this.extensions.commands.send('close-right-tabs'), 'Close tabs to the right')
+  this.modes.modal.map('Command', ['KeyX'], () => this.extensions.commands.send('close-tab'), 'Close tab', 'Close tabs')
+  this.modes.modal.map('Command', ['Shift', 'KeyX'], () => this.extensions.commands.send('close-other-tabs'), 'Close other tabs', 'Close tabs')
+  this.modes.modal.map('Command', ['Alt', 'KeyX'], () => this.extensions.commands.send('close-right-tabs'), 'Close tabs to the right', 'Close tabs')
 
   // Refresh tabs
-  this.modes.modal.map('Command', ['KeyR'], () => location.reload(), 'Reload the page')
-  this.modes.modal.map('Command', ['Shift', 'KeyR'], () => location.reload(true), 'Reload the page, ignoring cached content')
-  this.modes.modal.map('Command', ['Alt', 'KeyR'], () => this.extensions.commands.send('reload-all-tabs'), 'Reload all tabs')
+  this.modes.modal.map('Command', ['KeyR'], () => location.reload(), 'Reload the page', 'Refresh tabs')
+  this.modes.modal.map('Command', ['Shift', 'KeyR'], () => location.reload(true), 'Reload the page, ignoring cached content', 'Refresh tabs')
+  this.modes.modal.map('Command', ['Alt', 'KeyR'], () => this.extensions.commands.send('reload-all-tabs'), 'Reload all tabs', 'Refresh tabs')
 
   // Switch tabs
-  this.modes.modal.map('Command', ['Alt', 'KeyL'], () => this.extensions.commands.send('next-tab'), 'Next tab')
-  this.modes.modal.map('Command', ['Alt', 'KeyH'], () => this.extensions.commands.send('previous-tab'), 'Previous tab')
-  this.modes.modal.map('Command', ['Digit1'], () => this.extensions.commands.send('first-tab'), 'First tab')
-  this.modes.modal.map('Command', ['Digit0'], () => this.extensions.commands.send('last-tab'), 'Last tab')
+  this.modes.modal.map('Command', ['Alt', 'KeyL'], () => this.extensions.commands.send('next-tab'), 'Next tab', 'Switch tabs')
+  this.modes.modal.map('Command', ['Alt', 'KeyH'], () => this.extensions.commands.send('previous-tab'), 'Previous tab', 'Switch tabs')
+  this.modes.modal.map('Command', ['Digit1'], () => this.extensions.commands.send('first-tab'), 'First tab', 'Switch tabs')
+  this.modes.modal.map('Command', ['Digit0'], () => this.extensions.commands.send('last-tab'), 'Last tab', 'Switch tabs')
 
   // Move tabs
-  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyL'], () => this.extensions.commands.send('move-tab-right'), 'Move tab right')
-  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyH'], () => this.extensions.commands.send('move-tab-left'), 'Move tab left')
-  this.modes.modal.map('Command', ['Alt', 'Digit1'], () => this.extensions.commands.send('move-tab-first'), 'Move tab first')
-  this.modes.modal.map('Command', ['Alt', 'Digit0'], () => this.extensions.commands.send('move-tab-last'), 'Move tab last')
+  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyL'], () => this.extensions.commands.send('move-tab-right'), 'Move tab right', 'Move tabs')
+  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyH'], () => this.extensions.commands.send('move-tab-left'), 'Move tab left', 'Move tabs')
+  this.modes.modal.map('Command', ['Alt', 'Digit1'], () => this.extensions.commands.send('move-tab-first'), 'Move tab first', 'Move tabs')
+  this.modes.modal.map('Command', ['Alt', 'Digit0'], () => this.extensions.commands.send('move-tab-last'), 'Move tab last', 'Move tabs')
 
   // Detach tabs
-  this.modes.modal.map('Command', ['KeyD'], () => this.extensions.commands.send('detach-tab'), 'Detach tab')
-  this.modes.modal.map('Command', ['Shift', 'KeyD'], () => this.extensions.commands.send('attach-tab'), 'Attach tab')
+  this.modes.modal.map('Command', ['KeyD'], () => this.extensions.commands.send('detach-tab'), 'Detach tab', 'Detach tabs')
+  this.modes.modal.map('Command', ['Shift', 'KeyD'], () => this.extensions.commands.send('attach-tab'), 'Attach tab', 'Detach tabs')
 
   // Discard tabs
-  this.modes.modal.map('Command', ['Shift', 'Escape'], () => this.extensions.commands.send('discard-tab'), 'Discard tab')
+  this.modes.modal.map('Command', ['Shift', 'Escape'], () => this.extensions.commands.send('discard-tab'), 'Discard tab', 'Discard tabs')
 
   // Mute tabs
-  this.modes.modal.map('Command', ['Alt', 'KeyM'], () => this.extensions.commands.send('mute-tab'), 'Mute tab')
-  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyM'], () => this.extensions.commands.send('mute-all-tabs'), 'Mute all tabs')
+  this.modes.modal.map('Command', ['Alt', 'KeyM'], () => this.extensions.commands.send('mute-tab'), 'Mute tab', 'Mute tabs')
+  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyM'], () => this.extensions.commands.send('mute-all-tabs'), 'Mute all tabs', 'Mute tabs')
 
   // Pin tabs
-  this.modes.modal.map('Command', ['Alt', 'KeyP'], () => this.extensions.commands.send('pin-tab'), 'Pin tab')
+  this.modes.modal.map('Command', ['Alt', 'KeyP'], () => this.extensions.commands.send('pin-tab'), 'Pin tab', 'Pin tabs')
 
   // Link hints
-  this.modes.modal.map('Command', ['KeyF'], () => this.modes.hint({ selections: this.selections, selectors: this.env.HINT_SELECTORS }).start(), 'Focus link')
-  this.modes.modal.map('Command', ['Shift', 'KeyF'], () => this.modes.hint({ selections: this.selections, selectors: this.env.HINT_SELECTORS, lock: true }).start(), 'Select multiple links')
-  this.modes.modal.map('Command', ['KeyI'], () => this.modes.hint({ selectors: this.env.HINT_TEXT_SELECTORS }).start(), 'Focus input')
-  this.modes.modal.map('Command', ['KeyV'], () => this.modes.hint({ selectors: this.env.HINT_VIDEO_SELECTORS }).start(), 'Focus video')
+  this.modes.modal.map('Command', ['KeyF'], () => this.modes.hint({ selections: this.selections, selectors: this.env.HINT_SELECTORS }).start(), 'Focus link', 'Link hints')
+  this.modes.modal.map('Command', ['Shift', 'KeyF'], () => this.modes.hint({ selections: this.selections, selectors: this.env.HINT_SELECTORS, lock: true }).start(), 'Select multiple links', 'Link hints')
+  this.modes.modal.map('Command', ['KeyI'], () => this.modes.hint({ selectors: this.env.HINT_TEXT_SELECTORS }).start(), 'Focus input', 'Link hints')
+  this.modes.modal.map('Command', ['KeyV'], () => this.modes.hint({ selectors: this.env.HINT_VIDEO_SELECTORS }).start(), 'Focus video', 'Link hints')
 
   // Open links
-  this.modes.modal.map('Command', ['Enter'], () => this.commands.click(this.selections), 'Open selection')
-  this.modes.modal.map('Link', ['Enter'], () => this.commands.click(this.selections), 'Open link')
-  this.modes.modal.map('Link', ['Control', 'Enter'], () => this.commands.openInNewTab(this.selections), 'Open link in new tab')
-  this.modes.modal.map('Link', ['Shift', 'Enter'], () => this.commands.openInNewWindow(this.selections), 'Open link in new window')
-  this.modes.modal.map('Link', ['Alt', 'Enter'], () => this.commands.download(this.selections), 'Download link')
-  this.modes.modal.map('Link', ['Alt', 'Shift', 'Enter'], () => this.commands.open(this.selections), 'Open link in the associated application')
+  this.modes.modal.map('Command', ['Enter'], () => this.commands.click(this.selections), 'Open selection', 'Open links')
+  this.modes.modal.map('Link', ['Enter'], () => this.commands.click(this.selections), 'Open link', 'Open links')
+  this.modes.modal.map('Link', ['Control', 'Enter'], () => this.commands.openInNewTab(this.selections), 'Open link in new tab', 'Open links')
+  this.modes.modal.map('Link', ['Shift', 'Enter'], () => this.commands.openInNewWindow(this.selections), 'Open link in new window', 'Open links')
+  this.modes.modal.map('Link', ['Alt', 'Enter'], () => this.commands.download(this.selections), 'Download link', 'Open links')
+  this.modes.modal.map('Link', ['Alt', 'Shift', 'Enter'], () => this.commands.open(this.selections), 'Open link in the associated application', 'Open links')
+  this.modes.modal.map('Image', ['Enter'], () => location.assign(this.modes.modal.activeElement.src), 'Open image', 'Open links')
+  this.modes.modal.map('Image', ['Control', 'Enter'], () => this.commands.openInNewTab(this.selections, (selection) => selection.src), 'Open image in new tab', 'Open links')
+  this.modes.modal.map('Image', ['Shift', 'Enter'], () => this.commands.openInNewWindow(this.selections, (selection) => selection.src), 'Open image in new window', 'Open links')
+  this.modes.modal.map('Image', ['Alt', 'Enter'], () => this.commands.download(this.selections, (selection) => selection.src), 'Download image', 'Open links')
+  this.modes.modal.map('Image', ['Alt', 'Shift', 'Enter'], () => this.commands.open(this.selections, (selection) => selection.src), 'Open image in the associated application', 'Open links')
 
   // Selection manipulation
-  this.modes.modal.map('Command', ['KeyS'], () => this.selections.add(document.activeElement), 'Select active element')
-  this.modes.modal.map('Command', ['Shift', 'KeyS'], () => this.commands.select(this.selections), 'Select elements that match the specified group of selectors')
-  this.modes.modal.map('Command', ['Shift', 'Digit5'], () => this.selections.set([document.documentElement]), 'Select document')
-  this.modes.modal.map('Command', ['Shift', 'Digit0'], () => this.selections.next(), 'Focus next selection')
-  this.modes.modal.map('Command', ['Shift', 'Digit9'], () => this.selections.previous(), 'Focus previous selection')
-  this.modes.modal.map('Command', ['Space'], () => this.selections.clear(), 'Clear selections')
-  this.modes.modal.map('Command', ['Control', 'Space'], () => this.selections.focus(), 'Focus main selection')
-  this.modes.modal.map('Command', ['Alt', 'Space'], () => this.selections.remove(), 'Remove main selection')
-  this.modes.modal.map('Command', ['Alt', 'KeyA'], () => this.selections.parent(), 'Select parent elements')
-  this.modes.modal.map('Command', ['Alt', 'KeyI'], () => this.selections.children(), 'Select child elements')
-  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyI'], () => this.selections.select('a'), 'Select links')
-  this.modes.modal.map('Command', ['Alt', 'Shift', 'Digit0'], () => this.selections.nextSibling(), 'Select next sibling elements')
-  this.modes.modal.map('Command', ['Alt', 'Shift', 'Digit9'], () => this.selections.previousSibling(), 'Select previous sibling elements')
-  this.modes.modal.map('Command', ['BracketLeft'], () => this.selections.firstChild(), 'Select first child elements')
-  this.modes.modal.map('Command', ['BracketRight'], () => this.selections.lastChild(), 'Select last child elements')
-  this.modes.modal.map('Command', ['Alt', 'KeyK'], () => this.commands.keep(this.selections, true, 'textContent'), 'Keep selections that match the given RegExp')
-  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyK'], () => this.commands.keep(this.selections, true, 'href'), 'Keep links that match the given RegExp')
-  this.modes.modal.map('Command', ['Alt', 'KeyJ'], () => this.commands.keep(this.selections, false, 'textContent'), 'Clear selections that match the given RegExp')
-  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyJ'], () => this.commands.keep(this.selections, false, 'href'), 'Clear links that match the given RegExp')
+  this.modes.modal.map('Command', ['KeyS'], () => this.selections.add(document.activeElement), 'Select active element', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Shift', 'KeyS'], () => this.commands.select(this.selections), 'Select elements that match the specified group of selectors', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Shift', 'Digit5'], () => this.selections.set([document.documentElement]), 'Select document', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Shift', 'Digit0'], () => this.selections.next(), 'Focus next selection', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Shift', 'Digit9'], () => this.selections.previous(), 'Focus previous selection', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Space'], () => this.selections.clear(), 'Clear selections', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Control', 'Space'], () => this.selections.focus(), 'Focus main selection', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'Space'], () => this.selections.remove(), 'Remove main selection', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'KeyA'], () => this.selections.parent(), 'Select parent elements', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'KeyI'], () => this.selections.children(), 'Select child elements', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyI'], () => this.selections.select('a'), 'Select links', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'Shift', 'Digit0'], () => this.selections.nextSibling(), 'Select next sibling elements', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'Shift', 'Digit9'], () => this.selections.previousSibling(), 'Select previous sibling elements', 'Selection manipulation')
+  this.modes.modal.map('Command', ['BracketLeft'], () => this.selections.firstChild(), 'Select first child elements', 'Selection manipulation')
+  this.modes.modal.map('Command', ['BracketRight'], () => this.selections.lastChild(), 'Select last child elements', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'KeyK'], () => this.commands.keep(this.selections, true, 'textContent'), 'Keep selections that match the given RegExp', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyK'], () => this.commands.keep(this.selections, true, 'href'), 'Keep links that match the given RegExp', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'KeyJ'], () => this.commands.keep(this.selections, false, 'textContent'), 'Clear selections that match the given RegExp', 'Selection manipulation')
+  this.modes.modal.map('Command', ['Alt', 'Shift', 'KeyJ'], () => this.commands.keep(this.selections, false, 'href'), 'Clear links that match the given RegExp', 'Selection manipulation')
 
   // Phantom selections
-  this.modes.modal.map('Command', ['Shift', 'KeyZ'], () => this.selections.save(), 'Save selections')
-  this.modes.modal.map('Command', ['KeyZ'], () => this.selections.restore(), 'Restore selections')
+  this.modes.modal.map('Command', ['Shift', 'KeyZ'], () => this.selections.save(), 'Save selections', 'Phantom selections')
+  this.modes.modal.map('Command', ['KeyZ'], () => this.selections.restore(), 'Restore selections', 'Phantom selections')
 
   // Unfocus
-  this.modes.modal.map('Page', ['Escape'], () => document.activeElement.blur(), 'Unfocus active element')
+  this.modes.modal.map('Page', ['Escape'], () => document.activeElement.blur(), 'Unfocus active element', 'Unfocus')
 
   // Pass keys
-  this.modes.modal.map('Page', ['Alt', 'Escape'], this.modes.pass, 'Pass all keys to the page')
-  this.modes.pass.map('Page', ['Alt', 'Escape'], this.modes.modal, 'Stop passing keys to the page')
+  this.modes.modal.map('Page', ['Alt', 'Escape'], this.modes.pass, 'Pass all keys to the page', 'Pass keys')
+  this.modes.pass.map('Page', ['Alt', 'Escape'], this.modes.modal, 'Stop passing keys to the page', 'Pass keys')
 
   // Clipboard
-  this.modes.modal.map('Command', ['KeyY'], () => this.commands.copyToClipboard(location.href, 'Page address copied'), 'Copy page address')
-  this.modes.modal.map('Command', ['Alt', 'KeyY'], () => this.commands.copyToClipboard(document.title, 'Page title copied'), 'Copy page title')
-  this.modes.modal.map('Command', ['Shift', 'KeyY'], () => this.commands.copyToClipboard(`[${document.title}](${location.href})`, 'Page address and title copied'), 'Copy page address and title')
-  this.modes.modal.map('Link', ['KeyY'], () => this.commands.yank(this.selections, (selection) => selection.href, 'Link address copied'), 'Copy link address')
-  this.modes.modal.map('Link', ['Alt', 'KeyY'], () => this.commands.yank(this.selections, (selection) => selection.textContent, 'Link text copied'), 'Copy link text')
-  this.modes.modal.map('Link', ['Shift', 'KeyY'], () => this.commands.yank(this.selections, (selection) => `[${selection.textContent}](${selection.href})`, 'Link address and text copied'), 'Copy link address and text')
-  this.modes.modal.map('Image', ['KeyY'], () => this.commands.yank(this.selections, (selection) => selection.src, 'Image address copied'), 'Copy image address')
-  this.modes.modal.map('Image', ['Alt', 'KeyY'], () => this.commands.yank(this.selections, (selection) => selection.alt, 'Image description copied'), 'Copy image description')
-  this.modes.modal.map('Image', ['Shift', 'KeyY'], () => this.commands.yank(this.selections, (selection) => `[${selection.alt}](${selection.src})`, 'Image address and description copied'), 'Copy image address and description')
+  this.modes.modal.map('Command', ['KeyY'], () => this.commands.copyToClipboard(location.href, 'Page address copied'), 'Copy page address', 'Clipboard')
+  this.modes.modal.map('Command', ['Alt', 'KeyY'], () => this.commands.copyToClipboard(document.title, 'Page title copied'), 'Copy page title', 'Clipboard')
+  this.modes.modal.map('Command', ['Shift', 'KeyY'], () => this.commands.copyToClipboard(`[${document.title}](${location.href})`, 'Page address and title copied'), 'Copy page address and title', 'Clipboard')
+  this.modes.modal.map('Link', ['KeyY'], () => this.commands.yank(this.selections, (selection) => selection.href, 'Link address copied'), 'Copy link address', 'Clipboard')
+  this.modes.modal.map('Link', ['Alt', 'KeyY'], () => this.commands.yank(this.selections, (selection) => selection.textContent, 'Link text copied'), 'Copy link text', 'Clipboard')
+  this.modes.modal.map('Link', ['Shift', 'KeyY'], () => this.commands.yank(this.selections, (selection) => `[${selection.textContent}](${selection.href})`, 'Link address and text copied'), 'Copy link address and text', 'Clipboard')
+  this.modes.modal.map('Image', ['KeyY'], () => this.commands.yank(this.selections, (selection) => selection.src, 'Image address copied'), 'Copy image address', 'Clipboard')
+  this.modes.modal.map('Image', ['Alt', 'KeyY'], () => this.commands.yank(this.selections, (selection) => selection.alt, 'Image description copied'), 'Copy image description', 'Clipboard')
+  this.modes.modal.map('Image', ['Shift', 'KeyY'], () => this.commands.yank(this.selections, (selection) => `[${selection.alt}](${selection.src})`, 'Image address and description copied'), 'Copy image address and description', 'Clipboard')
 
   // Player
-  this.modes.modal.map('Video', ['Space'], () => this.commands.player().pause(), 'Pause video')
-  this.modes.modal.map('Video', ['KeyM'], () => this.commands.player().mute(), 'Mute video')
-  this.modes.modal.map('Video', ['KeyL'], () => this.commands.player().seekRelative(5), 'Seek forward 5 seconds')
-  this.modes.modal.map('Video', ['KeyH'], () => this.commands.player().seekRelative(-5), 'Seek backward 5 seconds')
-  this.modes.modal.map('Video', ['KeyG'], () => this.commands.player().seekAbsolutePercent(0), 'Seek to the beginning')
-  this.modes.modal.map('Video', ['Shift', 'KeyG'], () => this.commands.player().seekAbsolutePercent(1), 'Seek to the end')
-  this.modes.modal.map('Video', ['KeyK'], () => this.commands.player().increaseVolume(0.1), 'Increase volume')
-  this.modes.modal.map('Video', ['KeyJ'], () => this.commands.player().decreaseVolume(0.1), 'Decrease volume')
-  this.modes.modal.map('Video', ['KeyF'], () => this.commands.player().fullscreen(), 'Toggle full-screen mode')
-  this.modes.modal.map('Video', ['KeyP'], () => this.commands.player().pictureInPicture(), 'Toggle picture-in-picture mode')
+  this.modes.modal.map('Video', ['Space'], () => this.commands.player().pause(), 'Pause video', 'Player')
+  this.modes.modal.map('Video', ['KeyM'], () => this.commands.player().mute(), 'Mute video', 'Player')
+  this.modes.modal.map('Video', ['KeyL'], () => this.commands.player().seekRelative(5), 'Seek forward 5 seconds', 'Player')
+  this.modes.modal.map('Video', ['KeyH'], () => this.commands.player().seekRelative(-5), 'Seek backward 5 seconds', 'Player')
+  this.modes.modal.map('Video', ['KeyG'], () => this.commands.player().seekAbsolutePercent(0), 'Seek to the beginning', 'Player')
+  this.modes.modal.map('Video', ['Shift', 'KeyG'], () => this.commands.player().seekAbsolutePercent(1), 'Seek to the end', 'Player')
+  this.modes.modal.map('Video', ['KeyK'], () => this.commands.player().increaseVolume(0.1), 'Increase volume', 'Player')
+  this.modes.modal.map('Video', ['KeyJ'], () => this.commands.player().decreaseVolume(0.1), 'Decrease volume', 'Player')
+  this.modes.modal.map('Video', ['KeyF'], () => this.commands.player().fullscreen(), 'Toggle full-screen mode', 'Player')
+  this.modes.modal.map('Video', ['KeyP'], () => this.commands.player().pictureInPicture(), 'Toggle picture-in-picture mode', 'Player')
 
   // mpv
-  this.modes.modal.map('Video', ['Enter'], () => this.commands.mpvResume(), 'Play with mpv')
-  this.modes.modal.map('Link', ['KeyM'], () => this.commands.mpv({ selections: this.selections }), 'Play with mpv')
-  this.modes.modal.map('Link', ['Alt', 'KeyM'], () => this.commands.mpv({ selections: this.selections, reverse: true }), 'Play with mpv in reverse order')
+  this.modes.modal.map('Command', ['KeyM'], () => this.extensions.shell.send('mpv', location.href), 'Play with mpv', 'mpv')
+  this.modes.modal.map('Video', ['Enter'], () => this.commands.mpvResume(), 'Play with mpv', 'mpv')
+  this.modes.modal.map('Link', ['KeyM'], () => this.commands.mpv({ selections: this.selections }), 'Play with mpv', 'mpv')
+  this.modes.modal.map('Link', ['Alt', 'KeyM'], () => this.commands.mpv({ selections: this.selections, reverse: true }), 'Play with mpv in reverse order', 'mpv')
+  this.modes.modal.map('Image', ['KeyM'], () => this.commands.mpv({ selections: this.selections, callback: (image) => image.src }), 'Play with mpv', 'mpv')
+  this.modes.modal.map('Image', ['Alt', 'KeyM'], () => this.commands.mpv({ selections: this.selections, callback: (image) => image.src, reverse: true }), 'Play with mpv in reverse order', 'mpv')
 
   // Initialization ────────────────────────────────────────────────────────────
 

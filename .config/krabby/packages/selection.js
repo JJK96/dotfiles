@@ -35,7 +35,9 @@ class SelectionListBase {
     this.main = main >= 0 && main <= collection.length - 1
       ? main
       : 0
-    this.collection = collection
+    // Support for HTML collections
+    // Example: selections.set(document.querySelectorAll('a'))
+    this.collection = Array.from(collection)
     this.sort()
     this.merge()
     this.render()

@@ -75,6 +75,9 @@ class Modal {
         font-weight: bold;
         padding: 10px 0;
       }
+      #help main .label {
+        padding: 1em;
+      }
       #help main .keys {
         white-space: nowrap;
       }
@@ -142,26 +145,27 @@ class Modal {
   }
   play(...keys) {
     for (const chord of keys) {
-      const event = new KeyboardEvent('keydown', Modal.parseKeys(chord))
+      const event = new KeyboardEvent('keydown', this.parseKeys(chord))
       this.activeElement.dispatchEvent(event)
     }
   }
-  map(context, keys, command, description = '') {
-    const keyChord = Modal.parseKeys(keys)
+  map(context, keys, command, description = '', label = '') {
+    const keyChord = this.parseKeys(keys)
     command = this.parseCommand(command)
-    const key = JSON.stringify(keyChord)
-    this.mappings[context][key] = { command, description }
+    const key = Modal.generateKey(keyChord)
+    const mapping = { context, keyChord, command, description, label }
+    this.mappings[context][key] = mapping
     // Update running context
-    if (this.context.name === context) {
-      this.context.commands[key] = { command, description }
+    if (this.getContexts().includes(context)) {
+      this.context.commands[key] = mapping
     }
   }
   unmap(context, keys) {
-    const keyChord = Modal.parseKeys(keys)
-    const key = JSON.stringify(keyChord)
+    const keyChord = this.parseKeys(keys)
+    const key = Modal.generateKey(keyChord)
     delete this.mappings[context][key]
     // Update running context
-    if (this.context.name === context) {
+    if (this.getContexts().includes(context)) {
       delete this.context.commands[key]
     }
   }
@@ -194,7 +198,7 @@ class Modal {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values#Whitespace_keys
         code: this.keyMap[event.code] ? event.code : /\s/.test(event.key) ? event.code : event.key
       }
-      const key = JSON.stringify(keyChord)
+      const key = Modal.generateKey(keyChord)
       const command = this.context.commands[key]
       if (command) {
         // Prevent the browsers default behavior (such as opening a link)
@@ -230,6 +234,8 @@ class Modal {
     // Initialize active context
     this.updateContext()
     this.triggerEvent('start')
+    // Update context when DOM has been loaded
+    document.addEventListener('DOMContentLoaded', (event) => this.updateContext())
   }
   unlisten() {
     window.removeEventListener('keydown', this.onKey, true)
@@ -237,7 +243,7 @@ class Modal {
     window.removeEventListener('blur', this.onFocus, true)
     this.triggerEvent('stop')
   }
-  getContexts(name, accumulator = []) {
+  getContexts(name = this.context.name, accumulator = []) {
     if (name === null) {
       return accumulator
     }
@@ -253,7 +259,7 @@ class Modal {
   }
   updateCommands() {
     const commands = {}
-    const contexts = this.getContexts(this.context.name)
+    const contexts = this.getContexts()
     for (const context of contexts) {
       for (const [key, mapping] of Object.entries(this.mappings[context])) {
         if (commands[key] === undefined) {
@@ -271,6 +277,9 @@ class Modal {
         return command
     }
   }
+  static generateKey({ metaKey, altKey, ctrlKey, shiftKey, code }) {
+    return JSON.stringify({ metaKey, altKey, ctrlKey, shiftKey, code })
+  }
   keyValues({ metaKey, altKey, ctrlKey, shiftKey, code }) {
     const keys = []
     const keyMap = this.keyMap[code]
@@ -278,21 +287,27 @@ class Modal {
     if (altKey) keys.push('Alt')
     if (ctrlKey) keys.push('Control')
     if (shiftKey && ! keyMap) keys.push('Shift')
+    const key = this.keyValue({ shiftKey, code })
+    keys.push(key)
+    return keys
+  }
+  keyValue({ shiftKey, code }) {
+    const keyMap = this.keyMap[code]
     const key = keyMap
       ? shiftKey
       ? keyMap.shiftKey
       : keyMap.key
       : code
-    keys.push(key)
-    return keys
+    return key
   }
-  static parseKeys(keys) {
+  parseKeys(keys) {
     const keyChord = {
       metaKey: false,
       altKey: false,
       ctrlKey: false,
       shiftKey: false,
-      code: ''
+      code: '',
+      key: ''
     }
     for (const key of keys) {
       switch (key) {
@@ -312,6 +327,7 @@ class Modal {
           keyChord.code = key
       }
     }
+    keyChord.key = this.keyValue(keyChord)
     return keyChord
   }
   // A wrapper to get activeElement from shadowRoot if available.
@@ -362,14 +378,24 @@ class Modal {
     caption.textContent = this.context.name
     table.append(caption)
     // Commands
-    for (const [keyChord, { description }] of Object.entries(this.context.commands)) {
+    const labelledRows = {}
+    for (const { keyChord, description, label } of Object.values(this.context.commands)) {
+      if (! labelledRows[label]) {
+        const row = document.createElement('tr')
+        const header = document.createElement('th')
+        header.classList.add('label')
+        header.textContent = label
+        header.colSpan = 2
+        row.append(header)
+        labelledRows[label] = [row]
+      }
+      const rows = labelledRows[label]
       // Table row
       const row = document.createElement('tr')
-      table.append(row)
       // Table header cell
       const header = document.createElement('th')
       header.classList.add('keys')
-      const keys = this.keyValues(JSON.parse(keyChord))
+      const keys = this.keyValues(keyChord)
       for (const key of keys) {
         const atom = document.createElement('kbd')
         atom.textContent = key
@@ -380,6 +406,10 @@ class Modal {
       const data = document.createElement('td')
       data.textContent = description
       row.append(data)
+      rows.push(row)
+    }
+    for (const rows of Object.values(labelledRows)) {
+      table.append(...rows)
     }
     // Style
     const style = document.createElement('style')

@@ -4,12 +4,14 @@
   --primary-selection-color: hsl(326, 100%, 74%); /* Pink */
   outline: var(--primary-selection-color) solid thin !important;
   border: thin solid var(--primary-selection-color) !important;
+  box-shadow: 0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12) !important;
 }
 
 .secondary-selection {
   --secondary-selection-color: hsl(265, 89%, 78%); /* Purple */
   outline: var(--secondary-selection-color) dotted thin !important;
   border: thin dotted var(--secondary-selection-color) !important;
+  box-shadow: 0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12) !important;
 }
 
 :root.primary-selection {
@@ -20,12 +22,14 @@
   --primary-phantom-color: hsl(135, 94%, 65%); /* Green */
   outline: var(--primary-phantom-color) solid thin !important;
   border: thin solid var(--primary-phantom-color) !important;
+  box-shadow: 0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12) !important;
 }
 
 .secondary-phantom {
   --secondary-phantom-color: hsl(135, 94%, 65%); /* Green */
   outline: var(--secondary-phantom-color) dotted thin !important;
   border: thin dotted var(--secondary-phantom-color) !important;
+  box-shadow: 0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12) !important;
 }
 
 :root.primary-phantom {

@@ -30,11 +30,16 @@ key_map = {
 
 const krabby = new Krabby({ dormant: false })
 
+krabby.env.EDITOR = '$TERMINAL -e "editor -t \"$1\""'
+
 // Mappings ──────────────────────────────────────────────────────────────────
 
 // Help
 krabby.modes.modal.map('Page', ['F1'], () => krabby.modes.modal.help(), 'Show help')
 krabby.modes.modal.map('Page', ['Shift', 'F1'], () => window.open('https://github.com/alexherbo2/krabby/tree/master/doc'), 'Open the documentation in a new tab')
+
+// External editor
+krabby.modes.modal.map('Text', ['Alt', key_map['KeyL']], () => krabby.extensions.editor.send('edit', krabby.env.EDITOR), 'Open your favorite editor', 'External editor')
 
 // Tab search
 krabby.modes.modal.map('Command', [key_map['KeyQ']], () => krabby.extensions.dmenu.send('tab-search'), 'Tab search with dmenu')
@@ -193,4 +198,5 @@ function ezproxyfy() {
     window.location.replace(url)
 }
 
+krabby.modes.modal.unmap('Command', [key_map['KeyP']])
 krabby.modes.modal.map('Command', [key_map['KeyP']], ezproxyfy, 'Ezproxyfy url')

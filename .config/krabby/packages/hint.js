@@ -18,6 +18,7 @@ class Hint {
   }
   constructor() {
     this.selectors = '*'
+    this.filters = [Hint.isClickable]
     this.keys = ['KeyA', 'KeyJ', 'KeyS', 'KeyK', 'KeyD', 'KeyL', 'KeyG', 'KeyH', 'KeyE', 'KeyW', 'KeyO', 'KeyR', 'KeyU', 'KeyV', 'KeyN', 'KeyC', 'KeyM']
     this.lock = false
     this.hints = []
@@ -56,7 +57,7 @@ class Hint {
     `
   }
   updateHints() {
-    const hintableElements = Array.from(document.querySelectorAll(this.selectors)).filter((element) => Hint.isHintable(element))
+    const hintableElements = Array.from(document.querySelectorAll(this.selectors)).filter((element) => this.isHintable(element))
     this.hints = Hint.generateHints(hintableElements, this.keys)
   }
   filterHints(input) {
@@ -209,6 +210,14 @@ class Hint {
       root.remove()
     }
   }
+  static focus(element) {
+    // Leverage the `tabindex` attribute to force focus.
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
+    if (element.tabIndex === -1) {
+      element.tabIndex = 0
+    }
+    element.focus()
+  }
   static generateHints(elements, keys) {
     const hintKeys = this.generateHintKeys(keys, elements.length)
     const hints = elements.map((element, index) => [hintKeys[index], element])
@@ -225,8 +234,8 @@ class Hint {
     }
     return hints.slice(offset, offset + count)
   }
-  static isHintable(element) {
-    return this.isVisible(element) && this.isClickable(element)
+  isHintable(element) {
+    return Hint.isVisible(element) && this.filters.every((filter) => filter(element))
   }
   static isVisible(element) {
     return element.offsetParent !== null && this.isInViewport(element)
