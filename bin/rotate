@@ -1,0 +1,24 @@
+#!/bin/bash
+#inverted -> right -> normal -> left -> inverted
+monitor=$(xrandr | grep primary | get 1)
+touchpad=$(xinput | grep 'Touchpad' | perl -pe "s/^.*id=(\d+).*/\1/") #
+
+case "$1" in
+'right')
+  xrandr --output $monitor --rotate right
+  xinput set-prop "$touchpad" --type=float "Coordinate Transformation Matrix" 0 1 0 -1 0 0 0 0 1
+  ;;
+'normal')
+  xrandr --output $monitor --rotate normal
+  xinput set-prop ${touchpad} --type=float "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1
+  ;;
+'left')
+  xrandr --output $monitor --rotate left 
+  xinput set-prop ${touchpad} --type=float "Coordinate Transformation Matrix" 0 -1 0 1 0 0 0 0 1
+  ;;
+'inverted')
+  xrandr --output $monitor --rotate inverted
+  xinput set-prop ${touchpad} --type=float "Coordinate Transformation Matrix" -1 0 0 0 -1 0 0 0 1
+  ;;
+esac
+
