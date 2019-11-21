@@ -9,7 +9,7 @@ bind index g noop
 bind index n next-entry
 bind index e previous-entry
 bind index N next-thread
-bind index e previous-thread
+bind index E previous-thread
 
 bind index / search
 bind index ? search-reverse

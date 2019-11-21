@@ -1,6 +1,8 @@
 set smtp_authenticators = "login"
 set ssl_force_tls = yes
 
+set crypt_use_gpgme 
+
 folder-hook 'gmail' 'source ~/dotfiles/.mutt/gmail'
 # folder-hook 'personal'
 macro index R "!mbsync -a > /dev/null 2>&1 &^M" "Update through mbsync"
