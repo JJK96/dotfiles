@@ -1,3 +1,4 @@
 #!/bin/bash
 sudo btrbk -q snapshot root
 yay -Syu
+update_git_packages.sh
