@@ -26,6 +26,7 @@ function Krabby({ dormant = true } = {}) {
   }
 
   this.env.EDITOR = undefined
+  this.env.HTML_FILTER = 'pandoc --from html --to markdown'
 
   // Extensions ────────────────────────────────────────────────────────────────
 
@@ -44,6 +45,14 @@ function Krabby({ dormant = true } = {}) {
   this.extensions.shell.send = (command, ...arguments) => {
     this.extensions.shell.port.postMessage({ command, arguments })
   }
+
+  this.extensions.shell.port.onMessage.addListener((response) => {
+    switch (response.id) {
+      case 'html-filter':
+        this.commands.copyToClipboard(response.output, 'Text copied')
+        break
+    }
+  })
 
   // Editor
   this.extensions.editor = {}
@@ -115,7 +124,7 @@ function Krabby({ dormant = true } = {}) {
       : Modal.getDeepActiveElement()
   }
   this.modes.modal.filter('Gmail', () => location.hostname === 'mail.google.com')
-  this.modes.modal.enable('Gmail', 'Video', 'Image', 'Link', 'Text', 'Command')
+  this.modes.modal.enable('Gmail', 'Video', 'Image', 'Link', 'Document', 'Text', 'Command')
   this.modes.modal.on('start', () => {
     this.enabled = true
     this.mode = this.modes.modal
@@ -246,6 +255,16 @@ function Krabby({ dormant = true } = {}) {
     this.commands.copyToClipboard(text, message)
   }
 
+  this.commands.yankFilteredHTML = (selections, filter) => {
+    const input = this.commands.getElements(selections).map((element) => element.outerHTML).join('\n')
+    this.extensions.shell.port.postMessage({
+      id: 'html-filter',
+      shell: true,
+      command: filter,
+      input
+    })
+  }
+
   this.commands.copyToClipboard = (text, message) => {
     Clipboard.copy(text)
     this.commands.notify(message)
@@ -293,7 +312,7 @@ function Krabby({ dormant = true } = {}) {
 
   // Help
   this.modes.modal.map('Page', ['F1'], () => this.modes.modal.help(), 'Show help', 'Help')
-  this.modes.modal.map('Page', ['Shift', 'F1'], () => window.open('https://github.com/alexherbo2/this/tree/master/doc'), 'Open the documentation in a new tab', 'Help')
+  this.modes.modal.map('Page', ['Shift', 'F1'], () => window.open('https://github.com/alexherbo2/krabby/tree/master/doc'), 'Open the documentation in a new tab', 'Help')
 
   // External editor
   this.modes.modal.map('Text', ['Alt', 'KeyI'], () => this.extensions.editor.send('edit', this.env.EDITOR), 'Open your favorite editor', 'External editor')
@@ -422,9 +441,11 @@ function Krabby({ dormant = true } = {}) {
   this.modes.pass.map('Page', ['Alt', 'Escape'], this.modes.modal, 'Stop passing keys to the page', 'Pass keys')
 
   // Clipboard
-  this.modes.modal.map('Command', ['KeyY'], () => this.commands.copyToClipboard(location.href, 'Page address copied'), 'Copy page address', 'Clipboard')
-  this.modes.modal.map('Command', ['Alt', 'KeyY'], () => this.commands.copyToClipboard(document.title, 'Page title copied'), 'Copy page title', 'Clipboard')
-  this.modes.modal.map('Command', ['Shift', 'KeyY'], () => this.commands.copyToClipboard(`[${document.title}](${location.href})`, 'Page address and title copied'), 'Copy page address and title', 'Clipboard')
+  this.modes.modal.map('Document', ['KeyY'], () => this.commands.copyToClipboard(location.href, 'Page address copied'), 'Copy page address', 'Clipboard')
+  this.modes.modal.map('Document', ['Alt', 'KeyY'], () => this.commands.copyToClipboard(document.title, 'Page title copied'), 'Copy page title', 'Clipboard')
+  this.modes.modal.map('Document', ['Shift', 'KeyY'], () => this.commands.copyToClipboard(`[${document.title}](${location.href})`, 'Page address and title copied'), 'Copy page address and title', 'Clipboard')
+  this.modes.modal.map('Command', ['KeyY'], () => this.commands.yank(this.selections, (selection) => selection.outerHTML, 'HTML selection copied'), 'Copy HTML selection', 'Clipboard')
+  this.modes.modal.map('Command', ['Shift', 'KeyY'], () => this.commands.yankFilteredHTML(this.selections, this.env.HTML_FILTER), 'Copy selection, using an HTML filter', 'Clipboard')
   this.modes.modal.map('Link', ['KeyY'], () => this.commands.yank(this.selections, (selection) => selection.href, 'Link address copied'), 'Copy link address', 'Clipboard')
   this.modes.modal.map('Link', ['Alt', 'KeyY'], () => this.commands.yank(this.selections, (selection) => selection.textContent, 'Link text copied'), 'Copy link text', 'Clipboard')
   this.modes.modal.map('Link', ['Shift', 'KeyY'], () => this.commands.yank(this.selections, (selection) => `[${selection.textContent}](${selection.href})`, 'Link address and text copied'), 'Copy link address and text', 'Clipboard')
@@ -445,7 +466,7 @@ function Krabby({ dormant = true } = {}) {
   this.modes.modal.map('Video', ['KeyP'], () => this.commands.player().pictureInPicture(), 'Toggle picture-in-picture mode', 'Player')
 
   // mpv
-  this.modes.modal.map('Command', ['KeyM'], () => this.extensions.shell.send('mpv', location.href), 'Play with mpv', 'mpv')
+  this.modes.modal.map('Document', ['KeyM'], () => this.extensions.shell.send('mpv', location.href), 'Play with mpv', 'mpv')
   this.modes.modal.map('Video', ['Enter'], () => this.commands.mpvResume(), 'Play with mpv', 'mpv')
   this.modes.modal.map('Link', ['KeyM'], () => this.commands.mpv({ selections: this.selections }), 'Play with mpv', 'mpv')
   this.modes.modal.map('Link', ['Alt', 'KeyM'], () => this.commands.mpv({ selections: this.selections, reverse: true }), 'Play with mpv in reverse order', 'mpv')

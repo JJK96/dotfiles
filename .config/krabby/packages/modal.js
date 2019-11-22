@@ -34,6 +34,7 @@ class Modal {
     this.events['stop'] = []
     // Filters
     this.filter('Page', () => true)
+    this.filter('Document', () => this.activeElement.nodeName === 'BODY', 'Command')
     this.filter('Command', () => ! Modal.isText(this.activeElement), 'Page')
     this.filter('Text', () => Modal.isText(this.activeElement), 'Page')
     this.filter('Link', () => this.activeElement.nodeName === 'A', 'Command')
