@@ -1,0 +1,3 @@
+#!/bin/bash
+ftp=$(find ~/Documents/work -name ftp | rofi -dmenu)
+eval $ftp
