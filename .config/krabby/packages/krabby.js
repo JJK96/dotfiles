@@ -49,7 +49,7 @@ function Krabby({ dormant = true } = {}) {
   this.extensions.shell.port.onMessage.addListener((response) => {
     switch (response.id) {
       case 'html-filter':
-        this.commands.copyToClipboard(response.output, 'Text copied')
+        this.commands.copyToClipboard(response.output, 'HTML selection filtered and copied')
         break
     }
   })
