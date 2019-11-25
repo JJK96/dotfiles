@@ -105,6 +105,9 @@ alias e="editor"
 # mutt
 alias mutt=neomutt
 
+# ranger
+alias r="ranger"
+
 # directories
 alias wd="cd /home/jjk/Documents/master"
 alias swifter="cd /srv/http/swifter/stamboek/;sudo systemctl start httpd mariadb"
