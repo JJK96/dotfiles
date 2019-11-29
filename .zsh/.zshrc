@@ -128,3 +128,6 @@ alias zshrc="$EDITOR ~/.zsh/.zshrc"
 
 # Conversions
 alias frombinary="perl -lpe '\$_=pack\"B*\",\$_'"
+
+alias todo="ranger ~/sdcard/docs/todo && sync"
+alias note="ranger ~/sdcard/docs && sync"
