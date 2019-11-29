@@ -1,3 +1,4 @@
 [submodule ".config/kak"]
 	path = .config/kak
 	url = git@github.com:JJK96/kakoune-config.git
+    branch = mobile

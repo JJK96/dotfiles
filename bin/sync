@@ -1,0 +1,2 @@
+cd ~/sdcard/docs
+git pull && git add --all && git commit -m "Mobile changes" && git push
