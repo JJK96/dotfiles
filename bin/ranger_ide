@@ -1,0 +1,1 @@
+ranger --cmd="set preview_files" --cmd="set preview_directories!"
