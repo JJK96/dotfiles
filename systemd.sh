@@ -8,7 +8,7 @@ sudo systemctl enable   \
     polkit              \
     i3lock              \
     tlp                 \
-    btrbk.timer
+    snazzer.timer
 
 systemctl --user enable \
     redshift            \

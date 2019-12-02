@@ -1,4 +1,6 @@
 #!/bin/bash
-sudo btrbk -q snapshot root
+if [ "$1" != "-ns" ]; then
+    snazzer /mnt/btr_pool/root
+fi
 yay -Syu
 update_git_packages.sh

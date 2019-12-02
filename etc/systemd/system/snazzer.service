@@ -1,0 +1,5 @@
+[Unit]
+Description=Create btrfs snapshots 
+[Service]
+Type=simple
+ExecStart=/usr/bin/snazzer /mnt/btr_pool/home /mnt/btr_pool/mysql /mnt/btr_pool/root /mnt/btr_pool/srv
