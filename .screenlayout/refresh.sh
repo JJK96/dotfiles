@@ -1,2 +1,2 @@
 #!/bin/sh
-killall compton && compton & disown && wal -Rs
+killall picom && picom & disown && wal -Rs
