@@ -10,7 +10,7 @@ nm-applet &
 picom & 
 # redshift &
 #termite -e weechat &
-#firefox web.whatsapp.com gmail.com googleapps.utwente.nl https://discordapp.com/channels/@me calendar.google.com drive.google.com https://riot.im/develop/ &
+#firefox web.whatsapp.com gmail.com calendar.google.com drive.google.com https://riot.im/staging/ &
 kak -s default -d
 wal -R
 xset s off

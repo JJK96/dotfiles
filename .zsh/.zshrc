@@ -119,9 +119,6 @@ alias lspsrc="cd ~/git/kak-lsp-git/src/kak-lsp/"
 alias decktape="node /home/jjk/git/decktape/decktape.js --no-sandbox"
 alias mysql='mysql --auto-rehash -u root'
 
-# web sessions
-alias courses="firefox https://canvas.utwente.nl/courses/2479 https://learnintsec.org/courses/course-v1:UT+201700074B+2018Q1/courseware/d7394691d26f439082912a37c7f3bc62/ https://learnintsec.org/courses/course-v1:UT+201700074A+2018Q1/courseware/b95b477cab3d4668bdb46f57a1274261/ https://brightspace.tudelft.nl/d2l/home/140133 https://brightspace.tudelft.nl/d2l/home/126945 & disown %firefox && exit"
-
 # Frequently edited files
 alias i3config="$EDITOR ~/.config/i3/config"
 alias kakrc="$EDITOR ~/.config/kak/kakrc"
@@ -129,3 +126,5 @@ alias zshrc="$EDITOR ~/.zsh/.zshrc"
 
 # Conversions
 alias frombinary="perl -lpe '\$_=pack\"B*\",\$_'"
+
+alias chicken-csi="rlwrap chicken-csi"
