@@ -1,5 +1,7 @@
 #!/bin/bash
-git_packages=( kakoune kak-lsp neomutt)
+# not included:
+# - neomutt
+git_packages=( kakoune kak-lsp )
 for pkgname in ${git_packages[*]}; do
     cd $HOME/git/$pkgname-git/src/$pkgname
     git pull upstream master || exit
