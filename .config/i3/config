@@ -273,6 +273,9 @@ bindsym $mod+Shift+Tab exec i3-msg move scratchpad
 # Switch to window using rofi
 bindsym $mod+slash exec rofi -show window
 
+# Suspend system
+bindsym Pause exec systemctl suspend
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
