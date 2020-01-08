@@ -128,3 +128,5 @@ alias zshrc="$EDITOR ~/.zsh/.zshrc"
 alias frombinary="perl -lpe '\$_=pack\"B*\",\$_'"
 
 alias chicken-csi="rlwrap chicken-csi"
+
+alias mdc='function _md(){mkdir -p "$1" && cd "$1"};_md'
