@@ -25,36 +25,92 @@ class Hint {
     this.inputKeys = []
     this.validatedElements = []
     this.keyMap = Hint.KEY_MAP()
+    // State
+    this.state = {}
+    this.state.observers = []
+    this.state.updateRequests = []
+    this.state.style = {}
+    // Style
+    this.style = {}
     // Events
     this.events = {}
     this.events['validate'] = []
     this.events['start'] = []
     this.events['exit'] = []
-    // Style
-    this.style = `
+  }
+  get style() {
+    return this.state.style
+  }
+  set style({
+    fontSize = 12,
+    textColor = 'hsl(45, 81%, 10%)',
+    activeCharacterTextColor = 'hsl(44, 64%, 53%)',
+    backgroundColorStart = 'hsl(56, 100%, 76%)',
+    backgroundColorEnd = 'hsl(42, 100%, 63%)',
+    borderColor = 'hsl(39, 70%, 45%)',
+    fontFamilies = ['Roboto', 'sans-serif'],
+    fontWeight = 900,
+    horizontalPadding = 0.25,
+    verticalPadding = 0.15,
+    borderWidth = 1,
+    borderRadius = 4,
+    shadow = true,
+    hintCSS = '',
+    characterCSS = '',
+    activeCharacterCSS = ''
+  }) {
+    this.state.style = {
+      fontSize,
+      textColor,
+      activeCharacterTextColor,
+      backgroundColorStart,
+      backgroundColorEnd,
+      borderColor,
+      fontFamilies,
+      fontWeight,
+      horizontalPadding,
+      verticalPadding,
+      borderWidth,
+      borderRadius,
+      shadow,
+      hintCSS,
+      characterCSS,
+      activeCharacterCSS
+    }
+  }
+  getDocumentStyle() {
+    const style = document.createElement('style')
+    style.textContent = `
       .hint {
-        padding: 0.15rem 0.25rem;
-        border: 1px solid hsl(39, 70%, 45%);
+        padding: ${this.style.verticalPadding}rem ${this.style.horizontalPadding}rem;
+        border: ${this.style.borderWidth}px solid ${this.style.borderColor};
         text-transform: uppercase;
         text-align: center;
         vertical-align: middle;
-        background: linear-gradient(to bottom, hsl(56, 100%, 76%) 0%, hsl(42, 100%, 63%) 100%);
-        border-radius: 4px;
-        box-shadow: 0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12);
+        background: linear-gradient(to bottom, ${this.style.backgroundColorStart} 0%, ${this.style.backgroundColorEnd} 100%);
+        border-radius: ${this.style.borderRadius}px;
+        box-shadow: ${this.style.shadow
+          ? '0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12)'
+          : ''
+        };
         transform: translate3d(0%, -50%, 0);
         cursor: pointer;
+        ${this.style.hintCSS}
       }
       .hint .character {
-        font-family: Roboto, sans-serif;
-        font-size: 12px;
-        font-weight: 900;
-        color: hsl(45, 81%, 10%);
+        font-family: ${this.style.fontFamilies.join(',')};
+        font-size: ${this.style.fontSize}px;
+        font-weight: ${this.style.fontWeight};
+        color: ${this.style.textColor};
         text-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.6);
+        ${this.style.characterCSS}
       }
       .hint .character.active, .hint:hover .character {
-        color: hsl(44, 64%, 53%);
+        color: ${this.style.activeCharacterTextColor};
+        ${this.style.activeCharacterCSS}
       }
     `
+    return style
   }
   updateHints() {
     const hintableElements = Array.from(document.querySelectorAll(this.selectors)).filter((element) => this.isHintable(element))
@@ -86,6 +142,12 @@ class Hint {
     }
   }
   processHint([label, element]) {
+    // Request immediate update
+    this.requestUpdate()
+    // Observe changes in parentElement to keep hints up-to-date.
+    // Note: We could watch the whole document, but in practice,
+    // observing changes in the parent element works well enough.
+    this.observe(element.parentElement)
     this.validatedElements.push(element)
     if (this.lock === false) {
       this.stop()
@@ -99,6 +161,68 @@ class Hint {
     for (const listener of this.events[type]) {
       listener(...parameters)
     }
+  }
+  get observers() {
+    return this.state.observers
+  }
+  set observers(observers) {
+    this.state.observers = observers
+  }
+  observe(target) {
+    const options = {
+      attributes: true,
+      childList: true,
+      subtree: true
+    }
+    const observer = new MutationObserver((mutationList, observer) => {
+      for (const mutation of mutationList) {
+        switch (mutation.type) {
+          case 'childList':
+            this.requestUpdate()
+            break
+        }
+      }
+    })
+    // Register observer
+    this.observers.push(observer)
+    // Start observing
+    observer.observe(target, options)
+  }
+  clearObservers() {
+    for (const observer of this.observers) {
+      observer.disconnect()
+    }
+    this.observers = []
+  }
+  get updateRequests() {
+    return this.state.updateRequests
+  }
+  set updateRequests(handles) {
+    this.state.updateRequests = handles
+  }
+  requestUpdate() {
+    // Update hints and reset keys during the next idle period.
+    // A timeout is set to prevent resetting keys after a too long period.
+    const handle = requestIdleCallback((deadline) => {
+      this.updateHints()
+      this.processKeys([])
+      // Just update hints
+      // A second request – may be necessary, and is generally enough –
+      // to ensure elements have been rendered (after a click, for example).
+      const handle = requestIdleCallback((deadline) => {
+        this.updateHints()
+      })
+      // Register request
+      this.updateRequests.push(handle)
+    }, { timeout: 1000 })
+    // Register request
+    this.updateRequests.push(handle)
+  }
+  clearUpdateRequests() {
+    for (const handle of this.updateRequests) {
+      cancelIdleCallback(handle)
+    }
+    this.updateRequests = []
   }
   start() {
     this.onKey = (event) => {
@@ -131,7 +255,10 @@ class Hint {
       this.processKeys([])
     }
     this.onClick = (event) => {
-      this.stop()
+      const targeted = ([label, element]) => element === event.target
+      if (! this.hints.some(targeted)) {
+        this.stop()
+      }
     }
     // Use the capture method.
     //
@@ -154,6 +281,9 @@ class Hint {
     this.processKeys([])
   }
   stop() {
+    // Clear observers and update requests
+    this.clearObservers()
+    this.clearUpdateRequests()
     window.removeEventListener('keydown', this.onKey, true)
     window.removeEventListener('scroll', this.onViewChange)
     window.removeEventListener('resize', this.onViewChange)
@@ -197,11 +327,8 @@ class Hint {
       shadow.append(container)
     }
     this.clearViewport()
-    // Style
-    const style = document.createElement('style')
-    style.textContent = this.style
     // Attach
-    shadow.append(style)
+    shadow.append(this.getDocumentStyle())
     document.documentElement.append(root)
   }
   clearViewport() {

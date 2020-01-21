@@ -1,17 +1,28 @@
 /* Dracula theme – https://draculatheme.com */
 
-.primary-selection {
-  --primary-selection-color: hsl(326, 100%, 74%); /* Pink */
-  outline: var(--primary-selection-color) solid thin !important;
-  border: thin solid var(--primary-selection-color) !important;
+:root {
+  --primary-selection-border: hsl(326, 100%, 74%); /* Pink */
+  --primary-selection-background: hsla(326, 100%, 74%, 0.1); /* Pink */
+  --secondary-selection-border: hsl(265, 89%, 78%); /* Purple */
+  --secondary-selection-background: hsla(265, 89%, 78%, 0.1); /* Purple */
+  --primary-phantom-border: hsl(135, 94%, 65%); /* Green */
+  --primary-phantom-background: hsla(135, 94%, 65%, 0.1); /* Green */
+  --secondary-phantom-border: hsl(135, 94%, 65%); /* Green */
+  --secondary-phantom-background: hsla(135, 94%, 65%, 0.1); /* Green */
+}
+
+.primary-selection, .secondary-selection, .primary-phantom, .secondary-phantom {
   box-shadow: 0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12) !important;
 }
 
+.primary-selection {
+  outline: var(--primary-selection-border) solid 2px !important;
+  background-color: var(--primary-selection-background) !important;
+}
+
 .secondary-selection {
-  --secondary-selection-color: hsl(265, 89%, 78%); /* Purple */
-  outline: var(--secondary-selection-color) dotted thin !important;
-  border: thin dotted var(--secondary-selection-color) !important;
-  box-shadow: 0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12) !important;
+  outline: var(--secondary-selection-border) dotted 2px !important;
+  background-color: var(--secondary-selection-background) !important;
 }
 
 :root.primary-selection {
@@ -19,17 +30,13 @@
 }
 
 .primary-phantom {
-  --primary-phantom-color: hsl(135, 94%, 65%); /* Green */
-  outline: var(--primary-phantom-color) solid thin !important;
-  border: thin solid var(--primary-phantom-color) !important;
-  box-shadow: 0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12) !important;
+  outline: var(--primary-phantom-border) solid 2px !important;
+  background-color: var(--primary-phantom-background) !important;
 }
 
 .secondary-phantom {
-  --secondary-phantom-color: hsl(135, 94%, 65%); /* Green */
-  outline: var(--secondary-phantom-color) dotted thin !important;
-  border: thin dotted var(--secondary-phantom-color) !important;
-  box-shadow: 0 3px 1px -2px hsla(0, 0%, 0%, 0.2), 0 2px 2px 0 hsla(0, 0%, 0%, 0.14), 0 1px 5px 0 hsla(0, 0%, 0%, 0.12) !important;
+  outline: var(--secondary-phantom-border) dotted 2px !important;
+  background-color: var(--secondary-phantom-background) !important;
 }
 
 :root.primary-phantom {
@@ -38,13 +45,11 @@
 
 /* Overlapping selections (selections on phantoms) */
 .primary-selection.primary-phantom, .primary-selection.secondary-phantom {
-  --primary-selection-color: hsl(265, 89%, 78%); /* Purple */
-  outline: var(--primary-selection-color) solid thin !important;
-  border: thin solid var(--primary-selection-color) !important;
+  outline: var(--primary-selection-border) solid 2px !important;
+  background-color: var(--primary-selection-background) !important;
 }
 
 .secondary-selection.primary-phantom, .secondary-selection.secondary-phantom {
-  --secondary-selection-color: hsl(326, 100%, 74%); /* Pink */
-  outline: var(--secondary-selection-color) dotted thin !important;
-  border: thin dotted var(--secondary-selection-color) !important;
+  outline: var(--secondary-selection-border) dotted 2px !important;
+  background-color: var(--secondary-selection-background) !important;
 }

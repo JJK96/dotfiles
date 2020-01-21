@@ -73,14 +73,14 @@ class Prompt {
       this.triggerEvent('open')
       // Events
       dialog.addEventListener('close', () => {
-        resolve(dialog.returnValue)
+        resolve(dialog.returnValue || null)
         this.triggerEvent('close')
       })
       form.addEventListener('submit', () => {
         dialog.close(input.value)
       })
       dialog.addEventListener('cancel', () => {
-        dialog.close(null)
+        dialog.close()
       })
       dialog.addEventListener('keydown', (event) => {
         // Stop the propagation of the event

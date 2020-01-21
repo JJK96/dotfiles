@@ -45,13 +45,18 @@ class SelectionListBase {
     this.triggerEvent('selection-change', collection)
   }
   add(...elements) {
+    if (elements.length === 0) {
+      return
+    }
     const collection = this.collection.concat(elements)
     const main = collection.length - 1
     this.set(collection, main)
   }
   remove(...elements) {
-    const collection = Object.assign([this.mainSelection], elements)
-    this.filter((candidate) => collection.includes(candidate) === false)
+    if (elements.length === 0) {
+      return
+    }
+    this.filter((candidate) => elements.includes(candidate) === false)
   }
   filter(callback) {
     this.fold((element, index, array) => callback(element, index, array) ? [element] : [])
@@ -68,7 +73,7 @@ class SelectionListBase {
     }
     this.fold((element) => {
       const parent = getParent(element, count)
-      return parent ? [parent] : []
+      return [parent]
     })
   }
   children(depth = 1) {
@@ -97,7 +102,11 @@ class SelectionListBase {
     let main = this.main
     const collection = []
     for (const [index, element] of this.collection.entries()) {
-      const elements = callback(element, index, this.collection)
+      // Add a protection against selecting children or siblings when there aren’t any.
+      // Example: selections.fold((element) => [element.parentElement])
+      // Use Array.from() to handle HTML collections
+      // Example: selections.fold((element) => element.children)
+      const elements = Array.from(callback(element, index, this.collection)).filter(Boolean)
       switch (elements.length) {
         case 0:
           if (index < this.main || this.main === this.length - 1) {

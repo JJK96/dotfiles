@@ -2,50 +2,53 @@ class Scroll {
   constructor() {
     this.element = document.scrollingElement
     this.step = 70
-    this.behavior = 'smooth'
+    this.fastFactor = 3
+    this.pageFactor = 0.9
     this.animation = null
   }
+  get fastStep() {
+    return this.step * this.fastFactor
+  }
+  get pageScroll() {
+    return window.innerHeight * this.pageFactor
+  }
   down(repeat) {
-    if (this.behavior === 'smooth') {
-      this.animate(() => this.element.scrollTop += this.step / 4, repeat)
-    } else {
-      this.element.scrollBy({ top: this.step })
-    }
+    this.animate('down', this.step, repeat)
   }
   up(repeat) {
-    if (this.behavior === 'smooth') {
-      this.animate(() => this.element.scrollTop -= this.step / 4, repeat)
-    } else {
-      this.element.scrollBy({ top: -this.step })
-    }
+    this.animate('up', this.step, repeat)
   }
   right(repeat) {
-    if (this.behavior === 'smooth') {
-      this.animate(() => this.element.scrollLeft += this.step / 4, repeat)
-    } else {
-      this.element.scrollBy({ left: this.step })
-    }
+    this.animate('right', this.step, repeat)
   }
   left(repeat) {
-    if (this.behavior === 'smooth') {
-      this.animate(() => this.element.scrollLeft -= this.step / 4, repeat)
+    this.animate('left', this.step, repeat)
+  }
+  // Honor pageScroll the first time a key is pressed, then fastStep in rapid succession.
+  pageDown(repeat) {
+    if (repeat) {
+      this.animate('down', this.fastStep, repeat)
     } else {
-      this.element.scrollBy({ left: -this.step })
+      this.element.scrollBy({ top: this.pageScroll, behavior: 'smooth' })
     }
   }
-  pageDown(percent = 0.9) {
-    this.element.scrollBy({ top: window.innerHeight * percent, behavior: this.behavior })
+  pageUp(repeat) {
+    if (repeat) {
+      this.animate('up', this.fastStep, repeat)
+    } else {
+      this.element.scrollBy({ top: -this.pageScroll, behavior: 'smooth' })
+    }
   }
-  pageUp(percent = 0.9) {
-    this.element.scrollBy({ top: -window.innerHeight * percent, behavior: this.behavior })
-  }
-  // Force instant scroll to top / bottom
+  // Do not use the built-in methods.
   // Reason: The smooth scrolling is too slow on Chrome.
-  top() {
-    this.element.scrollTo({ top: 0, behavior: 'auto' })
+  //
+  // Scrolls the amount needed to reach top / bottom.
+  // Reason: Animations are relative.
+  top(repeat) {
+    this.animate('up', this.element.scrollTop, repeat)
   }
-  bottom() {
-    this.element.scrollTo({ top: this.element.scrollHeight, behavior: 'auto' })
+  bottom(repeat) {
+    this.animate('down', this.element.scrollHeight - this.element.scrollTop, repeat)
   }
   // Saka Key – https://key.saka.io
   //
@@ -54,7 +57,7 @@ class Scroll {
   // After that, there is a delay before the second keydown event is fired.
   // The third and all subsequent keydown events fire in rapid succession.
   // event.repeat is false for the first keydown event, but true for all others.
-  // The delay (70 and 700) are carefully selected to keep scrolling smooth, but
+  // The delay (step and (step × 10)) are carefully selected to keep scrolling smooth, but
   // prevent unexpected scrolling after the user has released the scroll key.
   // Relying on keyup events exclusively to stop scrolling is unreliable.
   //
@@ -71,24 +74,57 @@ class Scroll {
   // – I tried a timeout based solution.
   //
   // https://github.com/lusakasa/saka-key/blob/master/notes/engineering.md
-  animate(animation, repeat) {
+  //
+  // Scroll.directions is a { down, up, right, left } interface around scrollTop and scrollLeft properties.
+  // To do: Use public static fields when supported by Firefox
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Class_fields#Public_static_fields
+  static directions() {
+    const direction = (direction, sign) => ({ direction, sign })
+    return {
+      down: direction('scrollTop', 1),
+      up: direction('scrollTop', -1),
+      right: direction('scrollLeft', 1),
+      left: direction('scrollLeft', -1)
+    }
+  }
+  // Function to unify scrolling mechanisms.
+  animate(direction, step, repeat) {
+    // Use Scroll.directions to abstract scrollTop and scrollLeft, and set its value (positive or negative) accordingly.
+    const { direction: directionKey, sign } = Scroll.directions()[direction]
+    // longThrow is used for frictions and to prevent installing keyup event.
+    const longThrow = step >= this.pageScroll
+    // Compute dynamic friction for short, medium and long scroll distances.
+    const friction = longThrow
+      ? Math.log(Math.pow(step, 2))
+      : Math.log(step)
+    // Relative animations
+    const animation = () => this.element[directionKey] += (step / friction) * sign
     // Cancel potential animation being proceeded
     cancelAnimationFrame(this.animation)
     let start = null
-    const delay = repeat ? 70 : 700
-    const step = (timeStamp) => {
+    // Store the last scrollTop and scrollLeft positions to handle animations that stop progressing
+    // (because the top or bottom of the page has been reached, for example).
+    let lastScrollTop = null
+    let lastScrollLeft = null
+    // Compute delay value
+    const delay = repeat ? step : (step * 10)
+    const animationStep = (timeStamp) => {
       if (start === null) {
         start = timeStamp
       }
       const progress = timeStamp - start
+      lastScrollTop = this.element.scrollTop
+      lastScrollLeft = this.element.scrollLeft
       animation()
-      if (progress < delay) {
-        this.animation = requestAnimationFrame(step)
+      // Continue until done, but prevent further animations when scrolling stops progressing
+      // (because the top or bottom of the page has been reached, for example).
+      if (progress < delay && this.scrollProgress(lastScrollTop, lastScrollLeft)) {
+        this.animation = requestAnimationFrame(animationStep)
       } else {
         this.animation = null
       }
     }
-    requestAnimationFrame(step)
+    requestAnimationFrame(animationStep)
     // End smooth scrolling animation on key-up.
     const onKeyUp = (event) => {
       cancelAnimationFrame(this.animation)
@@ -96,8 +132,12 @@ class Scroll {
     const once = {
       once: true
     }
-    if (! repeat) {
+    // Do not install keyup event on repeat and long jumps.
+    if (! (repeat || longThrow)) {
       this.element.addEventListener('keyup', onKeyUp, once)
     }
+  }
+  scrollProgress(scrollTop, scrollLeft) {
+    return (scrollTop !== this.element.scrollTop) || (scrollLeft !== this.element.scrollLeft)
   }
 }
