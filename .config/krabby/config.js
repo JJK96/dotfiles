@@ -31,6 +31,7 @@ key_map = {
 const krabby = new Krabby({ dormant: false })
 
 krabby.env.EDITOR = '$TERMINAL -e "editor -t \"$1\""'
+krabby.env.HTMLFILTER = 'pandoc -t markdown'
 
 // Mappings ──────────────────────────────────────────────────────────────────
 
