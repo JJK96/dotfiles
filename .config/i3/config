@@ -107,7 +107,7 @@ bindsym $mod+Shift+s exec screenlayout
 # Switch to colemak
 bindsym $mod+bracketleft exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
 # Switch to qwerty
-bindsym $mod+bracketright exec setxkbmap -variant ""
+bindsym $mod+bracketright exec setxkbmap us -variant ""
 
 # Screenshot of whole screen
 bindsym Print exec "cd /tmp;scrot -u"
