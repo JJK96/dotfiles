@@ -40,3 +40,4 @@ color normal white default
 source ~/dotfiles/.mutt/gmail
 source ~/dotfiles/.mutt/keybinds
 source ~/dotfiles/.mutt/colors
+source ~/dotfiles/.mutt/gpg.rc
