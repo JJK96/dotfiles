@@ -118,6 +118,8 @@ alias lspsrc="cd ~/git/kak-lsp-git/src/kak-lsp/"
 # Programs
 alias decktape="node /home/jjk/git/decktape/decktape.js --no-sandbox"
 alias mysql='mysql --auto-rehash -u root'
+alias batch='batch_process --editor=kak'
+alias batch_rename=$'batch --map \'/usr/share/batch/rename "$1" "$2"\''
 
 # Frequently edited files
 alias i3config="$EDITOR ~/.config/i3/config"
