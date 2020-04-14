@@ -14,9 +14,9 @@ ttf-ms-fonts
 ttf-symbola
 
 #graphics card
-bumblebee #hybrid video card with nvidia
-primus #hybrid video card with nvidia
 nvidia #video card driver
+nvidia-settings
+nvidia-xrun
 
 #extended support
 zip
@@ -34,6 +34,7 @@ arandr #Graphical control monitors.
 smartmontools #view smart status of disks (used by tlp)
 
 #development
+nvm #use different nodejs versions
 php-apache #php for apache
 mariadb #mysql database
 postgresql #postgres database
@@ -41,9 +42,12 @@ maven #java project management
 linux-lts-headers
 linux-headers
 intellij-idea-ultimate-edition
+code #vscode
 git
 gdb #debugger
 android-tools #adb, etc.
+bear-git #c project compile_commands.json generator
+ctags #tags for a lot of languages
 
 ##latex libraries
 texlive-bibtexextra
@@ -94,6 +98,11 @@ php-xsl
 #utilities
 
 ## active use
+opendetex             # latex to plain text
+nodejs-markserv       # serve markdown files as html
+gist                  # send input to gist.github.com
+fzf                   # find files (and other stuff) quickly, integration with kakoune
+dos2unix              # convert files from dos format to unix
 time                  # timing
 ack                   # better grep
 shellcheck            # check shell scripts
@@ -112,9 +121,6 @@ goobook-git           # google contacts for mutt
 gparted               # partition manager
 howdoi                # quickly find how to do something
 libinput-gestures-git # gestures
-okular                # pdf viewer
-mupdf                 # pdf viewer
-libmupdf              # pdf viewer
 neofetch              # system information in terminal (screenfetch)
 net-tools             # ifconfig etc.
 newsboat              # rss reader
@@ -124,7 +130,6 @@ pandoc-bin            # compile markdown and documents converting
 pass                  # password store
 keepass
 pavucontrol           # volume control
-pdftk-bin             # pdf toolkit
 playerctl             # Send media keys to applications
 pv                    # measure progress through pipe
 radare2-git           # reverse engineering toolkit
@@ -133,6 +138,7 @@ rsync                 # copy lots of files
 seahorse              # gui for gnome-keyring management
 sxiv                  # image viewer
 nomacs                # image viewer
+perl-image-exiftool   # view exif data of images
 system-config-printer # printer settings
 tmux                  # terminal multiplexer
 traceroute            # find intermediate hops over internet
@@ -150,8 +156,10 @@ youtube-dl            # download from youtube
 asciinema             # terminal recordings
 blueman               # bluetooth manager
 docker
+lsof                  # find which process is using a file
 
 ## inactive use
+kdeconnect    # communication with phone
 playerctl-git #control spotify using commands
 git-crypt     #put encrypted data on git
 dxvk-bin      #vulkan
@@ -165,6 +173,15 @@ cups          #printing
 xsane         #printing
 hplip         #printing hp
 
+## pdf
+diff-pdf-git # diff pdf files
+pdftk        # toolkit
+okular       # viewer
+mupdf        # viewer
+libmupdf     # viewer
+llpp         # viewer
+pdfgrep      # search in pdf files
+
 #file management
 vifm #file manager (used by aurutils)
 thunar            #file manager
@@ -176,12 +193,14 @@ gvfs-mtp          #mtp support thunar
 gvfs-smb          #smb support thunar
 atool             #archive support in ranger.
 ffmpegthumbnailer #video thumbnail ranger
+ncdu              #find which files use most disk space
 
 #package management
 pkgfile #find which package a file belongs to
 repose #handle custom repository
 yay #aur helper
 namcap #check pkgbuilds
+composer #php
 
 #programming languages
 rustup                       #rust
@@ -206,8 +225,11 @@ minecraft
 lutris #load windows games more easily
 digger 
 cgoban3 #go (baduk)
+lutris-git
+osu-lazer-git
 
 #Applications
+obs-studio      #streaming and recording
 virtualbox
 teamviewer-beta
 pulseeffects    #pulseaudio effects
@@ -244,11 +266,12 @@ kak-lsp-git     #kakoune language server
 vis             #text editor (like vim)
 weechat         #irc client
 gimp            #image editing
-firefox
+firefox-developer-edition
 chromium
 audacity        #sound editing
 rofi            #application launcher
 filezilla       #ftp
+discord
 
 #Fun
 fortune-mod #fortune cookies
@@ -263,10 +286,11 @@ lightdm-gtk-greeter
 sway             #i3 for wayland
 dunst-git        #notifications
 statnot          #notifications
-compton          #compositor
+picom            #compositor
 i3-style         #colorschemes i3
 i3-wm            #window manager
 i3blocks         #customizable status bar
+i3blocks-contrib #blocks for i3blocks
 i3lock           #lock screen
 perl-anyevent-i3 #communicate with i3
 
@@ -326,7 +350,7 @@ aspell-nl
 # Language servers
 php-language-server
 python-language-server
-cquery
+ccls
 javascript-typescript-langserver
 jdtls
 vscode-html-languageserver-bin
