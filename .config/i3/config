@@ -165,6 +165,11 @@ bindsym $mod+Shift+n move down
 bindsym $mod+Shift+e move up
 bindsym $mod+Shift+i move right
 
+# Move workspace to other screen
+bindsym $mod+Shift+Control+n move workspace to output down
+bindsym $mod+Shift+Control+e move workspace to output down
+
+
 # alternatively, you can use the cursor keys:
 #bindsym $mod+Shift+Left move left
 #bindsym $mod+Shift+Down move down
