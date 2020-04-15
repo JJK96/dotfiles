@@ -1,0 +1,35 @@
+# Java
+maven #java project management
+jdtls
+
+# Haskell
+hoogle
+haskell-haddock-library
+cabal-install
+stack
+ghc
+
+# PHP
+composer
+
+# NodeJS
+nvm #use different nodejs versions
+eslint #linter for javascript
+npm                          #nodejs package manager
+javascript-typescript-langserver
+
+#rust
+rustup
+
+#lisp
+clisp
+
+#IDE
+intellij-idea-ultimate-edition
+webstorm
+phpstorm
+
+#utilities
+vagrant  # docker setup
+valgrind # dynamic analysis
+

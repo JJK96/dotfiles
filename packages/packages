@@ -1,7 +1,6 @@
 #themes
 terminus-font
 ttf-iosevka #nice monospace font
-oomox #generate gtk theme using pywal
 lxappearance #adapt gtk themes
 arc-gtk-theme 
 arc-icon-theme
@@ -34,36 +33,20 @@ arandr #Graphical control monitors.
 smartmontools #view smart status of disks (used by tlp)
 
 #development
-nvm #use different nodejs versions
-php-apache #php for apache
-mariadb #mysql database
-postgresql #postgres database
-maven #java project management
+php-apache    #php for apache
+xdebug        #php debugger
+mariadb       #mysql database
+postgresql    #postgres database
 linux-lts-headers
 linux-headers
-intellij-idea-ultimate-edition
-code #vscode
+code          #vscode
 git
-gdb #debugger
+tig           #git frontend
+gdb           #debugger
 android-tools #adb, etc.
-bear-git #c project compile_commands.json generator
-ctags #tags for a lot of languages
-
-##latex libraries
-texlive-bibtexextra
-texlive-bin
-texlive-core
-texlive-fontsextra
-texlive-formatsextra
-texlive-games
-texlive-humanities
-texlive-langextra
-texlive-latexextra
-texlive-music
-texlive-pictures
-texlive-pstricks
-texlive-publishers
-texlive-science
+bear-git      #c project compile_commands.json generator
+ctags         #tags for a lot of languages
+strace
 
 ##python libraries
 python-matplotlib   #plot stuff
@@ -75,20 +58,11 @@ python-pillow       #computer vision
 python-pycryptodome #crypto
 python-spotipy      #spotify interaction
 python-virtualenv   #virtual environment
-python-docx         #read docx
 python-matplotlib   #plot stuff
 python-numpy        #calculate stuff
-python-opencv       #image detection
 python-pip          #package manager
 python-pywal        #set themes
-python-pywapi 
 python-sympy        #symbolic calculation
-python-websockets
-python2-anyjson
-python2-jedi        #autocomplete
-python2-pip
-python2-pwntools    #hacking
-python2-pyserial    #read serial connections
 
 ##php plugins
 php-gd
@@ -98,6 +72,10 @@ php-xsl
 #utilities
 
 ## active use
+wdiff                 # wordwise diff
+screen                # interact with serial ports
+rlwrap                # wrap repl so readline and history can be used
+batch                 # batch processing of files using text editor
 opendetex             # latex to plain text
 nodejs-markserv       # serve markdown files as html
 gist                  # send input to gist.github.com
@@ -105,7 +83,6 @@ fzf                   # find files (and other stuff) quickly, integration with k
 dos2unix              # convert files from dos format to unix
 time                  # timing
 ack                   # better grep
-shellcheck            # check shell scripts
 aiksaurus             # synonyms
 at                    # schedule commands
 certbot               # ssl certificates
@@ -119,7 +96,6 @@ feh                   # background
 gnu-netcat            # interact over network
 goobook-git           # google contacts for mutt
 gparted               # partition manager
-howdoi                # quickly find how to do something
 libinput-gestures-git # gestures
 neofetch              # system information in terminal (screenfetch)
 net-tools             # ifconfig etc.
@@ -130,7 +106,6 @@ pandoc-bin            # compile markdown and documents converting
 pass                  # password store
 keepass
 pavucontrol           # volume control
-playerctl             # Send media keys to applications
 pv                    # measure progress through pipe
 radare2-git           # reverse engineering toolkit
 rclone                # sync dropbox and google drive
@@ -146,7 +121,6 @@ uget                  # download manager
 w3m                   # html to text
 wget                  # download stuff
 whois                 # find information about  web host
-wireshark-gtk         # sniff packets
 x11vnc                # vnc server/client
 xautoclick            # auto clicker
 xautolock             # lock screen automatically
@@ -157,10 +131,14 @@ asciinema             # terminal recordings
 blueman               # bluetooth manager
 docker
 lsof                  # find which process is using a file
+sshfs                 # mount directory over ssh
 
-## inactive use
-kdeconnect    # communication with phone
-playerctl-git #control spotify using commands
+## passive use
+playerctl     # Send media keys to applications
+unipicker     # pick unicode characters
+snazzer-git   #create btrfs snapshots 
+qrencode      #create QR code (used by ~/bin/stream_webcam, ~/bin/webserver)
+kdeconnect    #communication with phone
 git-crypt     #put encrypted data on git
 dxvk-bin      #vulkan
 tk            #windowing toolkit
@@ -172,6 +150,7 @@ binwalk       #view files in .img
 cups          #printing
 xsane         #printing
 hplip         #printing hp
+isync         #retrieve mail
 
 ## pdf
 diff-pdf-git # diff pdf files
@@ -183,7 +162,6 @@ llpp         # viewer
 pdfgrep      # search in pdf files
 
 #file management
-vifm #file manager (used by aurutils)
 thunar            #file manager
 thunar-volman     #automatic removable devices
 ranger            #file manager
@@ -200,61 +178,41 @@ pkgfile #find which package a file belongs to
 repose #handle custom repository
 yay #aur helper
 namcap #check pkgbuilds
-composer #php
 
 #programming languages
-rustup                       #rust
-npm                          #nodejs package manager
-jdk-openjdk                  #java
 yarn                         #node package manager
+jdk-openjdk                  #java
 php
-ghc                          #haskell
 bash                         #scripts
 bind-tools                   #requirement python
-cfunge                       #befunge
-clisp                        #lisp
 python-jedi                  #autocomplete python
 jupyter                      #notebooks
 jupyter_contrib_nbextensions #jupyter extensions
 
 #games
-ltris #tetris
-steam
-srb2
-minecraft
-lutris #load windows games more easily
-digger 
-cgoban3 #go (baduk)
-lutris-git
-osu-lazer-git
+lutris-git #Load windows games more easily
 
 #Applications
+wireshark-qt    #capture network packets
 obs-studio      #streaming and recording
 virtualbox
 teamviewer-beta
 pulseeffects    #pulseaudio effects
 postman-bin     #send http requests
 pdfpc           #pdf presenter
-kazam           #screen recording
 graphviz        #visualize dot files
 handbrake       #video converter
-gtypist         #typing software
 espeak          #Speak text
-cheese          #webcam software
 teamviwer-beta
 neomutt-git     #email
 zsh             #shell
 oh-my-zsh-git   #shell extensions
 zsh-autosuggestions #as-you-type completion
-dash            #faster shell
+dash            #faster shell (for kakoune)
 zsh-completions
-qutebrowser     #browser
 transmission-qt #torrent client
-tor-browser 
 termite         #terminal emulator
-teamviewer
 spotify
-rambox-bin      #social media manager
 openlp          #worship software
 mpv             #media player
 vlc             #media player
@@ -263,8 +221,6 @@ kdenlive        #video editing
 gvim            #text editor
 kakoune-git     #text editor (like vim)
 kak-lsp-git     #kakoune language server
-vis             #text editor (like vim)
-weechat         #irc client
 gimp            #image editing
 firefox-developer-edition
 chromium
@@ -299,15 +255,16 @@ base
 base-devel
 xorg-drivers
 xorg
+texlive-most
 
 #virtual machines / emulation
-wine-staging #running windows programs
+wine       #running windows programs
 winetricks #installing libraries for wine
 virt-manager #manage qemu virtual machines
 qemu
 qemu-arch-extra
 dosbox #dos applications
-virtualbox-host-modules-arch #host modules
+virtualbox-host-dkms #host modules
 
 #boot
 os-prober #detect other OSes
@@ -316,6 +273,7 @@ syslinux
 efibootmgr #needed for grub on efi
 
 #System
+v4l2loopback-dkms-git  #stream via webcam
 intel-ucode            #microcode
 iw                     #wireless configuration
 lib32-libpulse         #sound support wine
@@ -333,6 +291,7 @@ openssh                #ssh
 postfix                #mail server
 pulseaudio-alsa
 pulseaudio-equalizer
+pulseaudio-bluetooth
 samba                  #shares and printers
 tlp                    #power management
 udevil                 #udev auto mount disks
@@ -348,32 +307,7 @@ aspell-en
 aspell-nl
 
 # Language servers
-php-language-server
 python-language-server
 ccls
-javascript-typescript-langserver
-jdtls
 vscode-html-languageserver-bin
 vue-language-server
-
-# cross compiling
-mingw-w64-adwaita-icon-theme
-mingw-w64-atk
-mingw-w64-cairo-bootstrap
-mingw-w64-crt
-mingw-w64-fontconfig
-mingw-w64-freetype2-bootstrap
-mingw-w64-gcc
-mingw-w64-gdk-pixbuf2
-mingw-w64-glib2
-mingw-w64-gtk3
-mingw-w64-libepoxy
-mingw-w64-libidn2
-mingw-w64-libpng
-mingw-w64-libtiff
-mingw-w64-lzo
-mingw-w64-nettle
-mingw-w64-pango
-mingw-w64-pixman
-mingw-w64-rust-bin
-mingw-w64-xz
