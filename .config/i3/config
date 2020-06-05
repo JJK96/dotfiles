@@ -112,7 +112,7 @@ bindsym $mod+bracketright exec setxkbmap us -variant ""
 # Screenshot of whole screen
 bindsym Print exec "cd /tmp;scrot -u"
 # Screenshot of selected area
-bindsym --release $mod+Print exec deepin-screenshot -s /tmp/ 2>&1 | grep -o '/tmp/Deepin[^"]*' | xargs xclip -selection clipboard -t image/png -i
+bindsym --release $mod+Print exec deepin-screen-recorder -s /tmp/ 2>&1 | grep -o '/tmp/Deepin[^"]*' | xargs xclip -selection clipboard -t image/png -i
 #bindsym --release $mod+Print exec "cd /tmp;scrot -s"
 
 # Rofi: start a program
@@ -169,7 +169,9 @@ bindsym $mod+Shift+i move right
 
 # Move workspace to other screen
 bindsym $mod+Shift+Control+n move workspace to output down
-bindsym $mod+Shift+Control+e move workspace to output down
+bindsym $mod+Shift+Control+e move workspace to output up
+bindsym $mod+Shift+Control+h move workspace to output left
+bindsym $mod+Shift+Control+i move workspace to output right
 
 
 # alternatively, you can use the cursor keys:

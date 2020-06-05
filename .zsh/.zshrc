@@ -1,14 +1,15 @@
 source ~/.profile
 setopt HIST_IGNORE_SPACE
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt inc_append_history
 setopt autocd 
 setopt extendedglob
 #setopt share_history
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/jjk/.zshrc'
+zstyle ':completion:*' file-sort date
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
