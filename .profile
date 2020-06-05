@@ -1,5 +1,5 @@
 export EDITOR="editor -t"
-export TERMINAL=termite
+export TERMINAL=alacritty
 export PDFVIEWER=llpp
 export BROWSER=firefox
 mkdir -p /tmp/Downloads
