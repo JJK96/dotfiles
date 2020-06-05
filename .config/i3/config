@@ -98,7 +98,7 @@ bindsym $mod+b exec $browser
 # Thunar: file manager
 bindsym $mod+t exec thunar
 # Ranger: terminal file manager
-bindsym $mod+r exec $terminal -e "ranger --cmd='cd $HOME'"
+bindsym $mod+r exec $terminal -e ranger --cmd="cd $HOME"
 # kill focused window
 bindsym $mod+q kill
 # Change screen layout

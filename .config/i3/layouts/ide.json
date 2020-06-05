@@ -11,8 +11,7 @@
                     "percent": 0.3,
                     "swallows": [
                        {
-                       "class": "^Termite$",
-                       "window_role": "Ranger"
+                       "title": "Ranger"
                        }
                     ],
                     "type": "con"
@@ -25,8 +24,7 @@
                         {
                             "swallows": [
                                {
-                               "class": "^Termite$",
-                               "window_role": "Kakoune"
+                               "title": "Kakoune"
                                }
                             ],
                             "type": "con"
@@ -39,8 +37,7 @@
             "percent": 0.2,
             "swallows": [
                {
-               "class": "^Termite$",
-               "window_role": "Terminal"
+               "title": "Terminal"
                }
             ],
             "type": "con"
