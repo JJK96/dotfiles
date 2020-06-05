@@ -141,6 +141,8 @@ bindsym XF86AudioPlay exec "playerctl play-pause"
 bindsym XF86AudioPrev exec "playerctl previous"
 # Next song
 bindsym XF86AudioNext exec "playerctl next"
+# Like song
+bindsym XF86Tools exec ~/bin/spotify/like_current
 
 # Change focus
 bindsym $mod+h focus left

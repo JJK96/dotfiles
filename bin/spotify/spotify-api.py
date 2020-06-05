@@ -23,6 +23,7 @@ token = util.prompt_for_user_token(
 sp = spotipy.Spotify(auth=token)
 pp = pprint.PrettyPrinter(indent=4)
 
+liked_from_radio = "2TE9Cna3qXSyBv7qEb3EiA"
 
 # Find track and display audio features
 # @Param search_string: search string or spotify URI, returns for first match found
@@ -56,7 +57,7 @@ def get_lyrics(user, playlist):
 
 
 def get_lyrics_liked():
-    return get_lyrics(os.environ["SPOTIPY_USERNAME"], "2TE9Cna3qXSyBv7qEb3EiA")
+    return get_lyrics(os.environ["SPOTIPY_USERNAME"], liked_from_radio)
 
 
 def sanitize(filename):
@@ -71,3 +72,12 @@ def write_lyrics_liked():
             f.write(_lyrics)
             f.close()
         print(songlabel)
+
+def get_song():
+    return sp.currently_playing()['item']['id']
+
+def add_to_playlist(playlist_id, song):
+    sp.user_playlist_add_tracks(os.environ["SPOTIPY_USERNAME"], liked_from_radio, [song])
+
+def like_current():
+    add_to_playlist(liked_from_radio, get_song())
