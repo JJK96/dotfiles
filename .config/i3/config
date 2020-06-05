@@ -10,7 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $terminal termite
+set $terminal alacritty
 #set $browser qutebrowser --enable-webengine-inspector
 set $browser firefox
 

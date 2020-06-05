@@ -60,7 +60,7 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias leave="bg %+ && disown %+ && exit"
 alias x="startx"
 alias giomount='cd /run/user/1000/gvfs/'
-alias term='termite & disown'
+alias term='$TERMINAL & disown'
 alias iv="sxiv -b"
 alias cleargpg="echo RELOADAGENT | gpg-connect-agent"
 alias xsel="xsel -b"
