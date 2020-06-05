@@ -1,0 +1,26 @@
+#!/bin/bash
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <max_date> --dry-run"
+    exit 1
+fi
+after="$1"
+dry_run=false
+if [[ "$2" == --dry-run ]]; then
+    echo "dry run"
+    dry_run=true
+fi
+dir=/mnt/btr_pool
+for subvol in `ls $dir`; do
+    snapdir="$dir/$subvol/.snapshotz"
+    for backup in `ls "$snapdir"`; do
+        if [[ "$backup" < "$after" ]]; then
+            command="btrfs sub del $snapdir/$backup"
+            echo "$command"
+            if ! $dry_run; then
+                #eval "$command"
+            fi
+        else
+            echo "$backup keep"
+        fi
+    done
+done
