@@ -1,2 +1,0 @@
-#!/bin/bash
-echo "like_current()" > /tmp/spotify_api_input

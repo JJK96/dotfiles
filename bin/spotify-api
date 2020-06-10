@@ -3,11 +3,13 @@ export SPOTIPY_USERNAME=`pass get username spotify`
 export SPOTIPY_CLIENT_ID=`pass get client_id spotify`
 export SPOTIPY_CLIENT_SECRET=`pass get client_secret spotify`
 input=/tmp/spotify_api_input
-cmd="python -i ~/bin/spotify/spotify-api.py"
-if [ "$1" == "--background" ]; then
+cmd="python -i ~/bin/spotify/spotify_api.py"
+if test -f "$1"; then
+    python "$1"
+elif [ "$1" == "--background" ]; then
     rm -f $input
     mkfifo $input
-    (tail -f $input | eval "$cmd" & ) >/dev/null 2>&1
+    (tail -f $input | eval "$cmd" & ) >/tmp/spotify_api.log 2>&1
 else
     eval "$cmd"
 fi

@@ -15,13 +15,20 @@ filename = os.path.join(dirname, './spotifylyrics/')
 sys.path.insert(0, filename)
 import backend as lyrics
 
-token = util.prompt_for_user_token(
-    username=os.environ['SPOTIPY_USERNAME'],
-    scope=
-    'user-read-recently-played user-top-read user-follow-read user-follow-modify user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify user-read-private user-read-birthdate user-read-email playlist-modify-public playlist-read-collaborative playlist-modify-private playlist-read-private streaming app-remote-control',
-    redirect_uri="https://localhost")
-sp = spotipy.Spotify(auth=token)
 pp = pprint.PrettyPrinter(indent=4)
+sp = None 
+
+def refresh_token():
+    global sp
+    token = util.prompt_for_user_token(
+        username=os.environ['SPOTIPY_USERNAME'],
+        scope=
+        'user-read-recently-played user-top-read user-follow-read user-follow-modify user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify user-read-private user-read-birthdate user-read-email playlist-modify-public playlist-read-collaborative playlist-modify-private playlist-read-private streaming app-remote-control',
+        redirect_uri="https://localhost",
+        cache_path="/home/jjk/.cache/spotipy" )
+    sp = spotipy.Spotify(auth=token)
+
+refresh_token()
 
 liked_from_radio = "2TE9Cna3qXSyBv7qEb3EiA"
 
