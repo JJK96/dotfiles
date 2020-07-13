@@ -114,6 +114,12 @@ label=
 interval=10
 #min_width=CPU: 100.00%
 #separator=false
+
+[disk_space]
+label=Disk 
+interval=10
+command=~/.config/i3blocks/scripts/space.sh
+
 # Date Time
 #
 [time]
