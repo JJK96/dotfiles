@@ -1,13 +1,15 @@
 #!/bin/bash
 if [ $# -lt 1 ]; then
-    echo "Usage: $0 <max_date> --dry-run"
+    echo "Usage: $0 <max_date> --force"
     exit 1
 fi
 after="$1"
-dry_run=false
-if [[ "$2" == --dry-run ]]; then
+dry_run=true
+if [[ "$2" == --force ]]; then
+    dry_run=false
+    echo "no dry run"
+else
     echo "dry run"
-    dry_run=true
 fi
 dir=/mnt/btr_pool
 for subvol in `ls $dir`; do
@@ -16,11 +18,11 @@ for subvol in `ls $dir`; do
         if [[ "$backup" < "$after" ]]; then
             command="btrfs sub del $snapdir/$backup"
             echo "$command"
-            if ! $dry_run; then
-                #eval "$command"
+            if [ "$dry_run" = false ]; then
+                eval "$command"
             fi
         else
-            echo "$backup keep"
+            echo "$snapdir/$backup keep"
         fi
     done
 done

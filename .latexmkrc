@@ -1,1 +1,1 @@
-$pdf_previewer = 'start zathura';
+$pdf_previewer = 'start okular';

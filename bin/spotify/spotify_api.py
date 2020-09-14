@@ -51,7 +51,7 @@ def audio_features(search_string):
 # Find lyrics of all songs in given playlist
 # @Param user: id of the owner of the playlist
 # @Param playlist: id of the playlist
-def get_lyrics(user, playlist):
+def get_lyrics(playlist, user=os.environ["SPOTIPY_USERNAME"]):
     tracks = sp.user_playlist_tracks(user, playlist)
     ret = []
     for track in tracks['items']:
@@ -64,7 +64,7 @@ def get_lyrics(user, playlist):
 
 
 def get_lyrics_liked():
-    return get_lyrics(os.environ["SPOTIPY_USERNAME"], liked_from_radio)
+    return get_lyrics(liked_from_radio)
 
 
 def sanitize(filename):
