@@ -1,1 +1,2 @@
-~/.config/autorandr/refresh.sh
+#!/bin/bash
+$HOME/.config/autorandr/refresh.sh

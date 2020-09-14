@@ -7,13 +7,10 @@ dunst &
 lxpolkit &
 xrandr --output eDP-1 --primary &
 nm-applet &
-# redshift &
-#termite -e weechat &
 #firefox web.whatsapp.com gmail.com calendar.google.com drive.google.com https://riot.im/staging/ &
-kak -s default -d
 wal -R
 xset s off
-screenlayout &
+autorandr -c
 sleep 5 # Ugly hack to run the following applications after the window manager has initialized
 kdeconnect-indicator &
 picom & 

@@ -1,0 +1,3 @@
+#!/bin/bash
+ln -sf $HOME/Pictures/BSOL.png $HOME/Pictures/active_lockscreen
+

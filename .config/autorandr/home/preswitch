@@ -1,1 +1,2 @@
-ln -sf ~/Pictures/bsol_1080pwide.png ~/Pictures/active_lockscreen
+#!/bin/bash
+ln -sf $HOME/Pictures/bsol_1080pwide.png $HOME/Pictures/active_lockscreen
