@@ -102,7 +102,7 @@ bindsym $mod+r exec $terminal -e ranger --cmd="cd $HOME"
 # kill focused window
 bindsym $mod+q kill
 # Change screen layout
-bindsym $mod+Shift+s exec screenlayout
+bindsym $mod+Shift+s exec autorandr -c
 
 # Switch to colemak
 bindsym $mod+bracketleft exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HOME/.xkb - $DISPLAY
