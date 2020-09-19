@@ -1,3 +1,0 @@
-#!/bin/bash
-umount -l /dev/sda3
-mount /dev/sda3 /run/media/jjk/OS
