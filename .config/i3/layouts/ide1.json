@@ -1,80 +1,40 @@
-// vim:ts=4:sw=4:et
 {
-    "border": "none",
-    "current_border_width": 0,
-    "floating": "auto_off",
-    "geometry": {
-       "height": 848,
-       "width": 384,
-       "x": 1280,
-       "y": 20
-    },
-    "name": "ranger --cmd=\"set preview_files!\"",
-    "percent": 0.151302083333333,
-    "swallows": [
-       {
-       // "class": "^Termite$",
-       // "instance": "^termite$",
-       // "title": "^ranger\\ \\-\\-cmd\\=\\\"set\\ preview_files\\!\\\"$",
-       // "window_role": "^Ranger$"
-       }
-    ],
-    "type": "con"
-}
-
-{
-    // tabbed split container with 1 children
-    "border": "none",
-    "floating": "auto_off",
-    "layout": "tabbed",
-    "percent": 0.515364583333333,
+    "layout": "splith",
     "type": "con",
     "nodes": [
         {
-            "border": "none",
-            "current_border_width": 0,
-            "floating": "auto_off",
-            "geometry": {
-               "height": 848,
-               "width": 896,
-               "x": 1664,
-               "y": 20
-            },
-            "name": "  *scratch* 1:1 [scratch] 1 sel - client0@[3427465] - Kakoune",
-            "percent": 1,
+            "percent": 0.2,
             "swallows": [
                {
-               // "class": "^Termite$",
-               // "instance": "^termite$",
-               // "title": "^\\ \\ \\*scratch\\*\\ 1\\:1\\ \\[scratch\\]\\ 1\\ sel\\ \\-\\ client0\\@\\[3427465\\]\\ \\-\\ Kakoune$",
-               // "window_role": "^Kakoune$"
+                   "title": "^Ranger$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "layout": "tabbed",
+            "percent": 0.5,
+            "type": "con",
+            "nodes": [
+                {
+                    "swallows": [
+                       {
+                       "title": "Kakoune"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        },
+        {
+            "percent": 0.3,
+            "swallows": [
+               {
+               "title": "Terminal"
                }
             ],
             "type": "con"
         }
     ]
-}
-
-{
-    "border": "none",
-    "current_border_width": 0,
-    "floating": "auto_off",
-    "geometry": {
-       "height": 212,
-       "width": 1280,
-       "x": 1280,
-       "y": 868
-    },
-    "name": "i3-save-tree > ~/.config/i3/layouts/ide1.json",
-    "percent": 0.333333333333333,
-    "swallows": [
-       {
-       // "class": "^Termite$",
-       // "instance": "^termite$",
-       // "title": "^i3\\-save\\-tree\\ \\>\\ \\~\\/\\.config\\/i3\\/layouts\\/ide1\\.json$",
-       // "window_role": "^Terminal$"
-       }
-    ],
-    "type": "con"
 }
 

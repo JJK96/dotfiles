@@ -1,4 +1,4 @@
 #!/bin/bash
-i3-msg "append_layout ~/.config/i3/layouts/ide.json"
+i3-msg "append_layout ~/.config/i3/layouts/ide1.json"
 $TERMINAL -t "Kakoune" -e kak -e "ide" &
 disown
