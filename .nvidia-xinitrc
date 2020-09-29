@@ -1,7 +1,7 @@
 arandr &
 setxkbmap -option
 source ~/.xprofile
-xrandr --output HDMI-1-1 --primary &
+# xrandr --output HDMI-1-1 --primary &
 chromium discordapp.com &
 lutris &
 i3
