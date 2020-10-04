@@ -1,0 +1,9 @@
+[Unit]
+Description=Srb2 circuit discord bot
+
+[Service]
+Type=simple
+ExecStart=/bin/bash %h/.srb2/srb2_discordbot/start.sh
+
+[Install]
+WantedBy=multi-user.target

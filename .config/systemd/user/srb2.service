@@ -1,0 +1,19 @@
+[Unit]
+Description=SRB2 server
+After=getty.service
+Conflicts=srb2_chars.service
+
+[Service]
+# https://www.freedesktop.org/software/systemd/man/systemd.exec.html
+ExecStartPre=-/usr/bin/screen -X -S ${SCREEN_TITLE} kill # [optional] prevent multiple screens with the same name
+ExecStart=/usr/bin/screen -dmS ${SCREEN_TITLE} -O -l /usr/bin/bash -c "/home/jjk/.srb2/srb2 -config default.cfg -dedicated -room 33"
+# https://www.freedesktop.org/software/systemd/man/systemd.service.html
+Type=forking
+Environment=SCREEN_TITLE=srb2_service
+RemainAfterExit=false
+Restart=always
+RestartSec=5s
+SuccessExitStatus=1
+
+[Install]
+WantedBy=default.target
