@@ -9,7 +9,7 @@ fi
 
 pre="==========================================%s==========================================\n\n"
 
-printf "$pre" left
+printf "$pre" ours
 diff <(git show :1:$1) <(git show :2:$1)
-printf "\n$pre" right
+printf "\n$pre" theirs
 diff <(git show :1:$1) <(git show :3:$1)
