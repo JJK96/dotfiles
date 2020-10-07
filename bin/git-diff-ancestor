@@ -1,0 +1,15 @@
+#!/bin/bash
+# When in a git merge show the differences of both branches with the ancestor branch for the given file
+# Usage: git diff-ancestor <file_name>
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <file_name>"
+    exit 1
+fi
+
+pre="==========================================%s==========================================\n\n"
+
+printf "$pre" left
+diff <(git show :1:$1) <(git show :2:$1)
+printf "\n$pre" right
+diff <(git show :1:$1) <(git show :3:$1)
