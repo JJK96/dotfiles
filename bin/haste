@@ -1,9 +1,2 @@
 #!/bin/bash
-if test -n "$1"; then
-    curl -s https://noedel.win/raw/$1;
-else
-    #a=$(cat); curl -X POST -s -d "$a" https://noedel.win/documents | awk -F '"' '{print "https://noedel.win/raw/"$4}';
-    #curl -X POST -s --data-binary @- https://noedel.win/documents | awk -F '"' '{print "https://noedel.win/raw/"$4}';
-    curl -F 'f:1=<-' ix.io
-fi
-    
+curl -F 'f:1=<-' ix.io
