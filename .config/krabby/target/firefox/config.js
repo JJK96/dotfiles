@@ -1,5 +1,10 @@
 // Configuration for Krabby (https://github.com/alexherbo2/krabby/blob/master/src/krabby.js)
 
+const disabled = ['discord.com', 'staging.element.io', 'web.whatsapp.com', 'mail.google.com', 'calendar.google.com']
+if (disabled.includes(window.location.hostname)) {
+    console.log('disabling krabby')
+    fail
+}
 // Keymaps for colemak
 
 Modal.KEY_MAP = () => {
@@ -30,8 +35,20 @@ key_map = {
 
 const krabby = new Krabby({ dormant: false })
 
-krabby.env.EDITOR = '$TERMINAL -e "editor -t \"$1\""'
-krabby.env.HTMLFILTER = 'pandoc -t markdown'
+const { extensions } = krabby
+const { editor } = extensions
+
+editor.send('set', {
+  editor: `
+    alacritty --class 'Alacritty · Floating' --command \\
+      kak "$file" -e "
+        select $anchor_line.$anchor_column,$cursor_line.$cursor_column
+      "
+  `
+})
+
+const { settings } = krabby
+settings['html-filter'] = ['pandoc', '--from', 'html', '--to', 'markdown']
 
 // Mappings ──────────────────────────────────────────────────────────────────
 

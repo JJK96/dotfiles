@@ -1,14 +1,24 @@
 /* Dracula theme – https://draculatheme.com */
 
 :root {
-  --primary-selection-border: hsl(326, 100%, 74%); /* Pink */
-  --primary-selection-background: hsla(326, 100%, 74%, 0.1); /* Pink */
-  --secondary-selection-border: hsl(265, 89%, 78%); /* Purple */
-  --secondary-selection-background: hsla(265, 89%, 78%, 0.1); /* Purple */
-  --primary-phantom-border: hsl(135, 94%, 65%); /* Green */
-  --primary-phantom-background: hsla(135, 94%, 65%, 0.1); /* Green */
-  --secondary-phantom-border: hsl(135, 94%, 65%); /* Green */
-  --secondary-phantom-background: hsla(135, 94%, 65%, 0.1); /* Green */
+  /* Color palette */
+  /* https://github.com/dracula/dracula-theme#color-palette */
+  --green: hsl(135, 94%, 65%);
+  --pink: hsl(326, 100%, 74%);
+  --purple: hsl(265, 89%, 78%);
+  --green-transparent: hsla(135, 94%, 65%, 0.1);
+  --pink-transparent: hsla(326, 100%, 74%, 0.1);
+  --purple-transparent: hsla(265, 89%, 78%, 0.1);
+
+  /* Theme */
+  --primary-selection-border: var(--pink);
+  --primary-selection-background: var(--pink-transparent);
+  --secondary-selection-border: var(--purple);
+  --secondary-selection-background: var(--purple-transparent);
+  --primary-phantom-border: var(--green);
+  --primary-phantom-background: var(--green-transparent);
+  --secondary-phantom-border: var(--green);
+  --secondary-phantom-background: var(--green-transparent);
 }
 
 .primary-selection, .secondary-selection, .primary-phantom, .secondary-phantom {

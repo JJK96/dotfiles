@@ -1,0 +1,20 @@
+:root {
+  --webkit-focus-ring-color: hsla(217, 99%, 65%, 0.5);
+}
+
+/* Do not mark as important to allow sites to hide outlines normally displayed via mouse interaction */
+:not(.primary-selection):focus {
+  outline: var(--webkit-focus-ring-color) solid 2px;
+}
+
+/* Outlines displayed via keyboard interaction */
+:not(.primary-selection):focus-visible {
+  outline: var(--webkit-focus-ring-color) solid 2px !important;
+}
+
+/* Mouse selection area */
+.selection {
+  background-color: rgba(0, 0, 255, 0.1) !important;
+  border-radius: 0.1em !important;
+  border: 0.05em solid rgba(0, 0, 255, 0.2) !important;
+}
