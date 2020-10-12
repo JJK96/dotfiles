@@ -1,6 +1,6 @@
 // Configuration for Krabby (https://github.com/alexherbo2/krabby/blob/master/src/krabby.js)
 
-const disabled = ['discord.com', 'staging.element.io', 'web.whatsapp.com', 'mail.google.com', 'calendar.google.com']
+const disabled = ['discord.com', 'staging.element.io', 'web.whatsapp.com', 'mail.google.com', 'calendar.google.com', 'drive.google.com']
 if (disabled.includes(window.location.hostname)) {
     console.log('disabling krabby')
     fail
