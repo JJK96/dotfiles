@@ -285,6 +285,8 @@ bindsym $mod+slash exec rofi -show window
 # Suspend system
 bindsym Pause exec systemctl suspend
 
+bindsym $mod+Shift+t exec /home/jjk/.config/i3/bin/change_name.sh
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
