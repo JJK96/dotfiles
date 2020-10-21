@@ -1,4 +1,4 @@
-export EDITOR="editor -t"
+export EDITOR=kak
 export TERMINAL=termite
 export BROWSER=firefox
 mkdir -p /tmp/Downloads
