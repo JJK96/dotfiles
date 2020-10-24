@@ -4,7 +4,7 @@ SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr_dahomey:cd\x20/opt/lampp/htdocs/dahomey/testing\x2edahomey\x2enl/
 SETUVAR _fish_abbr_ga:git\x20add
 SETUVAR _fish_abbr_gaa:git\x20add\x20\x2d\x2dall
-SETUVAR _fish_abbr_gc:git\x20commit
+SETUVAR _fish_abbr_gcl:git\x20clone
 SETUVAR _fish_abbr_gcm:git\x20checkout\x20master
 SETUVAR _fish_abbr_gco:git\x20checkout
 SETUVAR _fish_abbr_gd:git\x20diff
@@ -17,7 +17,6 @@ SETUVAR _fish_abbr_grs:git\x20restore
 SETUVAR _fish_abbr_gs:git\x20status
 SETUVAR _fish_abbr_kaksrc:cd\x20\x7e/git/kakoune\x2dgit/src/kakoune/
 SETUVAR _fish_abbr_lspsrc:cd\x20\x7e/git/kak\x2dlsp\x2dgit/src/kak\x2dlsp/
-SETUVAR _fish_abbr_mysql:mysql\x20\x2d\x2dauto\x2drehash\x20\x2du\x20root
 SETUVAR _fish_abbr_r2:r2\x20\x2dA
 SETUVAR _fish_abbr_swifter:cd\x20/srv/http/swifter/stamboek/\x3bsudo\x20systemctl\x20start\x20httpd\x20mariadb
 SETUVAR _fish_abbr_wd:cd\x20/home/jjk/Documents/master

@@ -19,7 +19,7 @@ alias spell "aspell check --lang=en-GB "
 function p
     ps -aux | grep $argv | grep -v grep
 end
-alias n 'netstat -plnt'
+alias net 'netstat -plnt'
 alias o 'xdg-open'
 function tgrep
     grep $argv *.tex
@@ -61,7 +61,7 @@ abbr lspsrc "cd ~/git/kak-lsp-git/src/kak-lsp/"
 
 # Programs
 alias decktape "node /home/jjk/git/decktape/decktape.js --no-sandbox"
-abbr mysql 'mysql --auto-rehash -u root'
+alias mysql 'mysql --auto-rehash -u root'
 alias batch 'batch_process --editor=kak'
 alias batch_rename 'batch --map \'/usr/share/batch/rename "$1" "$2"\''
 
@@ -74,6 +74,10 @@ alias fishrc "$EDITOR ~/.config/fish/config.fish"
 alias frombinary "perl -lpe '\$_=pack\"B*\",\$_'"
 
 alias chicken-csi "rlwrap chicken-csi"
+
+function md
+    mkdir -p $argv
+end
 
 function mdc
     mkdir -p $argv && cd $argv

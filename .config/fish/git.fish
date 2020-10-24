@@ -1,6 +1,5 @@
 abbr gs 'git status'
 abbr gd 'git diff'
-abbr gc 'git commit'
 abbr gl 'git pull'
 abbr ga 'git add'
 abbr gaa 'git add --all'
@@ -8,10 +7,13 @@ abbr gm 'git merge'
 abbr glum 'git pull upstream master'
 abbr gp 'git push'
 abbr gco 'git checkout'
+abbr gcl 'git clone'
 abbr gcm 'git checkout master'
 abbr grs 'git restore'
 abbr grb 'git rebase'
 
+alias gc 'git commit -v'
+alias gcam 'git commit -v --amend'
 alias gcf 'git commit -m "`fortune`"'
 alias gpf "git add -A ; and gcf && git pull && git push"
 alias gpatch "git format-patch -o /tmp origin"
