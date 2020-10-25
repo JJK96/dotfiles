@@ -5,7 +5,7 @@ After=getty.service
 [Service]
 # https://www.freedesktop.org/software/systemd/man/systemd.exec.html
 ExecStartPre=-/usr/bin/screen -X -S ${SCREEN_TITLE} kill # [optional] prevent multiple screens with the same name
-ExecStart=/usr/bin/screen -dmS ${SCREEN_TITLE} -O -l /usr/bin/bash -c "/usr/bin/srb2 -config battle_royale.cfg -dedicated -room 33 -port 5030"
+ExecStart=/usr/bin/screen -dmS ${SCREEN_TITLE} -O -l /bin/bash -c "/usr/bin/srb2 -config battle_royale.cfg -dedicated -room 33 -port 5030"
 # https://www.freedesktop.org/software/systemd/man/systemd.service.html
 Type=forking
 Environment=SCREEN_TITLE=srb2_battle_royale_service

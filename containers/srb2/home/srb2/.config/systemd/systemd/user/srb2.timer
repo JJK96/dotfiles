@@ -1,0 +1,9 @@
+[Unit]
+Description=Start normal srb2 server instead of the one with chars
+
+[Timer]
+OnCalendar=Sat 00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
