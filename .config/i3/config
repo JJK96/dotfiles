@@ -112,7 +112,7 @@ bindsym $mod+bracketright exec setxkbmap us -variant ""
 # Screenshot of whole screen
 bindsym Print exec "cd /tmp;scrot -u"
 # Screenshot of selected area
-bindsym --release $mod+Print exec deepin-screen-recorder -s /tmp/ 2>&1 | grep -o '/tmp/Deepin[^"]*' | xargs xclip -selection clipboard -t image/png -i
+bindsym --release $mod+Print exec ~/bin/screenshot
 #bindsym --release $mod+Print exec "cd /tmp;scrot -s"
 
 # Rofi: start a program
