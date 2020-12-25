@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+tr -sc [:alnum:] '[\n*]' | sort | uniq -c | sort -nr
