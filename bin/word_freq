@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-tr -sc [:alnum:] '[\n*]' | sort | uniq -c | sort -nr
+tr -sc [:alnum:] '[\n*]' | tr [:upper:] [:lower:] | sort | uniq -c | sort -nr
