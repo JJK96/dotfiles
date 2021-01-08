@@ -1,0 +1,7 @@
+#!/bin/bash
+
+filename="$1"
+shift
+command="$@"
+echo "\$ $@" > "$filename"
+eval "$command" | tee -a "$filename"
