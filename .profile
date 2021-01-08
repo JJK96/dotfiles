@@ -1,4 +1,5 @@
 export EDITOR="editor -t"
+export PAGER=less
 export TERMINAL=alacritty
 export PDFVIEWER=llpp
 export BROWSER=firefox
@@ -17,3 +18,7 @@ export PERL_LOCAL_LIB_ROOT="/home/jjk/perl5:$PERL_LOCAL_LIB_ROOT"
 export PERL_MB_OPT="--install_base \"/home/jjk/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=/home/jjk/perl5"
 export WINIT_X11_SCALE_FACTOR=1
+
+# Clipmenu
+export CM_LAUNCHER=rofi
+export CM_DIR=/tmp
