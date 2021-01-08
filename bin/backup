@@ -3,12 +3,13 @@ pool=/mnt/btr_pool
 backup=/mnt/btr_backup
 backup_disk=/dev/sdb1
 mount $backup_disk $backup
-for dir in root home srv mysql; do
+logfile=/var/log/backup.log
+for dir in root home srv; do
     latest=$(find $pool/$dir/.snapshotz -maxdepth 1 | tail -n 1)
     backupped=$pool/$dir/.snapshotz/$(ls $backup/$dir | tail -n 1)
     command="btrfs send -p $backupped $latest | btrfs receive $backup/$dir"
-    echo $command
+    echo $command | tee -a $logfile
     if [ "$1" != '--dry-run' ]; then
-        eval $command
+        eval $command | tee -a $logfile
     fi
 done
