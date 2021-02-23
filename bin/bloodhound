@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+name="neo4j_$1"
+create_container() {
+    docker run \
+    --name $name \
+    -p7474:7474 -p7687:7687 \
+    -d \
+    --user="$(id -u):$(id -g)" \
+    -v "$(pwd)/neo4j/data:/data" \
+    -v "$(pwd)/neo4j/logs:/logs" \
+    -v "$(pwd)/neo4j/import:/var/lib/neo4j/import" \
+    -v "$(pwd)/neo4j/plugins:/plugins" \
+    --env NEO4J_AUTH=neo4j/test \
+    neo4j:latest
+}
+
+docker start $name 2>/dev/null || create_container
+open -a /Users/nw/Workspace/tools/BloodHound-darwin-x64/BloodHound.app
