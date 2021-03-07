@@ -7,6 +7,7 @@ bindkey '^Z' fgLast
 bindkey '^k' nextJob
 bindkey '^j' prevJob
 bindkey '^[n' end-of-line
+bindkey '^[e' edit-command-line
 
 # vi mode
 bindkey -M vicmd "n" down-line-or-beginning-search
