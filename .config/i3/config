@@ -89,6 +89,9 @@ bindsym $mod+l exec editor
 # Type username password and submit
 bindsym $mod+Control+p exec mypassmenu --type
 
+# Copy password to clipboard
+bindsym $mod+Shift+p exec mypassmenu
+
 # Copy unicode character to clipboard
 bindsym $mod+Control+u exec unipicker --copy
 # Terminal
@@ -285,7 +288,11 @@ bindsym $mod+slash exec rofi -show window
 # Suspend system
 bindsym Pause exec systemctl suspend
 
+# Rename container
 bindsym $mod+Shift+t exec /home/jjk/.config/i3/bin/change_name.sh
+
+# Clipboard history
+bindsym $mod+v exec clipmenu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
