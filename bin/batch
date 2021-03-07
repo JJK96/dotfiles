@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+help() {
+    cat << EOF
+Batch, edit stdin using an editor and process the result.
+Each line in the input corresponds to a line of the result,
+so don't delete a whole line.
+If a line is empty, drop is executed with the original value as argument.
+If a line is changed, map is executed with the original and the new value as arguments.
+If a line is unchanged, pick is executed with the original value as argument.
+The results can be edited before executing.
+This program is inspired by https://github.com/alexherbo2/batch.
+
+usage: $0 [options]
+Options:
+    -p <pick>   Set the pick command
+    -m <map>    Set the map command
+    -d <drop>   Set the drop command
+    -n          Skip the second editor and execute immediately
+    -h          Show this help message
+EOF
+    exit;
+}
+
+map="echo map"
+drop="echo drop"
+pick="echo pick"
+confirm=true
+
+while getopts "p:m:d:hn" arg; do
+    case $arg in
+        p) pick="$OPTARG" ;;
+        m) map="$OPTARG"  ;;
+        d) drop="$OPTARG" ;;
+        n) confirm=false  ;;
+        h) help           ;;
+    esac
+done
+
+in=$(mktemp -t batch)
+out=$(mktemp -t batch)
+operations=$(mktemp -t batch)
+
+cat | tee "$in" > "$out"
+
+eval "$EDITOR" "$out"
+
+cat << EOF > "$operations"
+map() {
+    $map "\$1" "\$2"
+}
+drop() {
+    $drop "\$1"
+}
+pick() {
+    $pick "\$1"
+}
+EOF
+
+while read -u 3 -r file1 && read -u 4 -r file2; do
+    if [ "$file1" = "$file2" ]; then
+        echo pick "'$file1'"
+    elif [ -z "$file2" ]; then
+        echo drop "'$file1'"
+    else
+        echo map "'$file1'" "'$file2'"
+    fi
+done 3<"$in" 4<"$out" >> "$operations"
+
+if $confirm; then
+    eval "$EDITOR" "$operations"
+fi
+
+. "$operations"
+
+rm "$in" "$out" "$operations"
