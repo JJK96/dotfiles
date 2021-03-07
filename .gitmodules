@@ -4,3 +4,6 @@
 [submodule "bin/spotify/spotifylyrics"]
 	path = bin/spotify/spotifylyrics
 	url = https://github.com/fr31/spotifylyrics
+[submodule ".config/fish/plugin-foreign-env"]
+	path = .config/fish/plugin-foreign-env
+	url = git@github.com:oh-my-fish/plugin-foreign-env.git
