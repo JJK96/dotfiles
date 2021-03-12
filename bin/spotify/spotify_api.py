@@ -25,7 +25,7 @@ def refresh_token():
         scope=
         'user-read-recently-played user-top-read user-follow-read user-follow-modify user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify user-read-private user-read-birthdate user-read-email playlist-modify-public playlist-read-collaborative playlist-modify-private playlist-read-private streaming app-remote-control',
         redirect_uri="https://localhost",
-        cache_path="/home/jjk/.cache/spotipy" )
+        cache_path=os.environ["HOME"] + "/.cache/spotipy" )
     sp = spotipy.Spotify(auth=token)
 
 refresh_token()
