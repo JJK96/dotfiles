@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+left="$1"
+right="$2"
+
+
+dir=`mktemp -dt pk3diff_XXXX`
+leftdir="$dir/left"
+rightdir="$dir/right"
+unzip -d "$leftdir" "$left" > /dev/null
+unzip -d "$rightdir" "$right" > /dev/null
+
+maincfg="$rightdir/SOC/MAINCFG"
+
+differing_files=`diff -r "$leftdir" "$rightdir"`
+echo "$differing_files"
+mapnums=`echo "$differing_files" | grep -oiE "[^/]+\.wad" | sort -u | cut -d. -f1 | sed 's/map//i'`
+if [ -n "$mapnums" ]; then
+    printf "\nThe following maps have been changed:\n"
+    mapnums_regex=`echo $mapnums | sed 's/\s/\|/g'`
+    grep -A 1 -E "$mapnums_regex" "$maincfg" | grep -i "LevelName" | cut -d= -f 2
+fi
+
+rm -r "$dir"
