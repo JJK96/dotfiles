@@ -1,0 +1,3 @@
+#!/bin/bash
+nmap_dir=/usr/local/share/nmap
+find "$nmap_dir/scripts" | grep $@
