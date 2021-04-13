@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 <input.adoc> <output.docx>"
+    exit 1
+fi
+input="$1"
+output="$2"
+asciidoctor -b docbook -o - "$input" | pandoc -f docbook -t docx -o "$output"
