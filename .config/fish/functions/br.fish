@@ -1,1 +1,1 @@
-/home/jjk/.local/share/broot/launcher/fish/br.fish
+/Users/nw/Library/Application Support/org.dystroy.broot/launcher/fish/br.fish

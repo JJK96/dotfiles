@@ -8,3 +8,4 @@ source ~/.config/fish/nnn.fish
 
 set fish_greeting
 set -g fish_prompt_pwd_dir_length 80
+set -x LSCOLORS "ExGxBxDxCxEgEdxbxgxcxd"

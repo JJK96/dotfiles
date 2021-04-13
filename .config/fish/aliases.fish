@@ -17,7 +17,7 @@ alias lt "languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPAC
 alias recomp "killall compton ; and compton & disown && wal -R && exit"
 alias spell "aspell check --lang=en-GB "
 function p
-    ps -aux | grep $argv | grep -v grep
+    ps aux | grep $argv | grep -v grep
 end
 alias net 'netstat -plnt'
 alias o 'xdg-open'
@@ -62,8 +62,6 @@ abbr lspsrc "cd ~/git/kak-lsp-git/src/kak-lsp/"
 # Programs
 alias decktape "node /home/jjk/git/decktape/decktape.js --no-sandbox"
 alias mysql 'mysql --auto-rehash -u root'
-alias batch 'batch_process --editor=kak'
-alias batch_rename 'batch --map \'/usr/share/batch/rename "$1" "$2"\''
 
 # Frequently edited files
 alias i3config "$EDITOR ~/.config/i3/config"
