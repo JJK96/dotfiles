@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Test if given url exists
+# Usage: 
+#   test "$0" && echo "url exists"
+#   test "$0" || echo "url does not exist"
+
+wget -q --method=HEAD "$1"
