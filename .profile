@@ -1,4 +1,4 @@
-export PATH=$HOME/.cargo/bin:$HOME/nw_bin:$HOME/bin:$HOME/.config/kak/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/nw_bin:$HOME/bin:$HOME/.config/kak/bin:$HOME/node_modules/.bin:$PATH
 
 if [ -z "$EDITOR" ]; then
     export EDITOR="editor -t"
