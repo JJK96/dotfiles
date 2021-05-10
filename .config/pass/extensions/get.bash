@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env /bash
 local args=("$@")
 local path=${args[-1]}
 local passfile="$PREFIX/$path.gpg"
