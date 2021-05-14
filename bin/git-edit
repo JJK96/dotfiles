@@ -1,0 +1,4 @@
+#!/bin/bash
+tmux set-hook -g session-created 'set remain-on-exit on' \; \
+    new-session "git show --word-diff CHERRY_PICK_HEAD -- $1" \; \
+    split-window -h kak $1

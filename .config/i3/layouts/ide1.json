@@ -6,7 +6,7 @@
             "percent": 0.2,
             "swallows": [
                {
-                   "title": "^Ranger$"
+                   "title": "^FileManager$"
                }
             ],
             "type": "con"
