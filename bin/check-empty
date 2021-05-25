@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 # Check if output of command is empty
+# moreutils ifne does something like this as well
 output=$("$@" 2>/dev/null)
 [ -z "$output" ]
