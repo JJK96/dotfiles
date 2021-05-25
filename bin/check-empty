@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Check if output of command is empty
+output=$("$@" 2>/dev/null)
+[ -z "$output" ]
