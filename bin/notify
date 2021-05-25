@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+notification=$@
+osascript -e "display notification \"$notification\""
