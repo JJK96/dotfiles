@@ -89,3 +89,16 @@ function cd
         builtin cd ~; and ls
     end
 end
+
+abbr lastpass "lpass show --password -c"
+alias kakgrep "kak -e 'set window filetype grep'"
+
+# Fuzzy cd
+function fcd
+    pushd (find . -type d | fzf)
+end
+
+abbr proxy "set -x HTTPS_PROXY http://localhost:8080
+set -x HTTP_PROXY http://localhost:8080"
+
+abbr theharverser_email "theHarvester -b baidu,bing,censys,duckduckgo,linkedin,linkedin_links,qwant,trello,twitter,yahoo"

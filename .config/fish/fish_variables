@@ -15,10 +15,15 @@ SETUVAR _fish_abbr_gp:git\x20push
 SETUVAR _fish_abbr_grb:git\x20rebase
 SETUVAR _fish_abbr_grs:git\x20restore
 SETUVAR _fish_abbr_gs:git\x20status
+SETUVAR _fish_abbr_java11:set\x20\x2dx\x20JAVA_HOME\x20/usr/local/Cellar/openjdk\x4011/11\x2e0\x2e12/libexec/openjdk\x2ejdk/Contents/Home
+SETUVAR _fish_abbr_java8:set\x20\x2dx\x20JAVA_HOME\x20/usr/local/Cellar/openjdk\x408/1\x2e8\x2e0\x2b302/libexec/openjdk\x2ejdk/Contents/Home
 SETUVAR _fish_abbr_kaksrc:cd\x20\x7e/git/kakoune\x2dgit/src/kakoune/
+SETUVAR _fish_abbr_lastpass:lpass\x20show\x20\x2d\x2dpassword\x20\x2dc
 SETUVAR _fish_abbr_lspsrc:cd\x20\x7e/git/kak\x2dlsp\x2dgit/src/kak\x2dlsp/
+SETUVAR _fish_abbr_proxy:set\x20\x2dx\x20HTTPS_PROXY\x20http\x3a//localhost\x3a8080\x0aset\x20\x2dx\x20HTTP_PROXY\x20http\x3a//localhost\x3a8080
 SETUVAR _fish_abbr_r2:r2\x20\x2dA
 SETUVAR _fish_abbr_swifter:cd\x20/srv/http/swifter/stamboek/\x3bsudo\x20systemctl\x20start\x20httpd\x20mariadb
+SETUVAR _fish_abbr_theharverser__email:theHarvester\x20\x2db\x20baidu\x2cbing\x2ccensys\x2cduckduckgo\x2clinkedin\x2clinkedin_links\x2cqwant\x2ctrello\x2ctwitter\x2cyahoo
 SETUVAR _fish_abbr_wd:cd\x20/home/jjk/Documents/master
 SETUVAR _fish_abbr_wine32:WINEPREFIX\x3d\x22\x24HOME/\x2ewine32\x22\x20wine
 SETUVAR _fish_abbr_xsel:xsel\x20\x2db
@@ -52,3 +57,4 @@ SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_user_paths:/usr/local/opt/mysql\x2dclient/bin
