@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+curl -XPOST --data-binary @- "ipinfo.io/map?cli=1"
