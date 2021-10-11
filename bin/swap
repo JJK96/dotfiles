@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Swap two files, i.e. move to each other
+
+tmp=$(mktemp)
+cp "$1" "$tmp"
+cp "$2" "$1"
+cp "$tmp" "$2"
+rm "$tmp"
