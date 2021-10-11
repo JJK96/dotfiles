@@ -1,7 +1,19 @@
 #!/bin/bash
+# Dependencies
+#
+# MacOS:
+#   - entr
+# Linux:
+#   - inotifywait
 
 dir=$1
 shift
-inotifywait -mrq -e close_write $dir | while read f; do
-    eval $@
-done
+if [ $(uname) = "Darwin" ]; then
+    # On MacOS use entr
+    find $dir | entr -d "$@"
+else
+    # Else use inotifywait
+    inotifywait -mrq -e close_write $dir | while read f; do
+        eval $@
+    done
+fi
