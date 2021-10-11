@@ -3,7 +3,7 @@
 # -e: external ip
 
 if [ $# -gt 0 ] && [ "$1" == '-e' ]; then
-    curl https://api.ipify.org
+    curl ifconfig.co
 else
-    ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'
+    ip addr | grep "inet " | grep -v "127.0.0.1" | head -n1 | get 2 | cut -d/ -f1
 fi
