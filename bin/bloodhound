@@ -2,11 +2,15 @@
 
 name="neo4j_$1"
 create_container() {
-    docker run \
+    mkdir -p neo4j
+    pushd neo4j
+    mkdir -p data logs import plugins
+    popd
+    lima nerdctl run \
     --name $name \
-    -p7474:7474 -p7687:7687 \
+    -p 7474:7474 -p 7687:7687 \
     -d \
-    --user="$(id -u):$(id -g)" \
+    -u "$(id -u):$(id -g)" \
     -v "$(pwd)/neo4j/data:/data" \
     -v "$(pwd)/neo4j/logs:/logs" \
     -v "$(pwd)/neo4j/import:/var/lib/neo4j/import" \
@@ -15,5 +19,5 @@ create_container() {
     neo4j:latest
 }
 
-docker start $name 2>/dev/null || create_container
-open -a /Users/nw/Workspace/tools/BloodHound-darwin-x64/BloodHound.app
+lima nerdctl start $name 2>/dev/null || create_container
+open -a /Users/nw/Workspace/Applications/BloodHound.app
