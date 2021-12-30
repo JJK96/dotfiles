@@ -1,16 +1,13 @@
+# This is Git's per-user configuration file.
 [user]
-	email = jjkorpershoek96@gmail.com
+# Please adapt and uncomment the following lines:
 	name = Jan-Jaap Korpershoek
-[color]
-	ui = auto
-[rerere]
-	enabled = false
-[alias]
-    find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+	email = jjkorpershoek96@gmail.com
 [pull]
 	rebase = false
+[alias]
+    find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
 [merge]
 	tool = kakmerge
 [mergetool "kakmerge"]
-	trustExitCode = true
-	cmd = env LOCAL=\"${LOCAL}\" BASE=\"${BASE}\" REMOTE=\"${REMOTE}\" MERGED=\"${MERGED}\" kakmerge -m tmux
+	cmd = env LOCAL=\"${LOCAL}\" BASE=\"${BASE}\" REMOTE=\"${REMOTE}\" MERGED=\"${MERGED}\" mymergetool
