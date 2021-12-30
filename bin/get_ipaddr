@@ -2,8 +2,16 @@
 #
 # -e: external ip
 
-if [ $# -gt 0 ] && [ "$1" == '-e' ]; then
-    curl ifconfig.co
+if [ $# -gt 0 ]; then
+    if [ "$1" == '-e' ]; then
+        #external
+        curl ifconfig.co
+    elif [ "$1" == "-p" ]; then
+        #parallels
+        ip addr | grep -A2 bridge100 | grep "inet " | get 2 | cut -d/ -f1
+    else
+        echo "Unknown argument: $1"
+    fi
 else
     ip addr | grep "inet " | grep -v "127.0.0.1" | head -n1 | get 2 | cut -d/ -f1
 fi
