@@ -102,3 +102,7 @@ abbr proxy "set -x HTTPS_PROXY http://localhost:8080
 set -x HTTP_PROXY http://localhost:8080"
 
 abbr theharverser_email "theHarvester -b baidu,bing,censys,duckduckgo,linkedin,linkedin_links,qwant,trello,twitter,yahoo"
+
+alias mynetstat "lsof -i TCP -n -M | grep LISTEN"
+
+alias jsoncurl "curl -X POST -H 'Content-Type: Application/json'"
