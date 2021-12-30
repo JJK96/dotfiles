@@ -29,24 +29,28 @@ def decode_stacked(document, pos=0, decoder=JSONDecoder()):
         yield obj
 
 
-def grep(language="dotnet", extra_args=None):
+def grep(language="dotnet", extra_args=None, **kwargs):
     regex = "'.*?'|\".*?\""
     glob = []
     if language == "dotnet":
         regex += "|@\"(.|\\n)*?\"|@'(.|\\n)*?'"
         glob += ["-g", "*.cs"]
-    command = ["rg", "--multiline", "-o", "--json"] + glob + [regex]
+    command = ["rg", "--multiline", "--json"] + glob + [regex]
     if extra_args:
         command += extra_args
     result = subprocess.check_output(command).decode()
     return result
 
 
-def process_matches(matches):
+def process_matches(matches, ignore_regex=None, **kwargs):
     processed = {}
     for match in matches:
         if match['type'] != 'match':
             continue
+        if ignore_regex:
+            ignore_regex = re.compile(ignore_regex)
+            if ignore_regex.search(match['data']['lines']['text']):
+                continue
         for submatch in match['data']['submatches']:
             text = submatch['match']['text']
             path = match['data']['path']['text']
@@ -69,7 +73,7 @@ def print_matches(processed_matches):
 
 def search_strings(*args, **kwargs):
     result = decode_stacked(grep(*args, **kwargs))
-    processed = process_matches(result)
+    processed = process_matches(result, **kwargs)
     return processed
 
 
@@ -77,6 +81,7 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--language", default="dotnet")
+    parser.add_argument("--ignore-regex")
     args, extra_args = parser.parse_known_args()
-    results = search_strings(args.language, extra_args=extra_args)
+    results = search_strings(args.language, extra_args=extra_args, ignore_regex=args.ignore_regex)
     print_matches(results)
