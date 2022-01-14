@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+if [ $# -lt 2 ]; then
+    echo Uses checkstyle to find functions longer than the specified length
+    echo "Usage: $0 <length> [files/directories]..."
+fi
+length="$1"
+dir="$2"
+shift;shift
+
+config=$(cat << END
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<module name="Checker">
+  <module name="TreeWalker">
+    <module name="MethodLength">
+      <property name="tokens" value="METHOD_DEF"/>
+      <property name="max" value="$length"/>
+      <property name="countEmpty" value="false"/>
+    </module>
+  </module>
+</module>
+END
+)
+
+checkstyle -c <(echo "$config") "$@" | grep \[ERROR\] | sed 's/\[ERROR\] //'
