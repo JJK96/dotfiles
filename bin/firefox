@@ -1,1 +1,2 @@
-/usr/bin/firefox-developer-edition
+#!/bin/bash
+/Applications/Firefox.app/Contents/MacOS/firefox-bin $@

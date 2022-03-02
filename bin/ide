@@ -1,4 +1,7 @@
 #!/bin/bash
-i3-msg "append_layout ~/.config/i3/layouts/ide1.json"
-$TERMINAL -t "Kakoune" -e kak -e "ide" &
-disown
+cmd="kak -e ide"
+if [ -z "$TMUX" ]; then
+    tmux new-session "$cmd"
+else
+    eval "$cmd"
+fi

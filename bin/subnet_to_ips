@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+nmap -sL -n $@ | awk '/Nmap scan report/{print $NF}'

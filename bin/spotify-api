@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 export SPOTIPY_USERNAME=`pass get username spotify`
 export SPOTIPY_CLIENT_ID=`pass get client_id spotify`
 export SPOTIPY_CLIENT_SECRET=`pass get client_secret spotify`

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+dir="$(mktemp -d)"
+echo "$dir"
+clean_up () {
+    rm -r "$dir"
+} 
+trap clean_up EXIT
+
+echo $LOCAL
+echo $REMOTE
+git diff --no-index "$BASE" "$LOCAL" > "$dir/local"
+git diff --no-index "$BASE" "$REMOTE" > "$dir/remote"
+export LOCAL="$dir/local"
+export REMOTE="$dir/remote"
+eval "$(git config --get merge.tool)"

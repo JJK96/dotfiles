@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Create a file with specified size
+
+if [ $# -lt 2 ]; then
+    echo "usage: $0 <output_file> <size>"
+    echo
+    echo "example: $0 largefile.pdf 100M"
+fi
+
+bs=1024
+size=$(numfmt --from=iec "$2")
+count=$(expr $size / $bs)
+dd if=/dev/urandom of="$1" bs=$bs count=$count

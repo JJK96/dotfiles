@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+docker run --rm --name witnessme -it --entrypoint=/bin/bash -v $(pwd):/transfer 257174d91d12
+

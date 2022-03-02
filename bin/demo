@@ -1,0 +1,15 @@
+# Start a tmux session
+# Source this file
+# Set the COMMAND_FILE variable to a file containing commands, one per line, empty lines and lines starting with # are ignored
+# then execute "n" to step to the next command
+# NOCLEAR can be set to not clear the screen after each command
+set i 1
+
+function next
+    set command (cat "$COMMAND_FILE" | grep -v "^#" | grep -v '^$' | sed -n {$i}p)
+    tmux send-keys "$command"
+    [ -z "$NOCLEAR" ] && clear
+    set i (math $i+1)
+end
+
+alias n next

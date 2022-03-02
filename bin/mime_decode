@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+import quopri
+import sys
+
+contents = sys.stdin.read()
+print(quopri.decodestring(contents).decode())
