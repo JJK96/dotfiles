@@ -52,6 +52,11 @@ function chpwd() {
     ls --color
 }
 
+function mdc() {
+    mkdir -p "$1"
+    cd "$1"
+}
+
 # aliases
 alias wine32='WINEPREFIX="$HOME/.wine32" wine'
 alias l='ls --color'
@@ -92,6 +97,8 @@ alias gcf='git commit -m "`fortune`"'
 alias gpf="git add -A && gcf && git pull && git push"
 alias gs="git status"
 alias gpatch="git format-patch -o /tmp origin"
+alias gco="git checkout"
+alias gcm="git checkout master"
 
 # pacman
 alias repo-remove="repo-remove /var/cache/pacman/custom/custom.db.tar"
@@ -111,16 +118,13 @@ alias r="ranger"
 
 # directories
 alias wd="cd /home/jjk/Documents/master"
-alias swifter="cd /srv/http/swifter/stamboek/;sudo systemctl start httpd mariadb"
-alias dahomey="cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
+alias md="mkdir -p"
 alias kaksrc="cd ~/git/kakoune-git/src/kakoune/"
 alias lspsrc="cd ~/git/kak-lsp-git/src/kak-lsp/"
 
 # Programs
 alias decktape="node /home/jjk/git/decktape/decktape.js --no-sandbox"
 alias mysql='mysql --auto-rehash -u root'
-alias batch='batch_process --editor=kak'
-alias batch_rename=$'batch --map \'/usr/share/batch/rename "$1" "$2"\''
 
 # Frequently edited files
 alias i3config="$EDITOR ~/.config/i3/config"

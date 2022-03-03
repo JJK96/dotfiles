@@ -101,9 +101,9 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh/.zshrc
 source $HOME/.zsh/keybinds
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-source /home/jjk/.config/broot/launcher/bash/br
+#source /home/jjk/.config/broot/launcher/bash/br
