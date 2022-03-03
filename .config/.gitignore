@@ -31,3 +31,5 @@
 !autorandr
 !fish
 !nnn
+!flake8
+!kak-lsp

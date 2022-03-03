@@ -17,7 +17,7 @@ alias lt "languagetool -m nl -l en-GB --xmlfilter -d COMMA_PARENTHESIS_WHITESPAC
 alias recomp "killall compton ; and compton & disown && wal -R && exit"
 alias spell "aspell check --lang=en-GB "
 function p
-    ps -aux | grep $argv | grep -v grep
+    ps aux | grep $argv | grep -v grep
 end
 alias net 'netstat -plnt'
 alias o 'xdg-open'
@@ -62,8 +62,6 @@ abbr lspsrc "cd ~/git/kak-lsp-git/src/kak-lsp/"
 # Programs
 alias decktape "node /home/jjk/git/decktape/decktape.js --no-sandbox"
 alias mysql 'mysql --auto-rehash -u root'
-alias batch 'batch_process --editor=kak'
-alias batch_rename 'batch --map \'/usr/share/batch/rename "$1" "$2"\''
 
 # Frequently edited files
 alias i3config "$EDITOR ~/.config/i3/config"
@@ -91,3 +89,20 @@ function cd
         builtin cd ~; and ls
     end
 end
+
+abbr lastpass "lpass show --password -c"
+alias kakgrep "kak -e 'set window filetype grep'"
+
+# Fuzzy cd
+function fcd
+    pushd (find . -type d | fzf)
+end
+
+abbr proxy "set -x HTTPS_PROXY http://localhost:8080
+set -x HTTP_PROXY http://localhost:8080"
+
+abbr theharverser_email "theHarvester -b baidu,bing,censys,duckduckgo,linkedin,linkedin_links,qwant,trello,twitter,yahoo"
+
+alias mynetstat "lsof -i TCP -n -M | grep LISTEN"
+
+alias jsoncurl "curl -X POST -H 'Content-Type: Application/json'"

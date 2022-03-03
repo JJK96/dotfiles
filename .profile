@@ -1,11 +1,10 @@
-export EDITOR="editor -t"
-export PAGER=less
-export TERMINAL=alacritty
-export PDFVIEWER=llpp
-export BROWSER=firefox
-mkdir -p /tmp/Downloads
+export PATH=$HOME/go/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:$HOME/.cargo/bin:$HOME/nw_bin:$HOME/bin:$HOME/.config/kak/bin:$HOME/node_modules/.bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH
+export PYTHONPATH=$HOME/git/scripts/python_bin:$HOME/dotfiles/python_bin
 
-export PATH="$HOME/.local/bin:$HOME/bin:$HOME/bin/perl:$HOME/.config/composer/vendor/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.5.0/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.config/kak/bin:$HOME/perl5/bin:/usr/lib/w3m:$PATH"
+if [ -z "$EDITOR" ]; then
+    export EDITOR="editor -t"
+fi
+export PAGER=less
 
 export GPGKEY=35DA10798B42C1C8AEFEFEAC6487A893C19EA8BC
 export PASSWORD_STORE_GENERATED_LENGTH=30
@@ -23,3 +22,4 @@ export CM_LAUNCHER=rofi
 export CM_DIR=/tmp
 
 #source ~/.proxy_conf
+
