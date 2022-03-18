@@ -46,7 +46,7 @@ def grep(language="dotnet", extra_args=None, **kwargs):
     return result
 
 
-def process_matches(matches, ignore_regex=None, **kwargs):
+def process_matches(matches, ignore_regex=None, filter_regex=None, **kwargs):
     processed = {}
     for match in matches:
         if match['type'] != 'match':
@@ -54,6 +54,10 @@ def process_matches(matches, ignore_regex=None, **kwargs):
         if ignore_regex:
             ignore_regex = re.compile(ignore_regex)
             if ignore_regex.search(match['data']['lines']['text']):
+                continue
+        if filter_regex:
+            filter_regex = re.compile(filter_regex)
+            if not filter_regex.search(match['data']['lines']['text']):
                 continue
         for submatch in match['data']['submatches']:
             text = submatch['match']['text']
@@ -86,6 +90,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--language", default="dotnet")
     parser.add_argument("--ignore-regex")
+    parser.add_argument("--filter-regex")
     args, extra_args = parser.parse_known_args()
-    results = search_strings(args.language, extra_args=extra_args, ignore_regex=args.ignore_regex)
+    results = search_strings(args.language, extra_args=extra_args, ignore_regex=args.ignore_regex, filter_regex=args.filter_regex)
     print_matches(results)
