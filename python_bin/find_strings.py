@@ -15,6 +15,7 @@ import re
 NOT_WHITESPACE = re.compile(r'[^\s]')
 
 
+# https://flutterq.com/how-to-extract-multiple-json-objects-from-one-file/
 def decode_stacked(document, pos=0, decoder=JSONDecoder()):
     while True:
         match = NOT_WHITESPACE.search(document, pos)
@@ -30,12 +31,15 @@ def decode_stacked(document, pos=0, decoder=JSONDecoder()):
 
 
 def grep(language="dotnet", extra_args=None, **kwargs):
-    regex = "'.*?'|\".*?\""
+    regex = ["'.*?'", '".*?"']
     glob = []
     if language == "dotnet":
-        regex += "|@\"(.|\\n)*?\"|@'(.|\\n)*?'"
+        regex += ['@"(.|\\n)*?"', "@'(.|\\n)*?'"]
         glob += ["-g", "*.cs"]
-    command = ["rg", "--multiline", "--json"] + glob + [regex]
+    if language == "java":
+        regex += ['"""(.|\\n)*?"""',"'''(.|\\n)*?'''"]
+        glob += ["-g", "*.java", "-g", "*.scala"]
+    command = ["rg", "--multiline", "--json"] + glob + ['|'.join(regex)]
     if extra_args:
         command += extra_args
     result = subprocess.check_output(command).decode()
