@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+redacted=[REDACTED]
+
+sed -E \
+    -e "s/^((Set-)?Cookie: ).*$/\1$redacted/" \
+    -e "s/^(.*Authorization: (Bearer )?).*$/\1$redacted/" \
+    -e "s/(__VIEWSTATE=)[^&]+/\1$redacted/" \
+    -e "s/(__EVENTVALIDATION=)[^&]+/\1$redacted/" \
+    -e "s/(password=)[^&]+/\1$redacted/" \
