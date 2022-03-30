@@ -15,6 +15,7 @@ import re
 NOT_WHITESPACE = re.compile(r'[^\s]')
 
 
+# https://flutterq.com/how-to-extract-multiple-json-objects-from-one-file/
 def decode_stacked(document, pos=0, decoder=JSONDecoder()):
     while True:
         match = NOT_WHITESPACE.search(document, pos)
@@ -30,19 +31,22 @@ def decode_stacked(document, pos=0, decoder=JSONDecoder()):
 
 
 def grep(language="dotnet", extra_args=None, **kwargs):
-    regex = "'.*?'|\".*?\""
+    regex = ["'.*?'", '".*?"']
     glob = []
     if language == "dotnet":
-        regex += "|@\"(.|\\n)*?\"|@'(.|\\n)*?'"
+        regex += ['@"(.|\\n)*?"', "@'(.|\\n)*?'"]
         glob += ["-g", "*.cs"]
-    command = ["rg", "--multiline", "--json"] + glob + [regex]
+    if language == "java":
+        regex += ['"""(.|\\n)*?"""',"'''(.|\\n)*?'''"]
+        glob += ["-g", "*.java", "-g", "*.scala"]
+    command = ["rg", "--multiline", "--json"] + glob + ['|'.join(regex)]
     if extra_args:
         command += extra_args
     result = subprocess.check_output(command).decode()
     return result
 
 
-def process_matches(matches, ignore_regex=None, **kwargs):
+def process_matches(matches, ignore_regex=None, filter_regex=None, **kwargs):
     processed = {}
     for match in matches:
         if match['type'] != 'match':
@@ -50,6 +54,10 @@ def process_matches(matches, ignore_regex=None, **kwargs):
         if ignore_regex:
             ignore_regex = re.compile(ignore_regex)
             if ignore_regex.search(match['data']['lines']['text']):
+                continue
+        if filter_regex:
+            filter_regex = re.compile(filter_regex)
+            if not filter_regex.search(match['data']['lines']['text']):
                 continue
         for submatch in match['data']['submatches']:
             text = submatch['match']['text']
@@ -82,6 +90,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--language", default="dotnet")
     parser.add_argument("--ignore-regex")
+    parser.add_argument("--filter-regex")
     args, extra_args = parser.parse_known_args()
-    results = search_strings(args.language, extra_args=extra_args, ignore_regex=args.ignore_regex)
+    results = search_strings(args.language, extra_args=extra_args, ignore_regex=args.ignore_regex, filter_regex=args.filter_regex)
     print_matches(results)
