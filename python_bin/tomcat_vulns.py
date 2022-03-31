@@ -12,7 +12,7 @@ def get_vulns(version):
     for m in regex.findall(relevant_part):
         text, _, rest = m.partition("<")
         cve = re.search(cve_regex, rest)
-        yield text, cve.group(0)
+        yield re.sub(r"\s+", " ", text), cve.group(0)
 
 
 def print_vulns(version):
