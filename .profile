@@ -1,4 +1,4 @@
-export PATH=$HOME/go/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:$HOME/.cargo/bin:$HOME/nw_bin:$HOME/bin:$HOME/.config/kak/bin:$HOME/node_modules/.bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH
+export PATH=$HOME/go/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin:$HOME/.cargo/bin:$HOME/nw_bin:$HOME/bin:$HOME/.config/kak/bin:$HOME/node_modules/.bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH
 export PYTHONPATH=$HOME/git/scripts/python_bin:$HOME/dotfiles/python_bin
 
 if [ -z "$EDITOR" ]; then
