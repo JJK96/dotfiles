@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+# Calculate CVSS score based on vector
+# Requires cvss module
+
+from cvss import CVSS3
+import sys
+import argparse
+
+parser = argparse.ArgumentParser("Calculate CVSS scores")
+parser.add_argument("-s", "--severity", action="store_true")
+parser.add_argument("-v", "--vector")
+args = parser.parse_args()
+
+vector = args.vector
+if not vector:
+    if not sys.stdin.isatty():
+        vector = sys.stdin.read().strip()
+if vector:
+    c = CVSS3(vector)
+    if args.severity:
+        values = c.severities()
+    else:
+        values = c.scores()
+    print(values[2])
+else:
+    print("""\
+None      0.0
+Low       0.1 - 3.9
+Medium    4.0 - 6.9
+High      7.0 - 8.9
+Critical  9.0 - 10.0""")
