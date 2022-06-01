@@ -1,4 +1,4 @@
-source ~/.profile
+# source ~/.profile
 setopt HIST_IGNORE_SPACE
 HISTFILE=~/.histfile
 HISTSIZE=100000
@@ -92,6 +92,17 @@ alias gcf='git commit -m "`fortune`"'
 alias gpf="git add -A && gcf && git pull && git push"
 alias gs="git status"
 alias gpatch="git format-patch -o /tmp origin"
+alias gco="git checkout"
+alias gcm="git checkout master"
+alias gcl="git clone"
+alias gl="git pull"
+alias gp="git push"
+alias gc="git commit"
+alias ga="git add"
+alias gaa="git add --all"
+alias grs="git restore"
+alias gd="git diff"
+alias gcam="git commit --amend"
 
 # pacman
 alias repo-remove="repo-remove /var/cache/pacman/custom/custom.db.tar"
@@ -130,6 +141,7 @@ alias zshrc="$EDITOR ~/.zsh/.zshrc"
 # Conversions
 alias frombinary="perl -lpe '\$_=pack\"B*\",\$_'"
 
-alias chicken-csi="rlwrap chicken-csi"
-
 alias mdc='function _md(){mkdir -p "$1" && cd "$1"};_md'
+
+alias batch='EDITOR="code --wait" batch'
+alias aquatone='/mnt/c/tools/aquatone.exe -chrome-path "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"'
