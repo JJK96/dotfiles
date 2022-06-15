@@ -16,7 +16,7 @@ do
 done
 password=$(cat /dev/random | base64 | head -c $length)
 if $copy; then
-    echo "$password" | pbcopy
+    echo "$password" | clip.exe
 else
     echo "$password"
 fi
