@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+link=$(cat)
+link=${link#*=}
+link=${link%%&*}
+echo "$link" | urldecode

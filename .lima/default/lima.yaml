@@ -48,6 +48,9 @@ mounts:
     writable: true
   - location: "~/git"
     writable: false
+    # For SSH forwarding
+  - location: "/var/folders/by/"
+    writable: false
 
 ssh:
   # A localhost port of the host. Forwarded to port 22 of the guest.
@@ -59,6 +62,7 @@ ssh:
   # If you have an insecure key under ~/.ssh, do not use this option.
   # Default: true
   loadDotSSHPubKeys: true
+  forwardAgent: true
 
 
 

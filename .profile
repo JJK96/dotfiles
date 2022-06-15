@@ -1,4 +1,4 @@
-export PATH=$HOME/.local/bin:$HOME/go/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:$HOME/.cargo/bin:$HOME/nw_bin:$HOME/bin:$HOME/.config/kak/bin:$HOME/node_modules/.bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/.config/kak/bin:$HOME/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:$HOME/go/bin:$HOME/node_modules/.bin:$HOME/nw_bin:/usr/local/lib/ruby/gems/3.0.0/bin:/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/opt/ruby/bin:$PATH
 export PYTHONPATH=$HOME/git/scripts/python_bin:$HOME/dotfiles/python_bin
 
 export EDITOR="code --wait"
