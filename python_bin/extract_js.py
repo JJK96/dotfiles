@@ -1,41 +1,6 @@
-import bs4
-import base64
+from burp import get_items
 
 previous_scripts = set()
-
-class Item:
-    def __init__(self, item):
-        self._item = item
-
-    def get_req_resp(self, reqresp):
-        try:
-            return base64.b64decode(reqresp.string).decode()
-        except UnicodeDecodeError:
-            print(self._item.host)
-            print(self._item.path)
-            return "<html></html>"
-
-    @property
-    def request(self):
-        return self.get_req_resp(self._item.request)
-
-    @property
-    def response(self):
-        return self.get_req_resp(self._item.response)
-
-    @property
-    def html(self):
-        index = self.response.find('<html')
-        html = self.response[index:]
-        return bs4.BeautifulSoup(html, 'html.parser')
-
-    @property
-    def scripts(self):
-        return self.html.find_all('script')
-
-    def __getattr__(self, name):
-        return getattr(self._item, name)
-
 
 def scripts_item(item):
     scripts = item.scripts
@@ -57,19 +22,17 @@ def scripts_item(item):
     return new_item
 
 
-def extract_js(input, output):
-    with open(input) as f:
-        contents = f.read()
-
-    soup = bs4.BeautifulSoup(contents, "xml")
-    items = soup.items.find_all('item')
-    new_items = []
-    for item in items:
-        new_item = scripts_item(Item(item))
+def get_script_items(input):
+    for item in get_items(input):
+        new_item = scripts_item(item)
         if new_item:
-            new_items.append(new_item)
+            yield new_item
+
+
+def extract_js(input, output):
+    script_items = get_script_items(input)
     with open(output, 'w') as f:
-        string = "<items>\n" + "\n".join(new_items) + "</items>"
+        string = "<items>\n" + "\n".join(script_items) + "</items>"
         f.write(string)
 
 if __name__ == "__main__":
