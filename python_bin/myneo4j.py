@@ -62,6 +62,32 @@ class Neo4j:
 
         return results
 
+    def execute(self, query):
+        results = []
+
+        def transaction(tx):
+            for r in tx.run(query):
+                results.append(r)
+
+        with self.driver.session() as session:
+            session.write_transaction(transaction)
+
+        return results
+
+    def set_owned_principals(self, owned_users):
+        """:param users: Set of owned users"""
+        query = ["match (n:User) where"]
+        clause = []
+        users = self.get_users()
+        for user in users:
+            username = user['n']['name'].partition('@')[0]
+            if username.lower() in owned_users:
+                clause.append(f"id(n) = {user['n'].id}")
+        query.append(' or '.join(clause))
+        query.append("set n.owned = True return n")
+        query = ' '.join(query)
+        self.execute(query)
+
 
 def get_neo4j():
     from config import get_config
