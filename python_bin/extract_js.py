@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from burp import get_items
 
 previous_scripts = set()
