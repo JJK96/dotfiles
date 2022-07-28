@@ -13,4 +13,4 @@ if [[ "$1" = run ]]; then
     done
 fi
 
-lima nerdctl "$@"
+lima docker "$@"

@@ -6,7 +6,7 @@ create_container() {
     pushd neo4j
     mkdir -p data logs import plugins
     popd
-    lima nerdctl run \
+    lima docker run \
     --name $name \
     -p 7474:7474 -p 7687:7687 \
     -d \
