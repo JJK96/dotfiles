@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+raw=false
+all=false
+
+if [ $# -eq 0 ]; then
+    cat << EOF
+Find commits for which the file with the given path exactly matches the given file contents.
+
+git-find-file [-r] [-a] <file-with-contents> <filename-in-repository>
+
+    -r  Output results as raw commit hashes instead of pretty format
+    -a  Search in all commits instead of just all tags
+EOF
+    exit 1
+fi
+
+while getopts "ra" opt; do
+case "$opt" in
+    r) raw=true;;
+    a) all=true;;
+esac
+done
+
+input_file=${@:$OPTIND:1}
+filename=${@:$OPTIND+1:1}
+
+function compare {
+    rev="$1"
+    if [[ `git rev-parse "$rev:$filename"` = `git hash-object "$input_file"` ]]; then
+        if [ $raw = true ]; then
+            echo $rev
+        else
+            git show --no-patch --oneline $rev
+        fi
+    fi
+}
+
+if [ $all = true ]; then
+    git rev-list --all --remotes | while read rev; do
+        compare $rev
+    done 2>/dev/null
+else
+    git ls-remote --tags | awk '{print $2}' | while read rev; do
+        compare $rev
+    done 2>/dev/null
+fi
