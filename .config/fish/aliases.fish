@@ -106,3 +106,10 @@ abbr theharverser_email "theHarvester -b baidu,bing,censys,duckduckgo,linkedin,l
 alias mynetstat "lsof -i TCP -n -M | grep LISTEN"
 
 alias jsoncurl "curl -X POST -H 'Content-Type: Application/json'"
+
+# Smart cat/less/ls alternative that works on both files and directories
+function c
+    begin
+        not set -q argv[1] || [ -d "$argv" ]
+    end && ls $argv || less -F $argv
+end
