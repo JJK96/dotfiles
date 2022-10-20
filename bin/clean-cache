@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Based on https://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/
+echo 3 | sudo tee '/proc/sys/vm/drop_caches' >/dev/null && \
+printf '%s\n' 'Ram-cache Cleared'
