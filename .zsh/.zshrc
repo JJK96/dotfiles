@@ -24,6 +24,12 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
+autoload -U bashcompinit
+bashcompinit
+
+eval "$(register-python-argcomplete reporter)"
+eval "$(register-python-argcomplete verifier)"
+
 # easier job management
 fgLast() {
     fg
@@ -141,4 +147,13 @@ alias frombinary="perl -lpe '\$_=pack\"B*\",\$_'"
 alias mdc='function _md(){mkdir -p "$1" && cd "$1"};_md'
 
 alias batch='EDITOR="code --wait" batch'
-alias aquatone='/mnt/c/tools/aquatone.exe -chrome-path "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"'
+
+
+# Project management
+
+function cdc(){
+    cd ~/Documents/$(cat ~/.current_project)
+}
+
+# Smart cat/less/ls alternative that works on both files and directories
+alias c='function _mycat(){([ $# -eq 0 ] || [ -d $@ ]) && ls $@ || less -F $@};_mycat'
