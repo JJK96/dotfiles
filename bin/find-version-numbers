@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+rg -o $@ "v(ersion)?\s*[:=].{0,5}\d+\.\d+(\.\d+)?[\"']?"
