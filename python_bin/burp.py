@@ -1,5 +1,19 @@
 import bs4
 import base64
+from collections import UserString
+
+class RequestResponse(UserString):
+    def __init__(self, text):
+        self.headers, _, self.body = text.partition("\r\n\r\n")
+        super().__init__(text)
+    
+
+class Request(RequestResponse):
+    pass
+
+class Response(RequestResponse):
+    pass
+
 
 class Item:
     def __init__(self, item):
@@ -15,11 +29,11 @@ class Item:
 
     @property
     def request(self):
-        return self.get_req_resp(self._item.request)
+        return Request(self.get_req_resp(self._item.request))
 
     @property
     def response(self):
-        return self.get_req_resp(self._item.response)
+        return Response(self.get_req_resp(self._item.response))
 
     @property
     def html(self):

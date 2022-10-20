@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+nmap -sL $@ | grep "scan report for" | awk '{print $5}'
