@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+brif="br0"
+ip link delete $brif
+systemctl start NetworkManager

@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 2 ]; then
+    echo "$0 <if1> <if2>"
+    echo "Bridge the given interfaces and forward all packets"
+    exit
+fi
+
+# First interface to bridge
+if0="$1"
+# Second interface to bridge
+if1="$2"
+# Bridge interface name
+brif=br0
+
+# Disable NetworkManager to prevent interferance
+systemctl stop NetworkManager
+
+# Create bridge
+ip link add name $brif type bridge
+
+# Link the interfaces to the brige
+ip link set "$if0" master $brif
+ip link set "$if1" master $brif
+
+# Reset mac addresses to prevent conflicts with victim mac address
+macchanger -p "$if0"
+macchanger -p "$if1"
+
+# Remove IP addresses
+ip addr flush dev "$if0"
+ip addr flush dev "$if1"
+
+# Bring everything up
+ip link set "$if0" up
+ip link set "$if1" up
+ip link set "$brif" up
+
+# From https://unix.stackexchange.com/questions/272146/packets-not-moving-through-linux-ethernet-bridge
+# Enable ip forwarding
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# do not query iptables for packet routing
+echo 0 > /proc/sys/net/bridge/bridge-nf-call-iptables
+
+# no additional processing for multicast packets
+echo 0 > /sys/devices/virtual/net/$brif/bridge/multicast_querier
+echo 0 > /sys/devices/virtual/net/$brif/bridge/multicast_snooping
