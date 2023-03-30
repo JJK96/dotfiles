@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# Get shellcode for given function in binary
+
+SECTION=$1
+IN=$2
+
+i=`nm -S --size-sort $IN | grep "\<$SECTION\>" |
+        awk '{print toupper($1),toupper($2)}'`
+echo "$i" | while read line; do
+        start=${line%% *}
+        size=${line##* }
+        end=`echo "obase=16; ibase=16; $start + $size" | bc -l`
+        objdump -d --section=.text \
+                   --start-address="0x$start" \
+                   --stop-address="0x$end" $IN | \
+                grep '[0-9a-f]:' | \
+                cut -f2 -d: | \
+                cut -f1-7 -d' ' | \
+                tr -s ' ' | \
+                tr '\t' ' ' | \
+                sed 's/ $//g' | \
+                sed 's/ /\\x/g' | \
+                paste -d '' -s | \
+                sed 's/^/"/' | \
+                sed 's/$/"/g' | \
+                sed 's:.*:echo -ne &:' | /bin/bash
+done
