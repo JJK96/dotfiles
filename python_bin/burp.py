@@ -38,7 +38,7 @@ class Item:
     @property
     def html(self):
         index = self.response.find('<html')
-        html = self.response[index:]
+        html = str(self.response[index:])
         return bs4.BeautifulSoup(html, 'html.parser')
 
     @property
@@ -63,10 +63,14 @@ if __name__ == "__main__":
     parser.add_argument("input")
     parser.add_argument("--req", action="store_true")
     parser.add_argument("--resp", action="store_true")
+    parser.add_argument("--body-only", action="store_true")    
     args = parser.parse_args()
 
     for item in get_items(args.input):
         if args.req:
-            print(item.request)
+            x = item.request
         if args.resp:
-            print(item.response)
+            x = item.response
+        if args.body_only:
+            x = x.body
+        print(x)
