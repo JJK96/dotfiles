@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+while read line || [ -n "$line" ]; do
+    echo -n "$line" | $@ | tr -d '\n'
+    echo " $line"
+done
