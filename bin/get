@@ -1,3 +1,2 @@
 #!/bin/bash
-string="{print \$$1;}"
-awk "$string"
+cut -d' ' -f $@

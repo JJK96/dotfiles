@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+apk="$1"
+
+apktool d "$apk"
+unzip "$apk"
+/home/jjk/.local/bin/d2j-dex2jar.sh classes.dex

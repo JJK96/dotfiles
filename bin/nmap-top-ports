@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+start="$1"
+end="$2"
+cat /usr/share/nmap/nmap-services | grep -v "^#" | awk '{print $3 " " $2}' | grep tcp | sort -n | tail -n $end | head -n $(echo $end - $start | bc) | get 2 | awk -F / '{print $1}' | tac | sed -z 's/\n/,/g' | head -c -1

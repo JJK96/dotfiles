@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ls -l /proc/*/exe 2>/dev/null | grep "\->" | awk '{print $NF}' | sort -u
