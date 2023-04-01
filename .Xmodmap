@@ -4,4 +4,4 @@ keycode 9 = Caps_Lock
 add Lock = Caps_Lock
 
 !dummy escape key for xcape
-keycode 254 = Escape
+keycode 66 = Escape
