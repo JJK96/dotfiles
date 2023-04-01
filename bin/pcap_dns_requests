@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+pcap="$1"
+tshark -r bridged_mitm_teams_call.pcapng -T fields -e ip.src -e dns.qry.name -R "dns.flags.response eq 0" -2 | sort -u
