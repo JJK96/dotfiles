@@ -9,3 +9,9 @@ def process_csv(input_file, output_file, process_function):
         for line in reader:
             if process_function(line):
                 writer.writerow(line)
+
+
+def csv_lines(input_file, delimiter=','):
+    with open(input_file) as input:
+        reader = csv.DictReader(input, delimiter=delimiter)
+        yield from reader
