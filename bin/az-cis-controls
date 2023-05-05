@@ -1,0 +1,1 @@
+az security regulatory-compliance-controls list --standard-name "Azure-CIS-1.4.0" | jq '.[] | {control:.name,description,state} | select(.state == "Failed")'
