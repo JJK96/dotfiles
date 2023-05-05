@@ -12,8 +12,16 @@ def get_score(x):
 
 
 def search(cpeName):
-    url = f"https://services.nvd.nist.gov/rest/json/cves/2.0?cpeName=cpe:2.3:a:{cpeName}&isVulnerable"
-    resp = requests.get(url).json()
+    url = f"https://services.nvd.nist.gov/rest/json/cves/2.0?virtualMatchString=cpe:2.3:a:{cpeName}"
+    resp = requests.get(url)
+    try:
+        resp = resp.json()
+    except requests.exceptions.JSONDecodeError:
+        for k,v in resp.headers.items():
+            print(f"{k}: {v}")
+        print(resp.content)
+        raise
+
     resp['vulnerabilities'] = sorted(resp['vulnerabilities'],
                                      key=get_score,
                                      reverse=True)
