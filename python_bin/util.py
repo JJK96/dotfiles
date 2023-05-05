@@ -1,4 +1,5 @@
 import os
+import re
 
 def get_cookies():
     if not 'cookie' in os.environ:
@@ -13,3 +14,13 @@ def get_cookies():
 def print_dict(d):
     for k,v in d.items():
         print(f"{k}: {v}")
+
+
+def grep(filename, regex, negative=False):
+    with open(filename) as f:
+        for line in f.readlines():
+            matches = re.search(regex, line)
+            if negative and not matches:
+                yield line
+            if not negative and matches:
+                yield line
