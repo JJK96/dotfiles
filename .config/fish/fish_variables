@@ -1,6 +1,11 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR __fish_initialized:3100
+SETUVAR ZO_CMD:zo
+SETUVAR Z_CMD:z
+SETUVAR Z_DATA:/Users/nw/\x2elocal/share/z/data
+SETUVAR Z_DATA_DIR:/Users/nw/\x2elocal/share/z
+SETUVAR Z_EXCLUDE:\x5e/Users/nw\x24
+SETUVAR __fish_initialized:3400
 SETUVAR _fish_abbr_dahomey:cd\x20/opt/lampp/htdocs/dahomey/testing\x2edahomey\x2enl/
 SETUVAR _fish_abbr_ga:git\x20add
 SETUVAR _fish_abbr_gaa:git\x20add\x20\x2d\x2dall
@@ -57,4 +62,5 @@ SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_pager_color_selected_background:\x2dr
 SETUVAR fish_user_paths:/usr/local/opt/mysql\x2dclient/bin

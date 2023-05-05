@@ -103,7 +103,7 @@ set -x HTTP_PROXY http://localhost:8080"
 
 abbr theharverser_email "theHarvester -b baidu,bing,censys,duckduckgo,linkedin,linkedin_links,qwant,trello,twitter,yahoo"
 
-alias mynetstat "lsof -i TCP -n -M | grep LISTEN"
+alias mynetstat "lsof -i TCP -n -M -P | grep LISTEN"
 
 alias jsoncurl "curl -X POST -H 'Content-Type: Application/json'"
 
@@ -113,3 +113,27 @@ function c
         not set -q argv[1] || [ -d "$argv" ]
     end && ls $argv || less -F $argv
 end
+
+function pyenv-exec
+    set -l cmd "pyenv init - | source;pyenv shell '$argv[1]'"
+    set -l cmd "$cmd;pyenv exec '$argv[2..-1]'"
+    fish -c "$cmd"
+end
+
+alias scout "pyenv-exec scoutsuite scout"
+
+function binaries
+    for p in $PATH
+        echo "$p"
+    end | grep -v "/usr/local/share/dotnet" | sort -u | while read p;
+        find "$p/" -type f 2>/dev/null
+    end
+end
+
+function h
+    history | grep $argv
+end
+
+alias pinentry "pinentry-mac"
+
+alias strings "stringsext -e UTF-16LE UTF-16BE UTF-8 ascii -c"
