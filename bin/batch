@@ -43,7 +43,7 @@ operations=$(mktemp -t batch)
 
 cat | tee "$in" > "$out"
 
-eval "$EDITOR" "$out"
+< /dev/tty eval "$EDITOR" "$out"
 
 cat << EOF > "$operations"
 map() {
@@ -68,7 +68,7 @@ while read -u 3 -r file1 && read -u 4 -r file2; do
 done 3<"$in" 4<"$out" >> "$operations"
 
 if $confirm; then
-    eval "$EDITOR" "$operations"
+    < /dev/tty eval "$EDITOR" "$operations"
 fi
 
 . "$operations"
