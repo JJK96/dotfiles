@@ -202,7 +202,7 @@ networks:
 # are reflected automatically into the guest, including conditional forward,
 # and mDNS lookup:
 # Default: true
-useHostResolver: true
+# useHostResolver: true
 
 # If useHostResolver is false, then the following rules apply for configuring dns:
 # Explicitly set DNS addresses for qemu user-mode networking. By default qemu picks *one*
