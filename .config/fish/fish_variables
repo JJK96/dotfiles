@@ -33,6 +33,9 @@ SETUVAR _fish_abbr_wd:cd\x20/home/jjk/Documents/master
 SETUVAR _fish_abbr_wine32:WINEPREFIX\x3d\x22\x24HOME/\x2ewine32\x22\x20wine
 SETUVAR _fish_abbr_xsel:xsel\x20\x2db
 SETUVAR _fish_abbr_zip:zip\x20\x2dr
+SETUVAR _fisher_FabioAntunes_2F_fish_2D_nvm_files:/Users/nw/\x2econfig/fish/functions/__nvm_run\x2efish\x1e/Users/nw/\x2econfig/fish/functions/node\x2efish\x1e/Users/nw/\x2econfig/fish/functions/npm\x2efish\x1e/Users/nw/\x2econfig/fish/functions/npx\x2efish\x1e/Users/nw/\x2econfig/fish/functions/nvm\x2efish\x1e/Users/nw/\x2econfig/fish/functions/nvm_alias_command\x2efish\x1e/Users/nw/\x2econfig/fish/functions/nvm_alias_function\x2efish\x1e/Users/nw/\x2econfig/fish/functions/yarn\x2efish\x1e/Users/nw/\x2econfig/fish/completions/nvm\x2efish
+SETUVAR _fisher_edc_2F_bass_files:/Users/nw/\x2econfig/fish/functions/__bass\x2epy\x1e/Users/nw/\x2econfig/fish/functions/bass\x2efish
+SETUVAR _fisher_plugins:FabioAntunes/fish\x2dnvm\x1eedc/bass
 SETUVAR fish_color_autosuggestion:5fafd7
 SETUVAR fish_color_cancel:normal
 SETUVAR fish_color_command:5fd7ff

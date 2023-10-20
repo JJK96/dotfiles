@@ -84,5 +84,5 @@ function fish_prompt
         end
     end
 
-    echo -n -s $arrow ' '$cwd $repo_info $normal ' '
+    echo -e -n -s $cwd $repo_info $normal "\n" (date +"%d-%m-%Y %H:%M") "\n" '$ ' 
 end

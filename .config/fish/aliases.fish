@@ -54,8 +54,6 @@ alias r "ranger"
 
 # directories
 abbr wd "cd /home/jjk/Documents/master"
-abbr swifter "cd /srv/http/swifter/stamboek/;sudo systemctl start httpd mariadb"
-abbr dahomey "cd /opt/lampp/htdocs/dahomey/testing.dahomey.nl/"
 abbr kaksrc "cd ~/git/kakoune-git/src/kakoune/"
 abbr lspsrc "cd ~/git/kak-lsp-git/src/kak-lsp/"
 
@@ -64,7 +62,6 @@ alias decktape "node /home/jjk/git/decktape/decktape.js --no-sandbox"
 alias mysql 'mysql --auto-rehash -u root'
 
 # Frequently edited files
-alias i3config "$EDITOR ~/.config/i3/config"
 alias kakrc "$EDITOR ~/.config/kak/kakrc"
 alias fishrc "$EDITOR ~/.config/fish/config.fish"
 
@@ -137,3 +134,15 @@ end
 alias pinentry "pinentry-mac"
 
 alias strings "stringsext -e UTF-16LE UTF-16BE UTF-8 ascii -c"
+
+alias ipsort "sort -t . -k 3,3n -k 4,4n"
+
+alias hl "rg --passthru"
+
+# Opsec
+export AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+alias curl "curl -A '$AGENT'"
+alias wget "wget -U '$AGENT'"
+# Nmap itself has been patched
+# alias nmap "nmap --script-args=\"http.useragent='$AGENT'\""
+
