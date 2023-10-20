@@ -1,5 +1,5 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 while read line || [ -n "$line" ]; do
-    echo -n "$line" | $@ | tr -d '\n'
+    echo -n "$line" | eval $@ | tr -d '\n'
     echo " $line"
 done
