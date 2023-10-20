@@ -4,7 +4,11 @@ from collections import UserString
 
 class RequestResponse(UserString):
     def __init__(self, text):
-        self.headers, _, self.body = text.partition("\r\n\r\n")
+        self.headers, _, self.body = text.partition(b"\r\n\r\n")
+        if self.body[0] == 0x1f and self.body[1] == 0x8b:
+            # Gzip
+            import zlib
+            self.body = zlib.decompress(self.body, 16+zlib.MAX_WBITS)
         super().__init__(text)
     
 
@@ -20,12 +24,8 @@ class Item:
         self._item = item
 
     def get_req_resp(self, reqresp):
-        try:
-            return base64.b64decode(reqresp.string).decode()
-        except UnicodeDecodeError:
-            print(self._item.host)
-            print(self._item.path)
-            return "<html></html>"
+        decoded = base64.b64decode(reqresp.string)
+        return decoded
 
     @property
     def request(self):
@@ -37,8 +37,8 @@ class Item:
 
     @property
     def html(self):
-        index = self.response.find('<html')
-        html = str(self.response[index:])
+        index = self.response.find(b'<html')
+        html = str(self.response[index:].decode())
         return bs4.BeautifulSoup(html, 'html.parser')
 
     @property
