@@ -1,4 +1,6 @@
 import requests
+import sys
+from get_vendor import get_vendor
 
 
 def get_score(x):
@@ -44,6 +46,16 @@ def display_results(results):
         print()
 
 
+def print_url(cpe):
+    if cpe.startswith('*'):
+        split = cpe.split(":")
+        vendor = get_vendor(split[1])
+        cpe = ':'.join([vendor]+split[1:])
+    print(
+        f"https://nvd.nist.gov/vuln/search/results?form_type=Advanced&results_type=overview&search_type=all&isCpeNameSearch=false&cpe_version=cpe:/a:{cpe}\n"
+    )
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser()
@@ -51,10 +63,9 @@ def main():
     args = parser.parse_args()
 
     results = search(args.cpe)
-    print(
-        f"https://nvd.nist.gov/vuln/search/results?form_type=Advanced&results_type=overview&search_type=all&isCpeNameSearch=false&cpe_version=cpe:/a:{args.cpe}\n"
-    )
     display_results(results)
+    sys.stdout.flush()
+    print_url(args.cpe)
 
 
 if __name__ == "__main__":
