@@ -24,3 +24,10 @@ def grep(filename, regex, negative=False):
                 yield line
             if not negative and matches:
                 yield line
+
+
+def index(mylist, key):
+    d = {}
+    for x in mylist:
+        d[key(x)] = x
+    return d
