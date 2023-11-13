@@ -10,15 +10,15 @@ def get_rijmwoorden(woord):
     resp = requests.get(f"https://rijmwoordenboek.vandale.nl/rijm/{woord}")
     soup = BeautifulSoup(resp.text, 'html.parser')
     results = soup.find(class_='results')
-    primary = results.find(class_='primary')
-    links = primary.find_all('a')
-    return [link.text for link in links]
+    for primary in results.find_all(class_='primary'):
+        for link in primary.find_all('a'):
+            yield link.text
 
 
 def get_synoniemen(woord):
     resp = requests.get(f"https://synoniemen.net/index.php?zoekterm={woord}")
     soup = BeautifulSoup(resp.text, 'html.parser')
-    dl = soup.find(class_="alstrefwoordtabel")
+    dl = soup.find(class_="alssynoniemtabel")
     links = dl.find_all('a')
     return [link.text for link in links]
 
