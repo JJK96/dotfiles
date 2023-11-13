@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <endpoint> <token>"
+fi
+endpoint="$1"
+token="$2"
+curl https://graph.microsoft.com/v1.0$endpoint -H "Authorization: Bearer $token" -i
