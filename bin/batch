@@ -57,13 +57,18 @@ pick() {
 }
 EOF
 
+# Escape single quotes
+pattern="'"
+replacement="'"'"'"'"'"'"'"
 while read -u 3 -r file1 && read -u 4 -r file2; do
+    file1str=${file1//$pattern/$replacement}
     if [ "$file1" = "$file2" ]; then
-        echo pick "'$file1'"
+        echo pick "'$file1str'"
     elif [ -z "$file2" ]; then
-        echo drop "'$file1'"
+        echo drop "'$file1str'"
     else
-        echo map "'$file1'" "'$file2'"
+        file2str=${file2//$pattern/$replacement}
+        echo map "'$file1str'" "'$file2str'"
     fi
 done 3<"$in" 4<"$out" >> "$operations"
 
