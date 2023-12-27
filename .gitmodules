@@ -7,3 +7,6 @@
 [submodule ".config/fish/plugin-foreign-env"]
 	path = .config/fish/plugin-foreign-env
 	url = git@github.com:oh-my-fish/plugin-foreign-env.git
+[submodule ".cheats/arsenal-cheatsheets"]
+	path = .cheats/arsenal-cheatsheets
+	url = git@gitlab.local.northwave.nl:redteam/arsenal-cheatsheets.git
