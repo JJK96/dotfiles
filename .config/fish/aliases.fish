@@ -1,7 +1,7 @@
 # aliases
 abbr wine32 'WINEPREFIX="$HOME/.wine32" wine'
 alias pls 'sudo (fc -ln -1)'
-alias youtube-mp3 'youtube-dl -i --yes-playlist -x --audio-format m4a --audio-quality 0 '
+alias youtube-mp3 'yt-dlp -i --yes-playlist -x --audio-format m4a --audio-quality 0 '
 alias sprunge "curl -F 'sprunge=<-' http://sprunge.us"
 alias leave "bg %+ ; and disown %+ && exit"
 alias x "startx"
@@ -98,8 +98,6 @@ end
 abbr proxy "set -x HTTPS_PROXY http://localhost:8080
 set -x HTTP_PROXY http://localhost:8080"
 
-abbr theharverser_email "theHarvester -b baidu,bing,censys,duckduckgo,linkedin,linkedin_links,qwant,trello,twitter,yahoo"
-
 alias mynetstat "lsof -i TCP -n -M -P | grep LISTEN"
 
 alias jsoncurl "curl -X POST -H 'Content-Type: Application/json'"
@@ -133,7 +131,10 @@ end
 
 alias pinentry "pinentry-mac"
 
-alias strings "stringsext -e UTF-16LE UTF-16BE UTF-8 ascii -c"
+function strings
+    /usr/bin/strings $argv
+    stringsext -e UTF-16LE UTF-16BE UTF-8 -c $argv
+end
 
 alias ipsort "sort -t . -k 3,3n -k 4,4n"
 
@@ -146,3 +147,5 @@ alias wget "wget -U '$AGENT'"
 # Nmap itself has been patched
 # alias nmap "nmap --script-args=\"http.useragent='$AGENT'\""
 
+abbr n3map '/usr/local/bin/n3map -v -n --output=-'
+abbr a arsenal
