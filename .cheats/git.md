@@ -12,5 +12,11 @@ git clone --filter=blob:none --sparse <repo>
 git sparse-checkout add <dir>
 ```
 
+## Merge specific folder
+```
+git log <current>..<source> --pretty=format:"%h" --no-merges --reverse -- <folder> | xargs git cherry-pick
+```
+
 = upstream: upstream
 = master: master
+= folder: .
