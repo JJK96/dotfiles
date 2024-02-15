@@ -60,8 +60,8 @@ def get_items(input):
 
 def print_item(x, body_only=False):
     if body_only:
-        x = x.body
-    print(x.decode(), end="")
+        x = x.body.decode()
+    print(x, end="")
 
 
 if __name__ == "__main__":
