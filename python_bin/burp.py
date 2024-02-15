@@ -5,7 +5,7 @@ from collections import UserString
 class RequestResponse(UserString):
     def __init__(self, text):
         self.headers, _, self.body = text.partition(b"\r\n\r\n")
-        if self.body[0] == 0x1f and self.body[1] == 0x8b:
+        if len(self.body) and self.body[0] == 0x1f and self.body[1] == 0x8b:
             # Gzip
             import zlib
             self.body = zlib.decompress(self.body, 16+zlib.MAX_WBITS)
@@ -57,6 +57,13 @@ def get_items(input):
     for item in items:
         yield Item(item)
 
+
+def print_item(x, body_only=False):
+    if body_only:
+        x = x.body
+    print(x.decode(), end="")
+
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
@@ -68,9 +75,7 @@ if __name__ == "__main__":
 
     for item in get_items(args.input):
         if args.req:
-            x = item.request
+            print_item(item.request, args.body_only)
         if args.resp:
-            x = item.response
-        if args.body_only:
-            x = x.body
-        print(x)
+            print_item(item.response, args.body_only)
+        print()
