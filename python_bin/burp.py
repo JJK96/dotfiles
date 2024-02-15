@@ -1,15 +1,19 @@
 import bs4
 import base64
+import sys
 from collections import UserString
 
-class RequestResponse(UserString):
+class RequestResponse:
     def __init__(self, text):
         self.headers, _, self.body = text.partition(b"\r\n\r\n")
         if len(self.body) and self.body[0] == 0x1f and self.body[1] == 0x8b:
             # Gzip
             import zlib
             self.body = zlib.decompress(self.body, 16+zlib.MAX_WBITS)
-        super().__init__(text)
+        self.text = text
+
+    def __repr__(self):
+        return str(self.text)
     
 
 class Request(RequestResponse):
@@ -60,8 +64,10 @@ def get_items(input):
 
 def print_item(x, body_only=False):
     if body_only:
-        x = x.body.decode()
-    print(x, end="")
+        x = x.body
+    else:
+        x = x.text
+    sys.stdout.buffer.write(x)
 
 
 if __name__ == "__main__":
