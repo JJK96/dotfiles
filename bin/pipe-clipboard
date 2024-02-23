@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+echo 'Each command you run will be replaced by "pbpaste | command | pbcopy", thereby executing the command on your clipboard content'
+bash --rcfile <(echo 'shopt -s extdebug
+function trap_debug() {
+    in=$(pbpaste)
+    out=$(pbpaste | eval "$BASH_COMMAND")
+    echo "IN:\n$in"
+    echo "CMD: $BASH_COMMAND"
+    echo "OUT:\n$out"
+    echo -n "$out" | pbcopy
+    return 1;
+}
+PS1="CMD> "
+trap trap_debug DEBUG')
