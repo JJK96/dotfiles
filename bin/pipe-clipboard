@@ -4,9 +4,9 @@ bash --rcfile <(echo 'shopt -s extdebug
 function trap_debug() {
     in=$(pbpaste)
     out=$(pbpaste | eval "$BASH_COMMAND")
-    echo "IN:\n$in"
+    echo -e "IN:\n$in"
     echo "CMD: $BASH_COMMAND"
-    echo "OUT:\n$out"
+    echo -e "OUT:\n$out"
     echo -n "$out" | pbcopy
     return 1;
 }
