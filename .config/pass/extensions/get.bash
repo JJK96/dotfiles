@@ -16,7 +16,7 @@ if [[ -f $passfile ]]; then
         output="$(echo "$contents" | head -n1)"
     fi
     if [ $clipboard ]; then
-        echo "$output" | xsel -b
+        echo "$output" | pbcopy
     else
         echo "$output"
     fi
