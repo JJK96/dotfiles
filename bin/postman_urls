@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# List all URLs in postman file
+# TODO replace path parameters with examples and replace env vars from a selected environment
+#      For this, it should probably be rewritten to Python
+
+for file in *.json; do
+    jq .item[].request.url.raw --raw-output "$file" 2>/dev/null | grep -v "^null$"
+done
