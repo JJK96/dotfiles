@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 3 ]; then
+    echo "Usage: $0 <inputfile> <inputcolumn> <command>"
+    exit 1;
+fi
+
+inputfile="$1"
+inputcolumn="$2"
+command="$3"
+
+function command_ipinfo_org {
+    output=$(ipinfo_org "$1") && echo "$output" || echo "Error"
+}
+export -f command_ipinfo_org
+
+if [ "$command" = "ipinfo_org" ]; then
+    command="xargs -I% bash -c 'command_ipinfo_org \"\$@\"' _ %"
+fi
+
+cat "$inputfile" | csvcut -c "$inputcolumn" | eval "$command" | paste -d, "$inputfile" -
