@@ -12,3 +12,4 @@ set fish_greeting
 set -g fish_prompt_pwd_dir_length 80
 set -x LSCOLORS "ExGxBxDxCxEgEdxbxgxcxd"
 set -x NODE_PATH "/usr/local/lib/node_modules:$NODE_PATH"
+pyenv init - | source
