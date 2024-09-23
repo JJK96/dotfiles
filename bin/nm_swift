@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+nm "$1" | awk '{ cmd = "xcrun swift-demangle '"'"'"$3"'"'"'"; cmd | getline demangled; close(cmd); print $1" "$2" "demangled }'

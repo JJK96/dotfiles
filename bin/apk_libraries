@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#Run in decompiled directory for Android APK to get the libraries and versions
+#It is very crude, but it gives an idea
+#Depends on:
+#   ripgrep
+#   sortby
+rg -o "\"\d+\.\d+(\.\d+)?\"" | while read x; do
+    lib=$(echo "$x" | cut -d / -f 1-3 | tr / .)
+    libversion=$(echo "$x" | cut -d: -f2)
+    echo "$lib:$libversion"
+done | sortby -u cut -d: -f1
