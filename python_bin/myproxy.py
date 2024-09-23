@@ -3,8 +3,6 @@ import socketserver
 import http.server
 import urllib.request
 
-PORT = 8082
-
 class MyProxy(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args):
         self.allow_reuse_address = True
@@ -15,5 +13,13 @@ class MyProxy(http.server.SimpleHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
-with socketserver.ForkingTCPServer(('127.0.0.1', PORT), MyProxy) as httpd:
+
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-b", "--bind", help="Bind address", default="127.0.0.1")
+parser.add_argument("-p", "--port", help="port", default=8082)
+args = parser.parse_args()
+
+print(f"Running on {args.bind}:{args.port}")
+with socketserver.ForkingTCPServer((args.bind, args.port), MyProxy) as httpd:
     httpd.serve_forever()
