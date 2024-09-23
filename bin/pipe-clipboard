@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
+if [ "$#" -gt 0 ]; then
+    in=$(pbpaste)
+    out=$(pbpaste | eval "$@")
+    echo -e "IN:\n$in"
+    echo "CMD: $@"
+    echo -e "OUT:\n$out"
+    echo -n "$out" | pbcopy
+    exit
+fi
+
 echo 'Each command you run will be replaced by "pbpaste | command | pbcopy", thereby executing the command on your clipboard content'
 bash --rcfile <(echo 'shopt -s extdebug
 function trap_debug() {
