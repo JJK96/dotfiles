@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Depends on:
+# - pylnk3
+# - get (from this repo)
+pylnk3 parse "$1" | rg -a "Used Path" | cut -d' ' -f3-
