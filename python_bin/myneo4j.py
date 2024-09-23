@@ -112,6 +112,11 @@ class Neo4j:
         query = ' '.join(query)
         self.execute(query)
 
+    def set_ips(self, ips):
+        for row in ips:
+            query = f"match (c:Computer) where c.name = '{row[0]}' set c.ip = '{row[1]}'"
+            self.execute(query)
+
     def is_enabled(self, username):
         query = f"match (n:User) where n.samaccountname = '{username}' return n.enabled"
         res = self.execute(query)
@@ -132,6 +137,7 @@ if __name__ == "__main__":
     parser.add_argument("--password-spray-ideas", action="store_true")
     parser.add_argument("--is-enabled")
     parser.add_argument("--set-owned")
+    parser.add_argument("--set-ips")
     args = parser.parse_args()
     if args.password_spray_ideas:
         for x in neo.get_password_spray_ideas():
@@ -142,5 +148,11 @@ if __name__ == "__main__":
         with open(args.set_owned) as f:
             owned = set()
             for line in f.readlines():
-                owned.add(line[:-1])
+                owned.add(line[:-1].lower())
             neo.set_owned_principals(owned)
+    elif args.set_ips:
+        import csv
+        with open(args.set_ips) as f:
+            reader = csv.reader(f)
+            neo.set_ips(reader)
+
