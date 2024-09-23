@@ -31,3 +31,27 @@ def index(mylist, key):
     for x in mylist:
         d[key(x)] = x
     return d
+
+def choose_options(header, options, prompt="Choose a number", print_func=lambda i, option: print(f"{i}: {option}"), other=False, other_text="Other", other_input_func=lambda: input("Other input: ")):
+    print(header)
+    for i, option in enumerate(options):
+        print_func(i, option)
+    last_num = i
+    if other:
+        last_num = len(options)
+        print(f"{last_num}: {other_text}")
+    choice = int(input(f"{prompt}: [0-{last_num}]: "))
+    if other and choice == last_num:
+        other_input = other_input_func()
+        return other_input
+    else:
+        return options[choice]
+
+def import_module(path, name=None):
+    if not name:
+        name = "module.name"
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
