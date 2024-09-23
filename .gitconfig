@@ -13,3 +13,5 @@
 	cmd = env LOCAL=\"${LOCAL}\" BASE=\"${BASE}\" REMOTE=\"${REMOTE}\" MERGED=\"${MERGED}\" mymergetool
 [core]
 	excludesfile = /Users/nw/dotfiles/global.gitignore
+[difftool "idiff"]
+	cmd = diff -i $LOCAL $REMOTE
