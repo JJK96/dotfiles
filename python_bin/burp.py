@@ -17,10 +17,19 @@ class RequestResponse:
     
 
 class Request(RequestResponse):
-    pass
+    @property
+    def method(self):
+        return self.headers.partition(b' ')[0].decode()
+
+    @property
+    def path(self):
+        path = self.headers.split(b' ')[1].decode()
+        return path.split('?')[0]
 
 class Response(RequestResponse):
-    pass
+    @property
+    def status_code(self):
+        return int(self.headers.split(b' ')[1])
 
 
 class Item:
