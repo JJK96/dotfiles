@@ -26,7 +26,6 @@ function tgrep
 end
 alias ide 'ide ; and exit'
 alias cls 'printf "\033c"'
-alias escape 'xcape -e "ISO_Level3_Shift=Escape"'
 function notify-at
     echo "notify-send" $argv[2..-1] | at $argv[1]
 end
@@ -95,8 +94,8 @@ function fcd
     pushd (find . -type d | fzf)
 end
 
-abbr proxy "set -x HTTPS_PROXY http://localhost:8080
-set -x HTTP_PROXY http://localhost:8080"
+#abbr proxy "set -x HTTPS_PROXY http://localhost:8080
+#set -x HTTP_PROXY http://localhost:8080"
 
 alias mynetstat "lsof -i TCP -n -M -P | grep LISTEN"
 
@@ -111,7 +110,7 @@ end
 
 function pyenv-exec
     set -l cmd "pyenv init - | source;pyenv shell '$argv[1]'"
-    set -l cmd "$cmd;pyenv exec '$argv[2..-1]'"
+    set -l cmd "$cmd;pyenv exec $argv[2..-1]"
     fish -c "$cmd"
 end
 
@@ -149,3 +148,4 @@ alias wget "wget -U '$AGENT'"
 
 abbr n3map '/usr/local/bin/n3map -v -n --output=-'
 abbr a arsenal
+abbr zip_files unzip -Z1
