@@ -5,6 +5,8 @@ adb forward tcp:$tmp_port tcp:$port
 socat TCP-LISTEN:$port,fork,reuseaddr,bind=0.0.0.0 TCP:127.0.0.1:$tmp_port & >/dev/null 2>&1
 socat_pid=$!
 
+ip_addr=$(ip addr | grep "inet " | grep -v "127.0.0.1" | head -n1 | get 2 | cut -d/ -f1)
+
 function cleanup() {
     kill -9 "$socat_pid"
     adb forward --remove tcp:$tmp_port
@@ -12,4 +14,9 @@ function cleanup() {
 
 trap cleanup EXIT
 
-docker run --rm --net host -it withsecurelabs/drozer console connect --server $(get_ipaddr):$port
+args="console connect --server $ip_addr:$port"
+if [ $# -gt 0 ]; then
+    args=$@
+fi
+
+docker run --rm --net host -it withsecurelabs/drozer $args

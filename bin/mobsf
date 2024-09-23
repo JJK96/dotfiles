@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 name=mobsf
+port=8000
+if [ "$#" -gt 1 ]; then
+    port="$1"
+fi
 
 create_container() {
-    docker run -d --name "$name" -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
+    docker run -d --name "$name" -p "$port":8000 opensecurity/mobile-security-framework-mobsf:latest
 }
 
 # Check if the container already exists
@@ -21,3 +25,5 @@ else
     echo "Container '$name' not found. Creating a new container..."
     create_container
 fi
+
+echo "Connect to http://localhost:$port"
