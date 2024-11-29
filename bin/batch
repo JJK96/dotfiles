@@ -9,7 +9,7 @@ If a line is empty, drop is executed with the original value as argument.
 If a line is changed, map is executed with the original and the new value as arguments.
 If a line is unchanged, pick is executed with the original value as argument.
 The results can be edited before executing.
-This program is inspired by https://github.com/alexherbo2/batch.
+This program is inspired by https://github.com/taupiqueur/batch.
 
 usage: $0 [options]
 Options:
