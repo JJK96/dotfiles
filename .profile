@@ -1,4 +1,4 @@
-export PATH=$HOME/nw_bin:$HOME/bin:$HOME/.local/bin:$HOME/git/nmap-parse-output:$HOME/go/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin:$HOME/.cargo/bin:$HOME/.config/kak/bin:$HOME/node_modules/.bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.2.0/bin:/Users/nw/.dotnet/tools:$PATH
+export PATH=$HOME/nw_bin:$HOME/bin:$HOME/.local/bin:$HOME/git/nmap-parse-output:$HOME/go/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin:$HOME/.cargo/bin:$HOME/.config/kak/bin:$HOME/node_modules/.bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.2.0/bin:/Users/nw/.dotnet/tools:$HOME/Library/Android/sdk/build-tools/33.0.0:$PATH
 export PYTHONPATH=$HOME/git/scripts/python_bin:$HOME/dotfiles/python_bin:$HOME/git/azure
 
 if [ -z "$EDITOR" ]; then
@@ -25,3 +25,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export DOTNET_ROOT=/usr/local/Cellar/dotnet/8.0.1/libexec
+
+export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
