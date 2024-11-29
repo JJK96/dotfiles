@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+{
+    echo -n "<table>"
+    while read line; do
+        echo -n "<tr><td>$line</td></tr>"
+    done
+    echo -n "</table>"
+} | copy-html
