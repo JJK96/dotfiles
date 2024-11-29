@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+java -jar ~/.local/bin/attack-surface-detector-cli.jar $@
