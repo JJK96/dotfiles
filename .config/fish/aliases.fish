@@ -97,7 +97,7 @@ end
 #abbr proxy "set -x HTTPS_PROXY http://localhost:8080
 #set -x HTTP_PROXY http://localhost:8080"
 
-alias mynetstat "lsof -i TCP -n -M -P | grep LISTEN"
+alias mynetstat "sudo netstat -anvp tcp | grep LISTEN"
 
 alias jsoncurl "curl -X POST -H 'Content-Type: Application/json'"
 
@@ -149,3 +149,4 @@ alias wget "wget -U '$AGENT'"
 abbr n3map '/usr/local/bin/n3map -v -n --output=-'
 abbr a arsenal
 abbr zip_files unzip -Z1
+abbr rm rm -I
