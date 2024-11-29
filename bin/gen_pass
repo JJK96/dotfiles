@@ -8,7 +8,7 @@
 # Optional -a (alphanumeric)
 # Optional -l <number> (length)
 
-usage() { echo "Usage: $0 [-a] [-l <length>]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-a] [-C <chars>] [-l <length>]" 1>&2; exit 1; }
 
 CHARS='A-Za-z0-9_%#*@5k^&!$'
 LENGTH=30
@@ -30,6 +30,7 @@ while getopts "achl:C:" o; do
       usage
       ;;
     *)
+      usage
       exit 1
       ;;
   esac
@@ -38,7 +39,7 @@ done
 shift $((OPTIND-1))
 
 export LC_CTYPE=C
-res=$(tr -dc "${CHARS}" < /dev/urandom | head -c ${LENGTH} | xargs)
+res=$(tr -dc "[:print:]" < /dev/urandom | tr -dc "${CHARS}" | head -c ${LENGTH} | xargs)
 if [ ! -z $CLIPBOARD ]; then
     echo -n "$res" | pbcopy
 fi
