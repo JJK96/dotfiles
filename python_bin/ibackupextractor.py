@@ -5,7 +5,8 @@ from pathlib import Path
 
 parser = argparse.ArgumentParser()
 parser.add_argument("backup_dir", help="e.g. /Users/foo/Library/Application Support/MobileSync/Backup/<UUID>")
-parser.add_argument("--output_dir", default="output")
+parser.add_argument("-d", "--domain", help="Only extract domains including this string.")
+parser.add_argument("-o", "--output_dir", default="output")
 args = parser.parse_args()
 
 manifest_db = Path(args.backup_dir) / "Manifest.db"
@@ -18,6 +19,8 @@ with sqlite3.connect(manifest_db) as con:
         domain = file[1]
         path = file[2]
         if not path:
+            continue
+        if args.domain and args.domain not in domain:
             continue
         out_path = output_dir / domain / path
         os.makedirs(out_path.parent, exist_ok=True)

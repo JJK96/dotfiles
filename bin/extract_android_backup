@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+tail -c +25 "$1" | python -c "import zlib,sys;sys.stdout.buffer.write(zlib.decompress(sys.stdin.buffer.read()))" | tar xvf -
