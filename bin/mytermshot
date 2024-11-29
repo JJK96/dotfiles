@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+function help {
+    cat << EOF
+Usage: $0 [-e] [-i <input_file>]
+
+    -e  Edit the result (e.g. to apply highlighting)
+    -i  Use the following file as input
+EOF
+    exit;
+}
+
+edit=false
+input=""
+while getopts "i:eh" arg; do
+    case $arg in
+        e) edit=true               ;;
+        i) input=$(cat "$OPTARG")  ;;
+        h) help                    ;;
+    esac
+done
+
+getopt
+tmp=$(mktemp -d)
+trap "rm -rf $tmp" EXIT
+
+if [ -z "$input" ]; then
+    input=$(pbpaste)
+fi
+
+cmd=$(echo -n "$input" | head -n 1 | perl -pe 's/^\$ //')
+contents=$(echo -n "$input" | tail -n +2)
+
+echo "[38;2;0;255;0m$[0m [38;2;105;105;105m$cmd[0m" > "$tmp/output"
+echo "$contents" >> "$tmp/output"
+
+OLDEDITOR="$EDITOR"
+
+cat > "$tmp/termshot_editor" << EOF
+#!/usr/bin/env bash
+cp "$tmp/output" "\$1"
+if [ $edit = true ]; then
+    $OLDEDITOR \$1
+fi
+EOF
+
+chmod +x "$tmp/termshot_editor"
+PATH="$tmp:$PATH"
+EDITOR=termshot_editor
+
+termshot -c -e -b -- echo
