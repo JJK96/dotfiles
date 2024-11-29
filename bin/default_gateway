@@ -7,10 +7,10 @@ if [ $# -lt 1 ]; then
 fi
 
 interface="$1"
-gateway=$(ip r | perl -lne '/via (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) dev utun4/ && print "$1"' | sort -u)
+gateway=$(ip r | perl -lne "/via (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) dev $interface/ && print \"\$1\"" | head -n 1)
 
 if [ -z "$gateway" ]; then
-    >&2 echo "Could not determine gateway for interface $2"
+    >&2 echo "Could not determine gateway for interface $interface"
     exit 1
 fi
 echo "$gateway"
