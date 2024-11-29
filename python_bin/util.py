@@ -1,5 +1,15 @@
 import os
 import re
+import functools
+import itertools
+
+# Adapted from https://stackoverflow.com/questions/32774910/clean-way-to-read-a-null-terminated-c-style-string-from-a-file
+def readcstr(f, offset=None):
+    if offset is not None:
+        f.seek(offset)
+    toeof = iter(functools.partial(f.read, 1), b'')
+    return b''.join(itertools.takewhile(b'\0'.__ne__, toeof)).decode()
+
 
 def get_cookies():
     if not 'cookie' in os.environ:
