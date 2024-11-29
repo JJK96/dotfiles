@@ -9,3 +9,9 @@ ideviceinstaller -i <ipa>
 ```
 python -m ibackupextractor --help
 ```
+
+## Jailbreak
+
+```
+palera1n -f
+```
