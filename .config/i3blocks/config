@@ -25,17 +25,17 @@
 #
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
-command=/usr/lib/i3blocks/$BLOCK_NAME/$BLOCK_NAME
+command=/usr/share/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
-[dunst]
-command=~/.config/i3blocks/scripts/notify.sh
-signal=12
-
-[spotify]
-command=~/.config/i3blocks/scripts/scroll ~/.config/i3blocks/scripts/spotify.py 40
-interval=repeat
+#[dunst]
+#command=~/.config/i3blocks/scripts/notify.sh
+#signal=12
+#
+#[spotify]
+#command=~/.config/i3blocks/scripts/scroll ~/.config/i3blocks/scripts/spotify.py 40
+#interval=repeat
 
 # Volume indicator
 #
@@ -53,10 +53,6 @@ signal=10
 # Memory usage
 #
 # The type defaults to "mem" if the instance is not specified.
-#[memory]
-#label=MEM
-#separator=false
-#interval=30
 
 #[memory]
 #label=SWAP
@@ -110,15 +106,20 @@ interval=30
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
 [cpu_usage]
-label=
+label=CPU
 interval=10
 #min_width=CPU: 100.00%
 #separator=false
 
-[disk_space]
-label=Disk 
-interval=10
-command=~/.config/i3blocks/scripts/space.sh
+[memory]
+label=MEM
+interval=30
+#separator=false
+
+# [disk_space]
+# label=Disk 
+# interval=10
+# command=~/.config/i3blocks/scripts/space.sh
 
 # Date Time
 #

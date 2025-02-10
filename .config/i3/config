@@ -35,11 +35,11 @@ default_floating_border none
 # from the generated scheme.
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
-set_from_resource $fg i3wm.foreground #f0f0f0
-set_from_resource $bg i3wm.background #f0f0f0
+set_from_resource $fg i3wm.foreground #ffffff
+set_from_resource $bg i3wm.background #000000
 #set_from_resource $fg i3wm.color0
 #set_from_resource $bg i3wm.color8
-set_from_resource $color0 i3wm.color0
+set_from_resource $color0 i3wm.color0 #000000
 set_from_resource $color1 i3wm.color1
 set_from_resource $color2 i3wm.color2
 set_from_resource $color3 i3wm.color3
@@ -113,10 +113,10 @@ bindsym $mod+bracketleft exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HO
 bindsym $mod+bracketright exec setxkbmap us -variant ""
 
 # Screenshot of whole screen
-bindsym Print exec "cd /tmp;scrot -u"
+bindsym F2 exec "~/.local/bin/screenshot -u"
 # Screenshot of selected area
-bindsym --release $mod+Print exec ~/bin/screenshot
-#bindsym --release $mod+Print exec "cd /tmp;scrot -s"
+#bindsym --release $mod+F2 exec ~/.local/bin/screenshot
+bindsym --release $mod+F2 exec "~/.local/bin/screenshot -s"
 
 # Rofi: start a program
 bindsym $mod+a exec "rofi -combi-modi drun,run,ssh -show combi"
