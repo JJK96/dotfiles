@@ -1,16 +1,36 @@
-output DP1
+output Virtual-2
 off
-output DP2
+output Virtual-3
 off
-output HDMI1
+output Virtual-4
 off
-output HDMI2
+output Virtual-5
 off
-output VIRTUAL1
+output Virtual-6
 off
-output eDP1
+output Virtual-7
+off
+output Virtual-8
+off
+output Virtual-9
+off
+output Virtual-10
+off
+output Virtual-11
+off
+output Virtual-12
+off
+output Virtual-13
+off
+output Virtual-14
+off
+output Virtual-15
+off
+output Virtual-16
+off
+output Virtual-1
 crtc 0
-mode 1920x1080
+mode 1920x1200
 pos 0x0
-primary
-rate 59.93
+rate 59.88
+x-prop-non_desktop 0
