@@ -1,15 +1,21 @@
 source /home/jjk/.profile
+
+# Parallels tools
+## Dynamic resolution
+/usr/lib/parallels-tools/tools/tools-arm64/bin/prlcc &
+## Clipboard
+/usr/lib/parallels-tools/tools/tools-arm64/bin/prlcp &
 #xmodmap ~/.Xmodmap
 #xcape -e "ISO_Level3_Shift=Escape"
 setxkbmap -variant "colemak"
-libinput-gestures-setup start
-dunst &
+#libinput-gestures-setup start
+#dunst &
 lxpolkit &
-xrandr --output eDP-1 --primary &
-nm-applet &
+#xrandr --output eDP-1 --primary &
+#nm-applet &
 #firefox web.whatsapp.com gmail.com calendar.google.com drive.google.com https://riot.im/staging/ &
-wal -R
-xset s off
+#wal -R
+#xset s off
 autorandr -c
 sleep 5 # Ugly hack to run the following applications after the window manager has initialized
 kdeconnect-indicator &

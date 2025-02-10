@@ -35,9 +35,12 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # History configurations
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_all_dups
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
-#setopt share_history         # share command history data
+setopt hist_find_no_dups
+setopt hist_save_no_dups
+setopt share_history         # share command history data
 
 # force zsh to show the complete history
 alias history="history 0"

@@ -39,6 +39,7 @@ x-scheme-handler/postman=Postman.desktop
 x-scheme-handler/discord-367827983903490050=discord-367827983903490050.desktop
 x-scheme-handler/discord-478576776990425110=discord-478576776990425110.desktop
 x-scheme-handler/msteams=teams.desktop
+application/x-extension-burp=install4j_o370iv-BurpSuitePro.desktop
 
 [Added Associations]
 text/plain=userapp-editor"-QNPF3Z.desktop;libreoffice-startcenter.desktop;osu-lazer.desktop;editor.desktop;gvim.desktop;userapp-"editor"-T232ZZ.desktop;userapp-nvim-JJ9YIY.desktop;userapp-urxvt-GYS0CY.desktop;userapp-urxvt-DW79CY.desktop;org.gnome.gedit.desktop;

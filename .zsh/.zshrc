@@ -1,4 +1,4 @@
-# source ~/.profile
+source ~/.profile
 setopt HIST_IGNORE_SPACE
 HISTFILE=~/.histfile
 HISTSIZE=100000
@@ -13,6 +13,9 @@ zstyle ':completion:*' file-sort date
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 
 # Search in history
 autoload -Uz history-beginning-search-menu
@@ -140,5 +143,5 @@ alias frombinary="perl -lpe '\$_=pack\"B*\",\$_'"
 
 alias mdc='function _md(){mkdir -p "$1" && cd "$1"};_md'
 
-alias batch='EDITOR="code --wait" batch'
-alias aquatone='/mnt/c/tools/aquatone.exe -chrome-path "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"'
+# Smart cat/less/ls alternative that works on both files and directories
+alias c='function _mycat(){([ $# -eq 0 ] || [ -d $@ ]) && ls $@ || less -F $@};_mycat'
