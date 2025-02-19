@@ -1,0 +1,11 @@
+[Match]
+Name=enp0s5
+
+[Link]
+RequiredForOnline=routable
+
+[Network]
+DHCP=yes
+
+[DHCP]
+ClientIdentifier=mac
