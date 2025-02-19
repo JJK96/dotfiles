@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+export PYTHON_PATH="$HOME/Workspace/git/PackMyPayload:$PYTHON_PATH"
+python ~/Workspace/git/PackMyPayload/PackMyPayload.py $@

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+find . -name "*.plist" | while read x; do
+    defaults read "$PWD/$x" | sponge "$x"; 
+done

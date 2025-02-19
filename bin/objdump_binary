@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+output=$(objdump -d --section=.text \
+        $@ | \
+        grep '[0-9a-f]:' | \
+        cut -f2 -d: | \
+        cut -f1-7 -d' ' | \
+        tr -s ' ' | \
+        tr '\t' ' ' | \
+        sed 's/ $//g' | \
+        sed 's/ /\\x/g')
+paste -d'\0' -s <(echo "$output") | \
+sed 's/^/"/' | \
+sed 's/$/"/g' | \
+sed 's:.*:echo -ne &:' | /bin/bash

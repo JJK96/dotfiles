@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <email>"
+fi
+
+email="$1"
+output=$(curl https://login.microsoftonline.com/getuserrealm.srf?login=$email 2>/dev/null)
+namespacetype=$(echo "$output" | jq --raw-output '.NameSpaceType')
+[ "$namespacetype" = "Managed" ] && echo "Domain uses AzureAD"
+echo "$output"

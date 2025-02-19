@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Depends on iputils and perl
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <interface>"
+    exit
+fi
+
+interface="$1"
+gateway=$(ip r | perl -lne "/via (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) dev $interface/ && print \"\$1\"" | head -n 1)
+
+if [ -z "$gateway" ]; then
+    >&2 echo "Could not determine gateway for interface $interface"
+    exit 1
+fi
+echo "$gateway"

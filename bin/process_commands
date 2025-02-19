@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+paste_cmd="paste"
+if [ "$1" = "-d" ]; then
+    paste_cmd="$paste_cmd -d $2"
+    shift;shift
+fi
+paste_args=$(yes - | head -n $# | tr '\n' ' ')
+while read line || [ -n "$line" ]; do
+    echo -n "$line" | pee "$@" | eval "$paste_cmd" "$paste_args"
+done

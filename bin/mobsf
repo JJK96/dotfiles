@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+name=mobsf
+port=8000
+if [ "$#" -gt 1 ]; then
+    port="$1"
+fi
+
+create_container() {
+    docker run -d --name "$name" -p "$port":8000 opensecurity/mobile-security-framework-mobsf:latest
+}
+
+# Check if the container already exists
+if docker ps -a --filter "name=$name" --format "{{.Names}}" | grep -q "$name"; then
+    # Container exists, try to start it
+    docker start "$name" 2>/dev/null
+    if [ $? -eq 0 ]; then
+        echo "Existing container '$name' started."
+    else
+        # If starting fails, create a new container
+        echo "Starting existing container failed. Creating a new container..."
+        create_container
+    fi
+else
+    # Container does not exist, create a new one
+    echo "Container '$name' not found. Creating a new container..."
+    create_container
+fi
+
+echo "Connect to http://localhost:$port"

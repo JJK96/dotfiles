@@ -1,22 +1,46 @@
 #!/bin/bash
 
-length=30
-copy=false
+# Creator marvinroman@gmail.com
+#
+# Create's random password 
+# Should work on Most UNIX systems
+# Default with special characters with a length of 12
+# Optional -a (alphanumeric)
+# Optional -l <number> (length)
 
-while getopts l:c o
-do
-    case "$o" in
-        l)      length="$OPTARG";;
-        c)      copy=true;;
-        [?])    echo "Usage: $0 [-c] [-l length]
-    -c  Copy password to clipboard
-    -l  Set password length"
-        		exit 1;;
-    esac
+usage() { echo "Usage: $0 [-a] [-C <chars>] [-l <length>]" 1>&2; exit 1; }
+
+CHARS='A-Za-z0-9_%#*@5k^&!$'
+LENGTH=30
+while getopts "achl:C:" o; do
+  case "${o}" in
+    a)
+      CHARS='A-Za-z0-9_'
+      ;;
+    C)
+      CHARS="${OPTARG}"
+      ;;
+    c)
+      CLIPBOARD=yes
+      ;;
+    l)
+      LENGTH=${OPTARG}
+      ;;
+    h)
+      usage
+      ;;
+    *)
+      usage
+      exit 1
+      ;;
+  esac
 done
-password=$(cat /dev/random | base64 | head -c $length)
-if $copy; then
-    echo "$password" | pbcopy
-else
-    echo "$password"
+
+shift $((OPTIND-1))
+
+export LC_CTYPE=C
+res=$(tr -dc "[:print:]" < /dev/urandom | tr -dc "${CHARS}" | head -c ${LENGTH} | xargs)
+if [ ! -z $CLIPBOARD ]; then
+    echo -n "$res" | pbcopy
 fi
+echo "$res"

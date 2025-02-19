@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+escape_char="$1"
+replacement="\\$1"
+shift
+if [ "$#" -gt 0 ]; then
+    if [[ "$1" = "double" ]]; then
+        replacement="$escape_char$escape_char"
+    fi
+fi
+
+sed_separator="/"
+if [[ "$escape_char" = "$sed_separator" ]]; then
+    sed_separator="#"
+fi
+
+function escape_backslash() {
+    echo "$1" | sed 's/\\/\\\\/g'
+}
+
+escape_char=$(escape_backslash "$escape_char")
+replacement=$(escape_backslash "$replacement")
+sed "s$sed_separator$escape_char$sed_separator$replacement${sed_separator}g"

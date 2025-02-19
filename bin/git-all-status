@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Run git status on all git folders
+find . -name "*.git" -type d | sed 's/\/\.git//' | while read x; do
+    echo "$x"
+    pushd "$x"
+    git status --porcelain
+    popd
+done

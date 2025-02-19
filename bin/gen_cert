@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#alg=ED25519
+alg=RSA:4096
+openssl req -x509 -newkey $alg -keyout key.pem -out cert.pem -sha256 -days 3650 -nodes -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"

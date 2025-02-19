@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+if [ $1 == "--help" ]; then
+    echo "Usage: $0 <command>
+
+Enriches each input line by piping it through the given command.
+Example:
+
+$ echo \"three
+different
+words\" | $0 wc -c
+5 three
+9 different
+5 words"
+    exit
+fi
+while read line || [ -n "$line" ]; do
+    echo -n "$line" | eval $@ | tr -d '\n'
+    echo " $line"
+done

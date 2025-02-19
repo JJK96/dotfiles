@@ -1,3 +1,13 @@
 #!/bin/bash
-string="{print \$$1;}"
-awk "$string"
+arg="$1"
+if [[ $arg = -* ]]; then
+    arg=$((arg+1))
+    if [[ $arg = 0 ]]; then
+        cmd="awk '{print \$NF}'"
+    else
+        cmd="awk '{print \$(NF$arg)}'"
+    fi
+else
+    cmd="awk '{print \$$arg}'"
+fi
+eval "$cmd"

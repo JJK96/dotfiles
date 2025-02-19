@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Depends on iputils
+
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 <host> <interface>"
+    exit
+fi
+
+host="$1"
+interface="$2"
+gateway=$(default_gateway "$interface") || exit 1
+
+ip r a "$host" via "$gateway"

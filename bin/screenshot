@@ -1,0 +1,4 @@
+#!/bin/bash
+filename=$(mktemp -t "screenshot_XXXX.png")
+import $filename
+echo -n $filename | xclip -selection clipboard

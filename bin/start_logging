@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+if [ $# -gt 1 ]; then
+    output="$1"
+else
+    output=$HOME/Logs
+fi
+logname="$(date '+%d%m%Y%H%M%S').term.log"
+mkdir -p "$output"
+script -F >(while read; do echo "$REPLY" | ts '[%Y-%m-%d %H:%M:%S]'; done >> "$output/${logname}")

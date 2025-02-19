@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+nbns="$(tshark -r $1 -Tfields -enbns.name| tr -d "\t" | sed -E 's/([^<]+).*$/\1/')"
+browser="$(tshark -r $1 -Tfields -ebrowser.mb_server -ebrowser.server | tr -d "\t")"
+
+echo "$nbns" "$browser" | grep -v '^$' | sort -u

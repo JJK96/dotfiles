@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+tshark -r $1 -Tfields -earp.dst.proto_ipv4 -earp.src.proto_ipv4 -e ip.addr | tr ", \t" \\n | grep -v '^$' | sort -u

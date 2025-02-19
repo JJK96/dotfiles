@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+java -cp /Applications/Android\ Studio.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler $@

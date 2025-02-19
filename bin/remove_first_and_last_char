@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Useful to remove "quotes around a string that might contain \"nested quotes\""
+cut -c 2- | sed -e 's/.$//'

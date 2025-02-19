@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+sdk_version=33.0.0
+PATH="$HOME/Library/Android/sdk/build-tools/$sdk_version:$PATH"
+keystore="$HOME/.android/my-keystore.keystore"
+tmp=$(mktemp -d)
+
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 <input_dir> <output.apk>"
+    exit
+fi
+
+input="$1"
+output="$2"
+
+apktool b -o "$tmp/repacked.apk" "$1"
+zipalign -f -v 4 "$tmp/repacked.apk" "$2"
+apksigner sign --ks $keystore "$2"
+
+rm -rf "$tmp"

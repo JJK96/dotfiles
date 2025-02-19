@@ -1,23 +1,61 @@
 #!/usr/bin/env bash
 
+# Check if Docker is installed
+if ! command -v docker &> /dev/null; then
+    echo "Error: Docker is not installed. Please install Docker and try again."
+    exit 1
+fi
+
+# Script parameters
 name="neo4j_$1"
+data_dir="$(pwd)/neo4j/data"
+logs_dir="$(pwd)/neo4j/logs"
+import_dir="$(pwd)/neo4j/import"
+plugins_dir="$(pwd)/neo4j/plugins"
+username="neo4j"
+password="$NEO4J_PASS"
+bloodhound_app="$BLOODHOUND_APP"
+
 create_container() {
-    mkdir -p neo4j
-    pushd neo4j
-    mkdir -p data logs import plugins
-    popd
-    lima nerdctl run \
-    --name $name \
-    -p 7474:7474 -p 7687:7687 \
-    -d \
-    -u "$(id -u):$(id -g)" \
-    -v "$(pwd)/neo4j/data:/data" \
-    -v "$(pwd)/neo4j/logs:/logs" \
-    -v "$(pwd)/neo4j/import:/var/lib/neo4j/import" \
-    -v "$(pwd)/neo4j/plugins:/plugins" \
-    --env NEO4J_AUTH=neo4j/test \
-    neo4j:latest
+    # Create necessary directories for Neo4j
+    mkdir -p "$data_dir" "$logs_dir" "$import_dir" "$plugins_dir"
+    
+    # Set permissions for the directories
+    chmod -R a+w neo4j
+    # Run the Neo4j Docker container
+    docker run \
+        --name "$name" \
+        -p 7474:7474 -p 7687:7687 \
+        -d \
+        -u "$(id -u):$(id -g)" \
+        -v "$data_dir:/data" \
+        -v "$logs_dir:/logs" \
+        -v "$import_dir:/var/lib/neo4j/import" \
+        -v "$plugins_dir:/plugins" \
+        --env NEO4J_AUTH="$username/$password" \
+        --env SECURE_FILE_PERMISSIONS= \
+        neo4j:4.4.12
 }
 
-lima nerdctl start $name 2>/dev/null || create_container
-open -a /Users/nw/Workspace/Applications/BloodHound.app
+# Check if the container already exists
+if docker ps -a --filter "name=$name" --format "{{.Names}}" | grep -q "$name"; then
+    # Container exists, try to start it
+    docker start "$name" 2>/dev/null
+    if [ $? -eq 0 ]; then
+        echo "Existing container '$name' started."
+    else
+        # If starting fails, create a new container
+        echo "Starting existing container failed. Creating a new container..."
+        create_container
+    fi
+else
+    # Container does not exist, create a new one
+    echo "Container '$name' not found. Creating a new container..."
+    create_container
+fi
+# Open BloodHound application
+if [ -x "$bloodhound_app" ]; then
+    open -a "$bloodhound_app"
+else
+    echo "Warning: BloodHound application not found or executable."
+fi

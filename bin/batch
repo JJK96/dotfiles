@@ -9,13 +9,14 @@ If a line is empty, drop is executed with the original value as argument.
 If a line is changed, map is executed with the original and the new value as arguments.
 If a line is unchanged, pick is executed with the original value as argument.
 The results can be edited before executing.
-This program is inspired by https://github.com/alexherbo2/batch.
+This program is inspired by https://github.com/taupiqueur/batch.
 
 usage: $0 [options]
 Options:
     -p <pick>   Set the pick command
     -m <map>    Set the map command
     -d <drop>   Set the drop command
+    -a <add>    Set the add command
     -n          Skip the second editor and execute immediately
     -h          Show this help message
 EOF
@@ -25,50 +26,100 @@ EOF
 map="echo map"
 drop="echo drop"
 pick="echo pick"
+add="echo add"
 confirm=true
 
-while getopts "p:m:d:hn" arg; do
+while getopts "p:m:d:a:hn" arg; do
     case $arg in
         p) pick="$OPTARG" ;;
         m) map="$OPTARG"  ;;
         d) drop="$OPTARG" ;;
+        a) add="$OPTARG"  ;;
         n) confirm=false  ;;
         h) help           ;;
     esac
 done
 
-in=$(mktemp -t batch_XXX)
-out=$(mktemp -t batch_XXX)
-operations=$(mktemp -t batch_XXX)
+in=$(mktemp -t batch)
+out=$(mktemp -t batch)
+operations=$(mktemp -t batch)
 
 cat | tee "$in" > "$out"
 
-eval "$EDITOR" "$out"
+< /dev/tty eval "$EDITOR" "$out"
 
-cat << EOF > "$operations"
+if [ ! -z "$map" ]; then
+    if [[ "$map" != *'$1'* ]] || [[ "$map" != *'$2'* ]]; then
+        map="$map \"\$1\" \"\$2\""
+    fi
+    cat << EOF >> "$operations"
 map() {
-    $map "\$1" "\$2"
-}
-drop() {
-    $drop "\$1"
-}
-pick() {
-    $pick "\$1"
+    $map
 }
 EOF
+fi
 
-while read -u 3 -r file1 && read -u 4 -r file2; do
-    if [ "$file1" = "$file2" ]; then
-        echo pick "'$file1'"
-    elif [ -z "$file2" ]; then
-        echo drop "'$file1'"
-    else
-        echo map "'$file1'" "'$file2'"
+if [ ! -z "$drop" ]; then
+    if [[ "$drop" != *'$1'* ]]; then
+        drop="$drop \"\$1\""
     fi
-done 3<"$in" 4<"$out" >> "$operations"
+    cat << EOF >> "$operations"
+drop() {
+    $drop
+}
+EOF
+fi
+
+if [ ! -z "$pick" ]; then
+    if [[ "$pick" != *'$1'* ]]; then
+        pick="$pick \"\$1\""
+    fi
+    cat << EOF >> "$operations"
+pick() {
+    $pick
+}
+EOF
+fi
+
+if [ ! -z "$add" ]; then
+    if [[ "$add" != *'$1'* ]]; then
+        add="$add \"\$1\""
+    fi
+    cat << EOF >> "$operations"
+add() {
+    $add
+}
+EOF
+fi
+
+# Escape single quotes
+pattern="'"
+replacement="'"'"'"'"'"'"'"
+{ while read -u 3 -r file1 && read -u 4 -r file2; do
+    file1str=${file1//$pattern/$replacement}
+    if [ "$file1" = "$file2" ]; then
+        if [ ! -z "$pick" ]; then
+            echo pick "'$file1str'"
+        fi
+    elif [ -z "$file2" ]; then
+        if [ ! -z "$drop" ]; then
+            echo drop "'$file1str'"
+        fi
+    elif [ ! -z "$map" ]; then
+        file2str=${file2//$pattern/$replacement}
+        echo map "'$file1str'" "'$file2str'"
+    fi
+done
+if [ ! -z "$add" ]; then
+    while read -u 4 -r file; do
+        filestr=${file//$pattern/$replacement}
+        echo add "'$filestr'"
+    done
+fi
+} 3<"$in" 4<"$out" >> "$operations"
 
 if $confirm; then
-    eval "$EDITOR" "$operations"
+    < /dev/tty eval "$EDITOR" "$operations"
 fi
 
 . "$operations"
