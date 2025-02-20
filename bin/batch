@@ -40,9 +40,9 @@ while getopts "p:m:d:a:hn" arg; do
     esac
 done
 
-in=$(mktemp -t batch)
-out=$(mktemp -t batch)
-operations=$(mktemp -t batch)
+in=$(mktemp batch_XXXX)
+out=$(mktemp batch_XXXX)
+operations=$(mktemp batch_XXXX)
 
 cat | tee "$in" > "$out"
 

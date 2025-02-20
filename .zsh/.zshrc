@@ -84,7 +84,6 @@ alias o='xdg-open'
 alias tgrep='function _tgrep(){grep "$@" *.tex};_tgrep'
 alias ide='ide && exit'
 alias cls='printf "\033c"'
-alias escape='xcape -e "ISO_Level3_Shift=Escape"'
 alias notify-at='function _at(){echo "notify-send" "${@:2}" | at $1 };_at'
 
 # move workspace to other output.

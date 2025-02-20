@@ -119,7 +119,7 @@ bindsym F2 exec "~/.local/bin/screenshot -u"
 bindsym --release $mod+F2 exec "~/.local/bin/screenshot -s"
 
 # Rofi: start a program
-bindsym $mod+a exec "rofi -combi-modi drun,run,ssh -show combi"
+bindsym $mod+space exec "rofi -combi-modi drun,run,ssh -show combi"
 
 # Lock the screen
 bindsym $mod+x exec "i3lock -ui ~/Pictures/active_lockscreen"
@@ -198,7 +198,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+j layout toggle split
 
 # Toggle tiling / floating
-bindsym $mod+space floating toggle
+bindsym $mod+a floating toggle
 # Toggle sticky window
 bindsym $mod+shift+space sticky toggle
 

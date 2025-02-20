@@ -11,3 +11,7 @@
 	tool = kakmerge
 [mergetool "kakmerge"]
 	cmd = env LOCAL=\"${LOCAL}\" BASE=\"${BASE}\" REMOTE=\"${REMOTE}\" MERGED=\"${MERGED}\" mymergetool
+[core]
+	excludesfile = /home/jjk/dotfiles/global.gitignore
+[difftool "idiff"]
+	cmd = diff -i $LOCAL $REMOTE
