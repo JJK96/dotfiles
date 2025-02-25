@@ -6,19 +6,30 @@ def print_list(xs):
     for x in xs:
         print(x)
 
+
+def parse_rijmwoorden_page(soup):
+    active_results = soup.find(class_='results').find(class_='active')
+    for section in active_results.find_all(class_=lambda x:x in ['primary','secondary']):
+        for link in section.find_all('a'):
+            yield link.text
+
+
 def get_rijmwoorden(woord):
     resp = requests.get(f"https://rijmwoordenboek.vandale.nl/rijm/{woord}")
     soup = BeautifulSoup(resp.text, 'html.parser')
-    results = soup.find(class_='results')
-    primary = results.find(class_='primary')
-    links = primary.find_all('a')
-    return [link.text for link in links]
+    pages = soup.find(class_='resultspages')
+    last_page = int(pages.find_all('span')[-1].text)
+    yield from parse_rijmwoorden_page(soup)
+    for i in range(2,last_page+1):
+        resp = requests.get(f"https://rijmwoordenboek.vandale.nl/rijm/{woord}/{i}")
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        yield from parse_rijmwoorden_page(soup)
 
 
 def get_synoniemen(woord):
     resp = requests.get(f"https://synoniemen.net/index.php?zoekterm={woord}")
     soup = BeautifulSoup(resp.text, 'html.parser')
-    dl = soup.find(class_="alstrefwoordtabel")
+    dl = soup.find(class_="alssynoniemtabel")
     links = dl.find_all('a')
     return [link.text for link in links]
 
