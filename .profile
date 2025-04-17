@@ -1,4 +1,4 @@
-export PATH=$HOME/.local/bin:$HOME/go/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:$HOME/.cargo/bin:$HOME/nw_bin:$HOME/bin:$HOME/.config/kak/bin:$HOME/node_modules/.bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/go/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:$HOME/.cargo/bin:$HOME/nw_bin:$HOME/bin:$HOME/.config/kak/bin:$HOME/node_modules/.bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$HOME/.config/i3/bin:$PATH
 export PYTHONPATH=$HOME/git/scripts/python_bin:$HOME/dotfiles/python_bin
 
 if [ -z "$EDITOR" ]; then
@@ -16,6 +16,10 @@ export PERL_LOCAL_LIB_ROOT="/home/jjk/perl5:$PERL_LOCAL_LIB_ROOT"
 export PERL_MB_OPT="--install_base \"/home/jjk/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=/home/jjk/perl5"
 export WINIT_X11_SCALE_FACTOR=1
+# Some servers don't support TERM=alacritty and will behave oddly
+export TERM=xterm
+
+export USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.3124.95"
 
 # Clipmenu
 export CM_LAUNCHER=rofi
@@ -29,4 +33,3 @@ export email_regex=$(cat << "EOF"
 EOF
 )
 source "$HOME/.nw_profile"
-

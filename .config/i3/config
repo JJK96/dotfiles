@@ -113,10 +113,10 @@ bindsym $mod+bracketleft exec setxkbmap -I ~/.xkb colemak -print | xkbcomp -I$HO
 bindsym $mod+bracketright exec setxkbmap us -variant ""
 
 # Screenshot of whole screen
-bindsym F2 exec "~/.local/bin/screenshot -u"
+bindsym $mod+shift+F2 exec "screenshot -u"
 # Screenshot of selected area
-#bindsym --release $mod+F2 exec ~/.local/bin/screenshot
-bindsym --release $mod+F2 exec "~/.local/bin/screenshot -s"
+#bindsym --release $mod+F2 exec screenshot
+bindsym --release $mod+F2 exec "screenshot -s"
 
 # Rofi: start a program
 bindsym $mod+space exec "rofi -combi-modi drun,run,ssh -show combi"
@@ -155,8 +155,8 @@ bindsym $mod+i focus right
 bindsym $mod+p focus parent
 
 # Change focus to next visible
-bindsym $mod+u exec --no-startup-id ~/.config/i3/bin/focus_next_visible.py
-bindsym $mod+Shift+u exec --no-startup-id ~/.config/i3/bin/focus_next_visible.py reverse
+bindsym $mod+u exec --no-startup-id focus_next_visible.py
+bindsym $mod+Shift+u exec --no-startup-id focus_next_visible.py reverse
 
 # Rotate screen
 bindsym $mod+Control+Left exec rotate left
@@ -223,7 +223,7 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 bindsym $mod+Control+i workspace next
 bindsym $mod+Control+h workspace prev
-bindsym $mod+c exec i3-input -F 'rename workspace to "%s"' -P 'New name: ' 
+bindsym $mod+c exec i3-input -F 'rename workspace to "%s"' -P 'New workspace name: ' 
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -289,7 +289,7 @@ bindsym $mod+slash exec rofi -show window
 bindsym Pause exec systemctl suspend
 
 # Rename container
-bindsym $mod+Shift+t exec /home/jjk/.config/i3/bin/change_name.sh
+bindsym $mod+Shift+t exec change_name.sh
 
 # Clipboard history
 bindsym $mod+v exec clipmenu
@@ -322,3 +322,9 @@ mode "resize" {
 # assign windows to workspace
 assign [class="^Rambox$"] 10
 assign [class="^Signal\\ Beta$"] 10
+
+# Burp suite pop-up windows
+for_window [title="HTTP history filter"] floating enable
+
+# Debugging
+#bindsym $mod+F3 exec bash -c "env > /tmp/env"
