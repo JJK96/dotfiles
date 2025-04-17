@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from cpe_search import cpe_search
 
 

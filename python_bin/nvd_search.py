@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import requests
 import sys
 from get_vendor import get_vendor
