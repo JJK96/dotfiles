@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+file="$1"
+base="${file%.*}"
+unzip -d "$base" "$file"

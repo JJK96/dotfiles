@@ -6,6 +6,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("-u", "--unique", action="store_true")
 parser.add_argument("-r", "--reverse", action="store_true")
+parser.add_argument("-n", "--number", action="store_true")
 parser.add_argument("--print-keys", action="store_true")
 args, sort_cmd = parser.parse_known_args()
 if sort_cmd[0] == "--":
@@ -18,6 +19,8 @@ def get_lines_with_key():
             sys.stderr.write(p.stderr.decode())
             break
         sort_key = p.stdout.decode().strip()
+        if args.number:
+            sort_key = int(sort_key)
         yield sort_key, line
 
 seen = set()

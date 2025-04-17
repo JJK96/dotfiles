@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 cd ~/git/jwt_tool
+. env/bin/activate
 python jwt_tool.py "$@"

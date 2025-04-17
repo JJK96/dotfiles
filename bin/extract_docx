@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+. unzip_to_dir
+cd "$base"
+pushd word
+ls *.xml | while read x; do
+    xmllint --format "$x" | sponge "$x"
+done
