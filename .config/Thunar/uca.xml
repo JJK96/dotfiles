@@ -17,7 +17,7 @@
 	<name>Copy Terosit link</name>
 	<submenu></submenu>
 	<unique-id>1740481919886942-1</unique-id>
-	<command>PATH=&quot;/home/jjk/git/scripts/bin:/home/jjk/bin:$PATH&quot; to_tresorit -c %f</command>
+	<command>to_tresorit -c %f</command>
 	<description></description>
 	<range>*</range>
 	<patterns>*</patterns>
@@ -27,5 +27,38 @@
 	<other-files/>
 	<text-files/>
 	<video-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>env</name>
+	<submenu></submenu>
+	<unique-id>1740688369938331-1</unique-id>
+	<command>bash -c &quot;env&gt; /tmp/env&quot;</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Symlink to project</name>
+	<submenu></submenu>
+	<unique-id>1741866956241432-1</unique-id>
+	<command>ln -s %f ~/Documents/project/data/T</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Open in Finder</name>
+	<submenu></submenu>
+	<unique-id>1742890862550906-1</unique-id>
+	<command>finder %f</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
 </action>
 </actions>
