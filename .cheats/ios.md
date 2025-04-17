@@ -15,3 +15,11 @@ python -m ibackupextractor --help
 ```
 palera1n -f
 ```
+
+## Get photos/screenshots
+
+```
+scp "iphone:/var/mobile/Media/DCIM/100APPLE/*" ./
+```
+
+
