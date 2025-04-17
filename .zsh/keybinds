@@ -1,8 +1,8 @@
 bindkey -v
 
 # insert mode
-bindkey '^X^X' history-beginning-search-menu
-bindkey '^R' history-incremental-search-backward
+#bindkey '^X^X' history-beginning-search-menu
+bindkey '^R' fzf_history_search
 bindkey '^Z' fgLast
 bindkey '^k' nextJob
 bindkey '^j' prevJob

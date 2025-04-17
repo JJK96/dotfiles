@@ -1,5 +1,6 @@
 source ~/.profile
 setopt HIST_IGNORE_SPACE
+setopt EXTENDED_HISTORY
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
@@ -12,20 +13,24 @@ zstyle :compinstall filename '/home/jjk/.zshrc'
 zstyle ':completion:*' file-sort date
 autoload -Uz compinit
 compinit
+autoload -z edit-command-line
+zle -N edit-command-line
 # End of lines added by compinstall
 
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
-
-# Search in history
-autoload -Uz history-beginning-search-menu
-zle -N history-beginning-search-menu
-
-# Search through history based on currently typed text
+#bindkey "^[[A" history-beginning-search-backward
+#bindkey "^[[B" history-beginning-search-forward
+#
+## Search in history
+#autoload -Uz history-beginning-search-menu
+#zle -N history-beginning-search-menu
+#
+## Search through history based on currently typed text
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
+
+source ~/.zsh/zsh-fzf-history-search.zsh
 
 # easier job management
 fgLast() {
@@ -144,3 +149,8 @@ alias mdc='function _md(){mkdir -p "$1" && cd "$1"};_md'
 
 # Smart cat/less/ls alternative that works on both files and directories
 alias c='function _mycat(){([ $# -eq 0 ] || [ -d $@ ]) && ls $@ || less -F $@};_mycat'
+
+alias a="arsenal"
+alias jq="jq -r"
+
+alias curl="curl -A '$USER_AGENT'"
