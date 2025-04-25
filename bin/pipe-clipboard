@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 if [ "$#" -gt 0 ]; then
-    in=$(pbpaste)
-    out=$(pbpaste | eval "$@")
+    in=$(xsel -bo)
+    out=$(xsel -bo | eval "$@")
     echo -e "IN:\n$in"
     echo "CMD: $@"
     echo -e "OUT:\n$out"
-    echo -n "$out" | pbcopy
+    echo -n "$out" | xsel -bi
     exit
 fi
 
-echo 'Each command you run will be replaced by "pbpaste | command | pbcopy", thereby executing the command on your clipboard content'
+echo 'Each command you run will be replaced by "xsel -bo | command | xsel -bi", thereby executing the command on your clipboard content'
 bash --rcfile <(echo 'shopt -s extdebug
 function trap_debug() {
-    in=$(pbpaste)
-    out=$(pbpaste | eval "$BASH_COMMAND")
+    in=$(xsel -bo)
+    out=$(xsel -bo | eval "$BASH_COMMAND")
     echo -e "IN:\n$in"
     echo "CMD: $BASH_COMMAND"
     echo -e "OUT:\n$out"
-    echo -n "$out" | pbcopy
+    echo -n "$out" | xsel -bi
     return 1;
 }
 PS1="CMD> "
