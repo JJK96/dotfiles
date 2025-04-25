@@ -1,0 +1,7 @@
+# Ensure that the docker interfaces 'br-' are unmanaged
+
+[Match]  
+Name=br-*
+
+[Link]
+Unmanaged=yes

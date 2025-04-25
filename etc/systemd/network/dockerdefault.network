@@ -1,0 +1,7 @@
+# Ensure that the 'docker0' interface is unmanaged
+
+[Match]  
+Name=docker0
+
+[Link]
+Unmanaged=yes
