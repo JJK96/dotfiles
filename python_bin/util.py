@@ -2,6 +2,7 @@ import os
 import re
 import functools
 import itertools
+from pathlib import Path
 
 # Adapted from https://stackoverflow.com/questions/32774910/clean-way-to-read-a-null-terminated-c-style-string-from-a-file
 def readcstr(f, offset=None):
@@ -65,3 +66,21 @@ def import_module(path, name=None):
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
+
+def get_calendar():
+    from yaml import safe_load
+    from holidays import country_holidays, FRI, SAT, SUN
+    from datetime import timedelta, date
+    calendar = country_holidays('NL')
+    CONFIG_FILE = Path(os.environ['HOME']) / ".config" / "holidays.yaml"
+    with open(CONFIG_FILE) as f:
+        my_holidays = safe_load(f)
+    for holiday in my_holidays:
+        start = date.fromisoformat(holiday['start'])
+        end = date.fromisoformat(holiday['end'])
+        day = start
+        while day <= end:
+            calendar.append(day)
+            day += timedelta(days=1)
+    calendar.weekend = {FRI, SAT, SUN}
+    return calendar
