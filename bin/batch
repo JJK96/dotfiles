@@ -40,9 +40,14 @@ while getopts "p:m:d:a:hn" arg; do
     esac
 done
 
-in=$(mktemp batch_XXXX)
-out=$(mktemp batch_XXXX)
-operations=$(mktemp batch_XXXX)
+dir="$(mktemp -d /tmp/batch_XXXX)"
+function cleanup() {
+    rm -rf "$dir"
+}
+trap cleanup EXIT
+in="$dir/in"
+out="$dir/out"
+operations="$dir/operations"
 
 cat | tee "$in" > "$out"
 
@@ -123,5 +128,3 @@ if $confirm; then
 fi
 
 . "$operations"
-
-rm "$in" "$out" "$operations"
