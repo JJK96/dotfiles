@@ -2,3 +2,9 @@ __pycache__
 .DS_Store
 *.egg-info
 .pytest_config
+*.id0
+*.id1
+*.id2
+*.id3
+*.nam
+*.til
