@@ -9,6 +9,10 @@ if [ $# -gt 0 ]; then
     elif [ "$1" == "-p" ]; then
         #parallels
         ip addr | grep -A2 bridge100 | grep "inet " | get 2 | cut -d/ -f1
+    elif [ "$1" == "-h" ]; then
+        shift
+        #hosts file
+        rg -NI -o "^([^ ]+) $1\$" -r '$1' /etc/hosts
     else
         echo "Unknown argument: $1"
     fi

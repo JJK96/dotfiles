@@ -41,6 +41,6 @@ shift $((OPTIND-1))
 export LC_CTYPE=C
 res=$(tr -dc "[:print:]" < /dev/urandom | tr -dc "${CHARS}" | head -c ${LENGTH} | xargs)
 if [ ! -z $CLIPBOARD ]; then
-    echo -n "$res" | pbcopy
+    echo -n "$res" | xsel -bi
 fi
 echo "$res"

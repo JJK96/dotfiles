@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
-export PYTHON_PATH="$HOME/Workspace/git/PackMyPayload:$PYTHON_PATH"
-python ~/Workspace/git/PackMyPayload/PackMyPayload.py $@
+dir=$HOME/git/PackMyPayload
+. $dir/.venv/bin/activate
+export PYTHON_PATH="$dir:$PYTHON_PATH"
+python $dir/PackMyPayload.py $@

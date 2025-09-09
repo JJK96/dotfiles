@@ -2,7 +2,7 @@
 # Depends on iputils and batch
 
 ip r | batch \
-    -d 'echo "$1" | cut -d/ -f1 | xargs ip r d' \
+    -d 'echo "$1" | get 1 | cut -d/ -f1 | xargs ip r d' \
     -p '' \
     -m 'drop "$1"; add "$2"' \
     -a 'echo "$1" | xargs route_via_default_gateway'
