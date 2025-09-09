@@ -66,14 +66,11 @@ def import_module(path, name=None):
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
-
-def get_calendar():
-    from yaml import safe_load
-    from holidays import country_holidays, FRI, SAT, SUN
+    
+def add_holidays_to_calendar(calendar, holidays_file):
     from datetime import timedelta, date
-    calendar = country_holidays('NL')
-    CONFIG_FILE = Path(os.environ['HOME']) / ".config" / "holidays.yaml"
-    with open(CONFIG_FILE) as f:
+    from yaml import safe_load
+    with open(holidays_file) as f:
         my_holidays = safe_load(f)
     for holiday in my_holidays:
         start = date.fromisoformat(holiday['start'])
@@ -82,5 +79,11 @@ def get_calendar():
         while day <= end:
             calendar.append(day)
             day += timedelta(days=1)
+
+def get_calendar():
+    from holidays import country_holidays, FRI, SAT, SUN
+    calendar = country_holidays('NL')
+    CONFIG_FILE = Path(os.environ['HOME']) / ".config" / "holidays.yaml"
+    add_holidays_to_calendar(calendar, CONFIG_FILE)
     calendar.weekend = {FRI, SAT, SUN}
     return calendar

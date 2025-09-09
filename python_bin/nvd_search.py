@@ -15,7 +15,7 @@ def get_score(x):
 
 
 def search(cpeName):
-    url = f"https://services.nvd.nist.gov/rest/json/cves/2.0?virtualMatchString=cpe:2.3:a:{cpeName}"
+    url = f"https://services.nvd.nist.gov/rest/json/cves/2.0?virtualMatchString={cpeName}"
     resp = requests.get(url)
     try:
         resp = resp.json()
@@ -53,7 +53,7 @@ def print_url(cpe):
         vendor = get_vendor(split[1])
         cpe = ':'.join([vendor]+split[1:])
     print(
-        f"https://nvd.nist.gov/vuln/search/results?form_type=Advanced&results_type=overview&search_type=all&isCpeNameSearch=false&cpe_version=cpe:/a:{cpe}\n"
+        f"https://nvd.nist.gov/vuln/search#/nvd/home?cpeFilterMode=cpe&cpeName={cpe}&resultType=records"
     )
 
 
