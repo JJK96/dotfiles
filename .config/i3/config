@@ -122,7 +122,7 @@ bindsym --release $mod+F2 exec "screenshot -s"
 bindsym $mod+space exec "rofi -combi-modi drun,run,ssh -show combi"
 
 # Lock the screen
-bindsym $mod+x exec "i3lock -ui ~/Pictures/active_lockscreen"
+#bindsym $mod+x exec "i3lock -ui ~/Pictures/active_lockscreen"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
