@@ -12,3 +12,15 @@ adb shell settings get global http_proxy
 ```
 adb shell settings put global http_proxy <ip>:<port>
 ```
+
+## Trigger deep link
+
+```
+adb shell am start -W -a android.intent.action.VIEW -d 'https://example.com'
+```
+
+## Trigger deep link (specific app)
+
+```
+adb shell am start -W -a android.intent.action.VIEW -d 'https://example.com' <app_id>
+```

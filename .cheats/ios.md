@@ -7,7 +7,7 @@ ideviceinstaller -i <ipa>
 
 ## Extract backup
 ```
-python -m ibackupextractor --help
+ibackupextractor.py --help
 ```
 
 ## Jailbreak
