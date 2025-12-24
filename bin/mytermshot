@@ -5,22 +5,30 @@ Usage: $0 [-e] [-i <input_file>]
 
     -e  Edit the result (e.g. to apply highlighting)
     -i  Use the following file as input
+    -o  Use the following file as output
+
+    Use -- <extra_args> to pass extra arguments to termshot
 EOF
     exit;
 }
 
 edit=false
 input=""
-while getopts "i:eh" arg; do
+filename=""
+while getopts "i:o:eh" arg > /dev/null 2>&1; do
     case $arg in
         e) edit=true               ;;
         i) input=$(cat "$OPTARG")  ;;
+        o) filename="$OPTARG"      ;;
         h) help                    ;;
     esac
 done
+shift $((OPTIND - 1))
+if [ -z "$filename" ]; then
+    filename="$project_dir/screenshots/$(date +"%Y-%m-%d_%H%M%S.png")"
+fi
 
-getopt
-tmp=$(mktemp -d)
+tmp=$(mktemp -d /tmp/termshot_XXXX)
 trap "rm -rf $tmp" EXIT
 
 if [ -z "$input" ]; then
@@ -32,19 +40,6 @@ contents=$(echo -n "$input" | tail -n +2)
 
 echo "[38;2;0;255;0m$[0m [38;2;105;105;105m$cmd[0m" > "$tmp/output"
 echo "$contents" >> "$tmp/output"
-
-OLDEDITOR="$EDITOR"
-
-cat > "$tmp/termshot_editor" << EOF
-#!/usr/bin/env bash
-cp "$tmp/output" "\$1"
-if [ $edit = true ]; then
-    $OLDEDITOR \$1
-fi
-EOF
-
-chmod +x "$tmp/termshot_editor"
-PATH="$tmp:$PATH"
-EDITOR=termshot_editor
-
-termshot -c -e -b -- echo
+< /dev/tty eval "$EDITOR" "$tmp/output"
+termshot --raw-read "$tmp/output" -f "$filename" --no-decoration --no-shadow -m 5 -p 10 $@
+xclip -selection clipboard -t image/png -i "$filename"
