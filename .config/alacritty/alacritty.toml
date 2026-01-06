@@ -26,3 +26,12 @@ size = 11.0
 
 [font.bold]
 style = "Extrabold"
+
+[[hints.enabled]]
+command         = "xdg-open" # On Linux/BSD
+hyperlinks      = true
+post_processing = true
+persist         = false
+mouse.enabled   = false
+binding         = { key = "U", mods = "Control|Shift" }
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
