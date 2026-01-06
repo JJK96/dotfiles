@@ -17,3 +17,28 @@ match p=(u:Computer)-[:MemberOf|Enroll|AutoEnroll*]->(c {highvalue: true}) where
 ```
 match p=(n:User {owned: true})-[:MemberOf*1..]->(g:Group {highvalue: true}) return p
 ```
+
+## User descriptions:
+
+```
+match (u:User) where u.description <> "" return distinct u.description
+```
+
+## Computer descriptions:
+
+```
+match (u:Computer) where u.description <> "" return distinct u.description
+```
+
+## User passwords last set:
+
+```
+match (u:User) where u.enabled and not (u.pwdlastset = -1 or u.pwdlastset is null) return u.name, date(datetime({epochseconds:toInteger(u.pwdlastset)})) as pwdlastset order by pwdlastset asc
+```
+
+## Backup systems
+
+```
+MATCH (n) WHERE n.description =~ "(?i).*(acronis|avamar|backup|bck|bkp|bak|barracuda|cohesity|commvault|dpm|rubrik|spectrum|unitrends|veeam|veritas).*" OR n.name =~ "(?i).*(acronis|avamar|backup|bck|bkp|bak|barracuda|cohesity|commvault|dpm|rubrik|spectrum|unitrends|veeam|veritas).*" RETURN n LIMIT 50
+```
+
