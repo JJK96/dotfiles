@@ -150,7 +150,11 @@ alias mdc='function _md(){mkdir -p "$1" && cd "$1"};_md'
 # Smart cat/less/ls alternative that works on both files and directories
 alias c='function _mycat(){([ $# -eq 0 ] || [ -d $@ ]) && ls $@ || less -F $@};_mycat'
 
-alias a="arsenal"
+function a() {
+    sysctl dev.tty.legacy_tiocsti | grep -q '= 1$' || sudo sysctl -w dev.tty.legacy_tiocsti=1
+    arsenal "$@"
+}
 alias jq="jq -r"
 
 alias curl="curl -A '$USER_AGENT'"
+alias cat="batcat"

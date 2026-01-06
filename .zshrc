@@ -40,7 +40,7 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt hist_find_no_dups
 setopt hist_save_no_dups
-setopt share_history         # share command history data
+#setopt share_history         # share command history data
 
 # force zsh to show the complete history
 alias history="history 0"
@@ -245,3 +245,4 @@ fi
 
 source ~/.zsh/.zshrc
 source ~/.zsh/keybinds
+source ~/.zsh/completions
