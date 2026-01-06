@@ -8,7 +8,7 @@ function source_dotenv {
     fi
 }
 export PATH="$HOME/.local/bin:$HOME/go/bin:$HOME/dotfiles/python_bin:$HOME/git/scripts/python_bin:$HOME/.cargo/bin:$HOME/nw_bin:$HOME/bin:$HOME/node_modules/.bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$HOME/.config/i3/bin:$HOME/.config/kak/bin:$PATH:"
-export PYTHONPATH=$HOME/git/scripts/python_bin:$HOME/dotfiles/python_bin
+export PYTHONPATH="$HOME/git/scripts/python_bin:$HOME/dotfiles/python_bin:$PYTHONPATH"
 
 if [ -z "$EDITOR" ]; then
     export EDITOR="editor -t"
