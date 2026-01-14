@@ -7,9 +7,9 @@ function cleanup() {
     rm -rf "$dir"
 }
 trap cleanup EXIT
-filter="$dir/filter"
-in="$dir/in"
-out="$dir/out"
+filter="$dir/filter.jq"
+in="$dir/in.json"
+out="$dir/out.json"
 
 cat | tee "$in" > "$out"
 echo "." > "$filter"
