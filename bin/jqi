@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Interactive JSON viewer in $EDITOR based on jq
+
+dir="$(mktemp -d /tmp/jqi_XXXX)"
+session_name="$(basename "$dir")"
+function cleanup() {
+    rm -rf "$dir"
+}
+trap cleanup EXIT
+filter="$dir/filter"
+in="$dir/in"
+out="$dir/out"
+
+cat | tee "$in" > "$out"
+echo "." > "$filter"
+
+quote='"'
+
+tmux new-session -d -s "$session_name" "eval '$EDITOR' '$filter'" \;\
+    split-window -h "eval '$EDITOR' '$out'" \;\
+    new-window "onchange '$filter' $quote jq -f '$filter' '$in' > '$out'$quote" \;\
+    select-window -t 0 \;\
+    select-pane -t 0
+    
+function cleanup_tmux() {
+    cleanup
+    tmux ls | grep -q "$session_name" && tmux kill-session -t "$session_name"
+}
+trap cleanup_tmux EXIT
+( exec </dev/tty; exec <&1; TMUX= tmux attach -t "$session_name" )
