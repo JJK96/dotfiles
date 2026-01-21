@@ -144,6 +144,7 @@ alias frombinary="perl -lpe '\$_=pack\"B*\",\$_'"
 alias md="mkdir -p"
 alias mdc='function _md(){mkdir -p "$1" && cd "$1"};_md'
 
-alias batch='EDITOR="code --wait" batch'
+alias batch='EDITOR="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --wait" batch'
 alias aquatone='/mnt/c/tools/aquatone.exe -chrome-path "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"'
 alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+alias pm="project_manager"

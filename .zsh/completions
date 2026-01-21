@@ -1,0 +1,1 @@
+eval "$(_PROJECT_MANAGER_COMPLETE=zsh_source project_manager)"
