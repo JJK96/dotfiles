@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+mac="$1"
+interface="en0"
+networksetup -setairportpower $interface off ; networksetup -setairportpower $interface on ; sudo ifconfig $interface ether $mac
