@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+import requests
+import argparse
+import json
+from sys import exit
+from os import system
+from os.path import expanduser
+parser = argparse.ArgumentParser()
+parser.add_argument("cmd", nargs="+", help="Command to execute")
+args = parser.parse_args()
+
+CONFIG_FILE = expanduser("~/.config/ips.json")
+
+with open(CONFIG_FILE, "r") as f:
+    config = json.load(f)
+
+def get_ipinfo():
+    resp = requests.get('https://ipinfo.io')
+    return resp.json()
+
+def write_config():
+    with open(CONFIG_FILE, "w") as f:
+        json.dump(config, f, indent=4)
+
+def execute_cmd():
+    system(" ".join(args.cmd))
+
+ipinfo = get_ipinfo()
+ip = ipinfo['ip']
+org = ipinfo['org']
+
+print(f"IP: {ip}, org: {org}")
+if ip in config['whitelist'] or org in config['whitelist_org']:
+    execute_cmd()
+elif ip not in config['blacklist']:
+    answer = input("IP address not blacklisted. Do you want to add it to the whitelist? (y/N)")
+    if answer == "y":
+        config['whitelist'].append(ip)
+        print("IP address added to whitelist.")
+        write_config()
+        execute_cmd()
+else:
+    print("IP address not whitelisted. Exiting.")
+    exit(1)
