@@ -43,4 +43,4 @@ EOF
 )
 export AUTOSSH_PORT=0
 
-source "$HOME/.nw_profile"
+[ -f "$HOME/.company_profile" ] && source "$HOME/.company_profile"
