@@ -158,3 +158,8 @@ alias jq="jq -r"
 
 alias curl="curl -A '$USER_AGENT'"
 alias cat="batcat"
+alias rm="rm -I"
+
+function to_makefile() {
+    to_makefile.py "$(fc -ln -1)"
+}

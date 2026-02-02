@@ -1,1 +1,2 @@
 eval "$(register-python-argcomplete verifier)"
+eval "$(register-python-argcomplete coercer)"

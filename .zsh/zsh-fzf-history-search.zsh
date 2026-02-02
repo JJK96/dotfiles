@@ -59,6 +59,7 @@ fzf_history_search() {
       history_cmd="$history_cmd | uniq"
     fi
   fi
+  history_cmd="{$history_cmd;arsenal -l | sed 's/^/ARSENAL /'}"
 
   if (( $#BUFFER )); then
     candidates=(${(f)"$(eval $history_cmd | fzf ${=ZSH_FZF_HISTORY_SEARCH_FZF_ARGS} ${=ZSH_FZF_HISTORY_SEARCH_FZF_EXTRA_ARGS} -q "${=ZSH_FZF_HISTORY_SEARCH_FZF_QUERY_PREFIX}$BUFFER")"})
@@ -73,7 +74,12 @@ fzf_history_search() {
       printf '%s' "${${(As: :)MATCH}[${CANDIDATE_LEADING_FIELDS},-1]}" | sed 's/%/%%/g'
       )}"
     else
-      BUFFER="${(j| && |)candidates}"
+      if [[ $candidates[@] = ARSENAL* ]]; then
+          rg_cmd='rg -o "([^\t]+\t){3}([^\t]+)" -r '"'"'$2'"'"
+          BUFFER="$(echo $candidates[@] | eval "$rg_cmd")"
+      else
+          BUFFER="${(j| && |)candidates}"
+      fi
     fi
     zle vi-fetch-history -n $BUFFER
     if [ -n "${ZSH_FZF_HISTORY_SEARCH_END_OF_LINE}" ]; then
