@@ -32,7 +32,7 @@ tmp=$(mktemp -d /tmp/termshot_XXXX)
 trap "rm -rf $tmp" EXIT
 
 if [ -z "$input" ]; then
-    input=$(pbpaste)
+    input=$(xsel -bo)
 fi
 
 cmd=$(echo -n "$input" | head -n 1 | perl -pe 's/^\$ //')
