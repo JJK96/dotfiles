@@ -3,11 +3,13 @@
 
 dir="$(mktemp -d /tmp/jqi_XXXX)"
 session_name="$(basename "$dir")"
+jq="${jq:-jq}"
+filter_filename=${filter_filename:-filter.jq}
 function cleanup() {
     rm -rf "$dir"
 }
 trap cleanup EXIT
-filter="$dir/filter.jq"
+filter="$dir/$filter_filename"
 in="$dir/in.json"
 out="$dir/out.json"
 
@@ -18,7 +20,7 @@ quote='"'
 
 tmux new-session -d -s "$session_name" "eval '$EDITOR' '$filter'" \;\
     split-window -h "eval '$EDITOR' '$out'" \;\
-    new-window "onchange '$filter' $quote jq -f '$filter' '$in' > '$out'$quote" \;\
+    new-window "onchange '$filter' $quote $jq -f '$filter' '$in' > '$out'$quote" \;\
     select-window -t 0 \;\
     select-pane -t 0
     
