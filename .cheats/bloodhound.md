@@ -42,3 +42,26 @@ match (u:User) where u.enabled and not (u.pwdlastset = -1 or u.pwdlastset is nul
 MATCH (n) WHERE n.description =~ "(?i).*(acronis|avamar|backup|bck|bkp|bak|barracuda|cohesity|commvault|dpm|rubrik|spectrum|unitrends|veeam|veritas).*" OR n.name =~ "(?i).*(acronis|avamar|backup|bck|bkp|bak|barracuda|cohesity|commvault|dpm|rubrik|spectrum|unitrends|veeam|veritas).*" RETURN n LIMIT 50
 ```
 
+## Computer descriptions json
+
+```
+cat computers_*.json| jq '.data[].Properties | select(.description) | {name,description}'
+```
+
+## File servers
+
+```
+cat computers_*.json| jq '.data[].Properties | select(.serviceprincipalname and (.serviceprincipalname | ascii_downcase | (contains("cifs") or contains("dfsr")))) | {name,serviceprincipalname}'
+```
+
+## SQL servers
+
+```
+cat computers_*.json| jq '.data[].Properties | select((.serviceprincipalname and (.serviceprincipalname | ascii_downcase | contains("sql"))) or (.name | ascii_downcase | contains("sql"))) | .name' -r
+```
+
+## Bofhound
+
+```
+bofhound -p All -o JSON -i .
+```
