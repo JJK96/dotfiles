@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+id="$1"
+if [[ $id == http* ]]; then
+    id=$(echo "$id" | sed -E 's/.*[?&]id=([0-9]+).*/\1/')
+fi
+echo "$id" >&2
+curl "https://api-icons.icons8.com/siteApi/icons/icon?id=$id&svg=true" | jq '.icon.svg' --raw-output | base64 -d
