@@ -3,7 +3,7 @@ import os
 from subprocess import check_output
 
 def add_routing_table(table_name):
-    os.makedirs("/etc/iproute2", exists_ok=True)
+    os.makedirs("/etc/iproute2", exist_ok=True)
     table_id = 1
     with open("/etc/iproute2/rt_tables") as f:
         for line in f:
@@ -18,14 +18,17 @@ def get_rules():
     return check_output(["ip", "rule"]).decode().splitlines()
 
 def delete_routing_table(table_name):
+    with open("/etc/iproute2/rt_tables", "r") as f:
+        tables = f.read()
+    if table_name not in tables:
+        return
     for rule in get_rules():
         if f"lookup {table_name}" in rule:
             priority = rule.split(":")[0].strip()
             os.system(f"ip rule del priority {priority}")
-    with open("/etc/iproute2/rt_tables", "r") as f:
-        lines = f.readlines()
+    os.system(f"ip route flush table {table_name}")
     with open("/etc/iproute2/rt_tables", "w") as f:
-        for line in lines:
+        for line in tables.splitlines():
             if line.split()[1] != table_name:
                 f.write(line)
 

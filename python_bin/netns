@@ -143,6 +143,7 @@ class Namespace:
         run(f"ip link add {self.namespace_interface} type veth peer name {self.host_interface} netns {self.name}")
         run(f"ip link set {self.namespace_interface} up")
         self.run(f"ip link set {self.host_interface} up")
+        self.add_dns()
 
     def delete(self):
         self.delete_netns()
@@ -184,7 +185,6 @@ class Namespace:
         self.allow_forwarding()
         self.run(f"ip route add default via {self.host_addr}")
         run(f"iptables -t nat -A POSTROUTING -s {self.namespace_addr} ! -o {self.namespace_interface} -j MASQUERADE")
-        self.add_dns()
 
     def forward(self, destination_ip):
         self.set_addresses()
