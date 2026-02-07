@@ -1,0 +1,157 @@
+#!/usr/bin/env python
+# manage netns namespaces that are connected to internet or other interfaces
+from dataclasses import dataclass
+import os
+from subprocess import check_output
+from ipaddress import IPv4Network
+import re
+import logging
+
+IP_RANGE=IPv4Network("10.0.1.0/24")
+
+def is_used(ip_range):
+    return os.system(f"ip route | grep -q {ip_range.network_address}") == 0
+
+def interface_exists(interface):
+    return os.system(f"ip link | grep -q {interface}") == 0
+
+def get_free_iprange():
+    ip_range = IP_RANGE
+    while is_used(ip_range):
+        new_addr = bytearray(ip_range.network_address.packed)
+        new_addr[2] += 1
+        ip_range.network_address = new_addr
+    return ip_range
+
+def run(cmd, sudo=True):
+    logging.debug(f"Running command: {cmd}")
+    if sudo:
+        cmd = "sudo " + cmd
+    return os.system(cmd)
+
+def get_iptables_rules(nat=False):
+    cmd = ["sudo", "iptables"]
+    if nat:
+        cmd += ["-t", "nat"]
+    cmd += ["-S"]
+    rules = check_output(cmd)
+    return rules.decode().splitlines()
+
+def delete_iptables_rule(rule, nat=False):
+    rule = re.sub(r"^-A", "-D", rule)
+    cmd = f"iptables "
+    if nat:
+        cmd += "-t nat "
+    cmd += rule
+    run(cmd)
+
+def delete_matching_iptables_rules(interface, nat=False):
+    rules = get_iptables_rules(nat=nat)
+    for rule in rules:
+        if interface in rule:
+            delete_iptables_rule(rule, nat=nat)
+
+def run_in_namespace(namespace, cmd):
+    run(f"ip netns exec {namespace} {cmd}")
+
+def get_ip_range_from_interface(interface):
+    output = check_output(f"ip addr show {interface}", shell=True).decode()
+    match = re.search(r"inet ([^ ]+)", output)
+    if match:
+        return match.group(1)
+    return None
+
+def get_gateway_from_interface(interface):
+    output = check_output("ip route", shell=True).decode()
+    for line in output.splitlines():
+        if line.startswith("default") and interface in line:
+            parts = line.split()
+            gateway_index = parts.index("via") + 1
+            return parts[gateway_index]
+    return None
+
+@dataclass
+class Namespace:
+    name: str
+    # Connected interface in the host
+    host_interface: str = "host"
+
+    @property
+    def namespace_interface(self):
+        return f"veth-{self.name}"
+
+    @property
+    def bridge_interface(self):
+        return f"br-{self.name}"
+
+    def create(self):
+        run(f"ip netns add {self.name}")
+        run(f"ip link add {self.namespace_interface} type veth peer name {self.host_interface} netns {self.name}")
+        run(f"ip link set {self.namespace_interface} up")
+        self.run(f"ip link set {self.host_interface} up")
+
+    def delete(self):
+        run(f"ip netns delete {self.name}")
+        if interface_exists(self.bridge_interface):
+            run(f"ip link delete {self.bridge_interface}")
+        delete_matching_iptables_rules(self.namespace_interface, nat=True)
+        delete_matching_iptables_rules(self.namespace_interface, nat=False)
+
+    def run(self, cmd):
+        return run_in_namespace(self.name, cmd)
+
+    def add_nat(self, egress_interface):
+        self.iprange=get_free_iprange()
+        hosts = self.iprange.hosts()
+        host_addr=next(hosts)
+        namespace_addr=next(hosts)
+        run(f"ip addr add {host_addr}/{self.iprange.prefixlen} dev {self.namespace_interface}")
+        self.run(f"ip addr add {namespace_addr}/{self.iprange.prefixlen} dev {self.host_interface}")
+        self.run(f"ip route add default via {host_addr}")
+        run(f"iptables -A FORWARD -i {self.namespace_interface} -o {egress_interface} -j ACCEPT")
+        run(f"iptables -A FORWARD -i {egress_interface} -o {self.namespace_interface} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT")
+        run(f"iptables -t nat -A POSTROUTING -s {namespace_addr} ! -o {self.namespace_interface} -j MASQUERADE")
+
+    def add_bridge(self, egress_interface):
+        egress_range = get_ip_range_from_interface(egress_interface)
+        egress_gateway = get_gateway_from_interface(egress_interface)
+        run(f"ip link add {self.bridge_interface} type bridge")
+        run(f"ip link set {self.namespace_interface} master {self.bridge_interface}")
+        run(f"ip link set {egress_interface} master {self.bridge_interface}")
+        run(f"ip link set {self.bridge_interface} up")
+        if egress_range:
+            run(f"ip addr add {egress_range} dev {self.bridge_interface}")
+            self.run(f"ip addr add {egress_range} dev {self.host_interface}")
+            run(f"ip addr delete {egress_range} dev {egress_interface}")
+        if egress_gateway:
+            run(f"ip route add default via {egress_gateway}")
+            self.run(f"ip route add default via {egress_gateway}")
+
+
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("--debug", action="store_true", help="Enable debug logging")
+subparsers = parser.add_subparsers(dest="command")
+create_parser = subparsers.add_parser("add", help="Create a new network namespace")
+create_parser.add_argument("namespace")
+create_parser.add_argument("--bridge", help="Bridge this interface to the veth pipe")
+create_parser.add_argument("--nat", help="Forward the veth interface to this interface using NAT")
+
+delete_parser = subparsers.add_parser("delete", help="Delete a network namespace")
+delete_parser.add_argument("namespace")
+
+args = parser.parse_args()
+
+if args.debug:
+    logging.basicConfig(level=logging.DEBUG)
+
+if args.command == "add":
+    ns = Namespace(args.namespace)
+    ns.create()
+    if args.nat:
+        ns.add_nat(args.nat)
+    if args.bridge:
+        ns.add_bridge(args.bridge)
+elif args.command == "delete":
+    ns = Namespace(args.namespace)
+    ns.delete()
