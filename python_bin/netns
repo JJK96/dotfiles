@@ -11,6 +11,9 @@ from pathlib import Path
 NAMESERVER = "8.8.8.8"
 NAMESPACES_DIR = Path("/run/ns")
 
+def bash_escape(string):
+    return string.replace("'", "'\"'\"'")
+
 def interface_exists(interface):
     return os.system(f"ip link | grep -q {interface}") == 0
 
@@ -125,7 +128,6 @@ class Namespace:
             run(f"umount {self.netns_path}")
             self.netns_path.unlink()
 
-            
     def add_dns(self):
         with open(self.dir / 'resolv.conf', 'w') as f:
             f.write(f"nameserver {NAMESERVER}\n")
@@ -224,10 +226,13 @@ def main():
     delete_parser = subparsers.add_parser("delete", help="Delete a network namespace")
     delete_parser.add_argument("namespace")
 
-    enter_parser = subparsers.add_parser("enter", help="Enter a network namespace")
-    enter_parser.add_argument("namespace")
+    exec_parser = subparsers.add_parser("exec", help="Enter a network namespace")
+    exec_parser.add_argument("namespace")
+    exec_parser.add_argument("cmd", nargs=argparse.REMAINDER, help="Command to run inside the namespace, if omitted starts the user's shell")
 
-    args = parser.parse_args()
+    args, extra_args = parser.parse_known_args()
+    if os.geteuid() != 0:
+        exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
 
     if args.debug:
         logging.basicConfig(level=logging.DEBUG)
@@ -244,9 +249,12 @@ def main():
     elif args.command == "delete":
         ns = Namespace(args.namespace)
         ns.delete()
-    elif args.command == "enter":
+    elif args.command == "exec":
         ns = Namespace(args.namespace)
-        ns.run("su - $SUDO_USER")
+        cmd = "su - $SUDO_USER"
+        if args.cmd:
+            cmd += " -c '" + bash_escape(" ".join(args.cmd)) + "'"
+        ns.run(cmd)
 
 if __name__ == "__main__":
     main()
