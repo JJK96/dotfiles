@@ -6,18 +6,25 @@ from subprocess import check_output
 import re
 import logging
 from get_free_iprange import IPv4Network, get_free_iprange
+from pathlib import Path
+
+NAMESERVER = "8.8.8.8"
+NAMESPACES_DIR = Path("/run/ns")
 
 def interface_exists(interface):
     return os.system(f"ip link | grep -q {interface}") == 0
 
-def run(cmd, sudo=True):
+def run(cmd):
     logging.debug(f"Running command: {cmd}")
-    if sudo:
-        cmd = f"sudo env PATH=\"{os.environ['PATH']}\" " + cmd
     return os.system(cmd)
 
+def ensure_namespace_dir():
+    NAMESPACES_DIR.mkdir(parents=True, exist_ok=True)
+    if not NAMESPACES_DIR.is_mount():
+        run(f"mount -t tmpfs --make-private tmpfs {NAMESPACES_DIR}")
+
 def get_iptables_table(nat=False):
-    cmd = ["sudo", "iptables"]
+    cmd = ["iptables"]
     if nat:
         cmd += ["-t", "nat"]
     cmd += ["-S"]
@@ -67,11 +74,6 @@ def delete_iptables_chain(chain, nat=False):
     run(base_cmd + f"-F {chain}")
     run(base_cmd + f"-X {chain}")
     
-
-def run_in_namespace(namespace, cmd):
-    run(f"ip netns exec {namespace} {cmd}")
-
-
 def get_ip_range_from_interface(interface):
     output = check_output(f"ip addr show {interface}", shell=True).decode()
     match = re.search(r"inet ([^ ]+)", output)
@@ -99,6 +101,14 @@ class Namespace:
     iprange: IPv4Network = None
 
     @property
+    def netns_path(self):
+        return Path('/run/netns') / self.name
+
+    @property
+    def dir(self):
+        return NAMESPACES_DIR / self.name
+
+    @property
     def namespace_interface(self):
         return f"veth-{self.name}"
 
@@ -106,14 +116,41 @@ class Namespace:
     def bridge_interface(self):
         return f"br-{self.name}"
 
+    def add_netns(self):
+        self.netns_path.touch()
+        run(f"mount -o bind {self.dir}/net {self.netns_path}")
+
+    def delete_netns(self):
+        if self.netns_path.exists():
+            run(f"umount {self.netns_path}")
+            self.netns_path.unlink()
+
+            
+    def add_dns(self):
+        with open(self.dir / 'resolv.conf', 'w') as f:
+            f.write(f"nameserver {NAMESERVER}\n")
+        self.run(f"mount -o bind {self.dir}/resolv.conf /etc/resolv.conf")
+
     def create(self):
-        run(f"ip netns add {self.name}")
+        ensure_namespace_dir()
+        self.dir.mkdir()
+        for file in ["net", "mnt"]:
+            (self.dir / file).touch()
+        run(f"unshare --net={self.dir}/net --mount={self.dir}/mnt echo -n")
+        self.add_netns()
         run(f"ip link add {self.namespace_interface} type veth peer name {self.host_interface} netns {self.name}")
         run(f"ip link set {self.namespace_interface} up")
         self.run(f"ip link set {self.host_interface} up")
 
     def delete(self):
-        run(f"ip netns delete {self.name}")
+        self.delete_netns()
+        for file in ["net", "mnt"]:
+            file = self.dir / file
+            if file.exists():
+                run(f"umount {file}")
+                file.unlink()
+        (self.dir / 'resolv.conf').unlink(missing_ok=True)
+        self.dir.rmdir()
         if interface_exists(self.bridge_interface):
             run(f"ip link delete {self.bridge_interface}")
         delete_matching_iptables_rules(self.namespace_interface, nat=True)
@@ -123,7 +160,7 @@ class Namespace:
         run(f"routing_table delete {self.name}")
 
     def run(self, cmd):
-        return run_in_namespace(self.name, cmd)
+        return run(f"nsenter -n{self.dir}/net -m{self.dir}/mnt {cmd}")
 
     def set_addresses(self):
         if self.host_addr or self.namespace_addr:
@@ -145,6 +182,7 @@ class Namespace:
         self.allow_forwarding()
         self.run(f"ip route add default via {self.host_addr}")
         run(f"iptables -t nat -A POSTROUTING -s {self.namespace_addr} ! -o {self.namespace_interface} -j MASQUERADE")
+        self.add_dns()
 
     def forward(self, destination_ip):
         self.set_addresses()
@@ -180,11 +218,14 @@ def main():
     add_parser = subparsers.add_parser("add", help="Create a new network namespace")
     add_parser.add_argument("namespace")
     add_parser.add_argument("--bridge", help="Bridge this interface to the veth pipe")
-    add_parser.add_argument("--nat", help="Forward the veth interface to this interface using NAT")
+    add_parser.add_argument("--nat", action="store_true", help="Forward the veth interface to this interface using NAT")
     add_parser.add_argument("--forward", help="Forward traffic from this namespace to the specified destination IP")
 
     delete_parser = subparsers.add_parser("delete", help="Delete a network namespace")
     delete_parser.add_argument("namespace")
+
+    enter_parser = subparsers.add_parser("enter", help="Enter a network namespace")
+    enter_parser.add_argument("namespace")
 
     args = parser.parse_args()
 
@@ -195,7 +236,7 @@ def main():
         ns = Namespace(args.namespace)
         ns.create()
         if args.nat:
-            ns.add_nat(args.nat)
+            ns.add_nat()
         if args.bridge:
             ns.add_bridge(args.bridge)
         if args.forward:
@@ -203,6 +244,9 @@ def main():
     elif args.command == "delete":
         ns = Namespace(args.namespace)
         ns.delete()
+    elif args.command == "enter":
+        ns = Namespace(args.namespace)
+        ns.run("su - $SUDO_USER")
 
 if __name__ == "__main__":
     main()
