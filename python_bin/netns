@@ -3,25 +3,12 @@
 from dataclasses import dataclass
 import os
 from subprocess import check_output
-from ipaddress import IPv4Network
 import re
 import logging
-
-IP_RANGE=IPv4Network("10.0.1.0/24")
-
-def is_used(ip_range):
-    return os.system(f"ip route | grep -q {ip_range.network_address}") == 0
+from get_free_iprange import get_free_iprange
 
 def interface_exists(interface):
     return os.system(f"ip link | grep -q {interface}") == 0
-
-def get_free_iprange():
-    ip_range = IP_RANGE
-    while is_used(ip_range):
-        new_addr = bytearray(ip_range.network_address.packed)
-        new_addr[2] += 1
-        ip_range.network_address = new_addr
-    return ip_range
 
 def run(cmd, sudo=True):
     logging.debug(f"Running command: {cmd}")
@@ -126,32 +113,38 @@ class Namespace:
         if egress_gateway:
             run(f"ip route add default via {egress_gateway}")
             self.run(f"ip route add default via {egress_gateway}")
+        else:
+            self.run(f"ip route add default dev {egress_interface}")
 
 
-import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument("--debug", action="store_true", help="Enable debug logging")
-subparsers = parser.add_subparsers(dest="command")
-create_parser = subparsers.add_parser("add", help="Create a new network namespace")
-create_parser.add_argument("namespace")
-create_parser.add_argument("--bridge", help="Bridge this interface to the veth pipe")
-create_parser.add_argument("--nat", help="Forward the veth interface to this interface using NAT")
+def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging")
+    subparsers = parser.add_subparsers(dest="command")
+    create_parser = subparsers.add_parser("add", help="Create a new network namespace")
+    create_parser.add_argument("namespace")
+    create_parser.add_argument("--bridge", help="Bridge this interface to the veth pipe")
+    create_parser.add_argument("--nat", help="Forward the veth interface to this interface using NAT")
 
-delete_parser = subparsers.add_parser("delete", help="Delete a network namespace")
-delete_parser.add_argument("namespace")
+    delete_parser = subparsers.add_parser("delete", help="Delete a network namespace")
+    delete_parser.add_argument("namespace")
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-if args.debug:
-    logging.basicConfig(level=logging.DEBUG)
+    if args.debug:
+        logging.basicConfig(level=logging.DEBUG)
 
-if args.command == "add":
-    ns = Namespace(args.namespace)
-    ns.create()
-    if args.nat:
-        ns.add_nat(args.nat)
-    if args.bridge:
-        ns.add_bridge(args.bridge)
-elif args.command == "delete":
-    ns = Namespace(args.namespace)
-    ns.delete()
+    if args.command == "add":
+        ns = Namespace(args.namespace)
+        ns.create()
+        if args.nat:
+            ns.add_nat(args.nat)
+        if args.bridge:
+            ns.add_bridge(args.bridge)
+    elif args.command == "delete":
+        ns = Namespace(args.namespace)
+        ns.delete()
+
+if __name__ == "__main__":
+    main()
