@@ -5,7 +5,7 @@ import os
 from subprocess import check_output
 import re
 import logging
-from get_free_iprange import get_free_iprange
+from get_free_iprange import IPv4Network, get_free_iprange
 
 def interface_exists(interface):
     return os.system(f"ip link | grep -q {interface}") == 0
@@ -13,33 +13,64 @@ def interface_exists(interface):
 def run(cmd, sudo=True):
     logging.debug(f"Running command: {cmd}")
     if sudo:
-        cmd = "sudo " + cmd
+        cmd = f"sudo env PATH=\"{os.environ['PATH']}\" " + cmd
     return os.system(cmd)
 
-def get_iptables_rules(nat=False):
+def get_iptables_table(nat=False):
     cmd = ["sudo", "iptables"]
     if nat:
         cmd += ["-t", "nat"]
     cmd += ["-S"]
-    rules = check_output(cmd)
-    return rules.decode().splitlines()
+    entries = check_output(cmd)
+    return entries.decode().splitlines()
 
-def delete_iptables_rule(rule, nat=False):
-    rule = re.sub(r"^-A", "-D", rule)
-    cmd = f"iptables "
+def get_iptables_base_command(nat=False):
+    cmd = "iptables "
     if nat:
         cmd += "-t nat "
-    cmd += rule
+    return cmd
+
+def get_iptables_rules(nat=False):
+    for line in get_iptables_table(nat=nat):
+        if line.startswith("-A"):
+            yield line
+
+def get_iptables_chains(nat=False):
+    for line in get_iptables_table(nat=nat):
+        if line.startswith("-N"):
+            yield line
+
+
+def delete_iptables_entry(entry, nat=False):
+    entry = re.sub(r"^-A", "-D", entry)
+    entry = re.sub(r"^-N", "-X", entry)
+    cmd = get_iptables_base_command(nat=nat) + entry
     run(cmd)
+
 
 def delete_matching_iptables_rules(interface, nat=False):
     rules = get_iptables_rules(nat=nat)
     for rule in rules:
         if interface in rule:
-            delete_iptables_rule(rule, nat=nat)
+            delete_iptables_entry(rule, nat=nat)
+
+
+def delete_iptables_chain(chain, nat=False):
+    chains = list(get_iptables_chains(nat=nat))
+    if f"-N {chain}" not in chains:
+        return
+    base_cmd = get_iptables_base_command(nat=nat)
+    entries = get_iptables_table(nat=nat)
+    for entry in entries:
+        if entry.endswith(f"-j {chain}"):
+            delete_iptables_entry(entry, nat=nat)
+    run(base_cmd + f"-F {chain}")
+    run(base_cmd + f"-X {chain}")
+    
 
 def run_in_namespace(namespace, cmd):
     run(f"ip netns exec {namespace} {cmd}")
+
 
 def get_ip_range_from_interface(interface):
     output = check_output(f"ip addr show {interface}", shell=True).decode()
@@ -57,11 +88,15 @@ def get_gateway_from_interface(interface):
             return parts[gateway_index]
     return None
 
+
 @dataclass
 class Namespace:
     name: str
     # Connected interface in the host
     host_interface: str = "host"
+    host_addr: str = None
+    namespace_addr: str = None
+    iprange: IPv4Network = None
 
     @property
     def namespace_interface(self):
@@ -83,21 +118,41 @@ class Namespace:
             run(f"ip link delete {self.bridge_interface}")
         delete_matching_iptables_rules(self.namespace_interface, nat=True)
         delete_matching_iptables_rules(self.namespace_interface, nat=False)
+        delete_iptables_chain(self.name, nat=True)
+        delete_iptables_chain(self.name, nat=False)
+        run(f"routing_table delete {self.name}")
 
     def run(self, cmd):
         return run_in_namespace(self.name, cmd)
 
-    def add_nat(self, egress_interface):
+    def set_addresses(self):
+        if self.host_addr or self.namespace_addr:
+            # Already done
+            return
         self.iprange=get_free_iprange()
         hosts = self.iprange.hosts()
-        host_addr=next(hosts)
-        namespace_addr=next(hosts)
-        run(f"ip addr add {host_addr}/{self.iprange.prefixlen} dev {self.namespace_interface}")
-        self.run(f"ip addr add {namespace_addr}/{self.iprange.prefixlen} dev {self.host_interface}")
-        self.run(f"ip route add default via {host_addr}")
-        run(f"iptables -A FORWARD -i {self.namespace_interface} -o {egress_interface} -j ACCEPT")
-        run(f"iptables -A FORWARD -i {egress_interface} -o {self.namespace_interface} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT")
-        run(f"iptables -t nat -A POSTROUTING -s {namespace_addr} ! -o {self.namespace_interface} -j MASQUERADE")
+        self.host_addr=next(hosts)
+        self.namespace_addr=next(hosts)
+        run(f"ip addr add {self.host_addr}/{self.iprange.prefixlen} dev {self.namespace_interface}")
+        self.run(f"ip addr add {self.namespace_addr}/{self.iprange.prefixlen} dev {self.host_interface}")
+
+    def allow_forwarding(self):
+        run(f"iptables -A FORWARD -i {self.namespace_interface} -j ACCEPT")
+        run(f"iptables -A FORWARD -o {self.namespace_interface} -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT")
+
+    def add_nat(self):
+        self.set_addresses()
+        self.allow_forwarding()
+        self.run(f"ip route add default via {self.host_addr}")
+        run(f"iptables -t nat -A POSTROUTING -s {self.namespace_addr} ! -o {self.namespace_interface} -j MASQUERADE")
+
+    def forward(self, destination_ip):
+        self.set_addresses()
+        self.allow_forwarding()
+        self.run(f"ip route add default via {self.host_addr}")
+        run(f"routing_table add {self.name}")
+        run(f"ip rule add iif {self.namespace_interface} lookup {self.name}")
+        run(f"ip route add default via {destination_ip} table {self.name}")
 
     def add_bridge(self, egress_interface):
         egress_range = get_ip_range_from_interface(egress_interface)
@@ -122,10 +177,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     subparsers = parser.add_subparsers(dest="command")
-    create_parser = subparsers.add_parser("add", help="Create a new network namespace")
-    create_parser.add_argument("namespace")
-    create_parser.add_argument("--bridge", help="Bridge this interface to the veth pipe")
-    create_parser.add_argument("--nat", help="Forward the veth interface to this interface using NAT")
+    add_parser = subparsers.add_parser("add", help="Create a new network namespace")
+    add_parser.add_argument("namespace")
+    add_parser.add_argument("--bridge", help="Bridge this interface to the veth pipe")
+    add_parser.add_argument("--nat", help="Forward the veth interface to this interface using NAT")
+    add_parser.add_argument("--forward", help="Forward traffic from this namespace to the specified destination IP")
 
     delete_parser = subparsers.add_parser("delete", help="Delete a network namespace")
     delete_parser.add_argument("namespace")
@@ -142,6 +198,8 @@ def main():
             ns.add_nat(args.nat)
         if args.bridge:
             ns.add_bridge(args.bridge)
+        if args.forward:
+            ns.forward(args.forward)
     elif args.command == "delete":
         ns = Namespace(args.namespace)
         ns.delete()

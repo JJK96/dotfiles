@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+import os
+
+def add_routing_table(table_name):
+    os.makedirs("/etc/iproute2", exists_ok=True)
+    table_id = 1
+    with open("/etc/iproute2/rt_tables") as f:
+        for line in f:
+            if line.strip() and not line.startswith("#"):
+                this_table_id = int(line.split()[0])
+                table_id = max(table_id, this_table_id + 1)
+    with open("/etc/iproute2/rt_tables", "a") as f:
+        f.write(f"{table_id} {table_name}\n")
+    return table_id
+
+def delete_routing_table(table_name):
+    os.system(f"ip rule | grep 'lookup {table_name}' | cut -d: -f1 | xargs ip rule del priority")
+    with open("/etc/iproute2/rt_tables", "r") as f:
+        lines = f.readlines()
+    with open("/etc/iproute2/rt_tables", "w") as f:
+        for line in lines:
+            if line.split()[1] != table_name:
+                f.write(line)
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_subparsers(dest="command")
+
+    parser_add = parser.add_parser("add")
+    parser_add.add_argument("table_name")
+
+    parser_delete = parser.add_parser("delete")
+    parser_delete.add_argument("table_name")
+
+    args = parser.parse_args()
+
+    if args.command == "add":
+        add_routing_table(args.table_name)
+    elif args.command == "delete":
+        delete_routing_table(args.table_name)
