@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+rg -i "Running collector" . | grep -vE "Skipped|0 hosts|Error|Timed out" | grep -oE ": [^\.]+..." | sed -e "s/^: //" -e "s/\.//g" | strip-ansi | sort -u

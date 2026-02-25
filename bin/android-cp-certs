@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Wait for device to be connected
+while ! adb devices | grep emulator | grep -qv offline; do
+    sleep 1
+done
+# Wait for sdcard to be mounted
+while ! adb shell ls /sdcard/certs >/dev/null 2>&1; do
+    sleep 1
+done
+dirs=("/system/etc/security/cacerts" "/system/etc/security/cacerts_google")
+for dir in "${dirs[@]}"; do
+    echo "mount -t tmpfs tmpfs $dir
+eval cp '/sdcard/certs/*' $dir/
+eval chown root:root  '$dir/*'
+eval chmod 644 '$dir/*'
+eval chcon u:object_r:system_file:s0 '$dir/*'
+    " | adb shell su
+done

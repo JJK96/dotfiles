@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+function help() {
+    cat << EOF
+SSH into a host, while automatically entering the sudo password when asked.
+
+Usage: $0 [-a] <ssh_arg ...>
+
+    -a  Send "sudo su" to the host to automatically become root.
+    -f  File with commands to send after authentication.
+    -p  Password to use (default is VPS password from 1Password).
+EOF
+    exit
+}
+
+pass=TODO
+commandsfile=""
+autossh=false
+while getopts ":p:f:ah" arg; do
+    case $arg in
+        a) autossh=true ;;
+        f) commandsfile=$OPTARG       ;;
+        p) pass="$OPTARG"             ;;
+        h) help                       ;;
+        *) OPTIND=$(($OPTIND-1))
+           break
+           ;;
+    esac
+done
+
+shift $(($OPTIND-1))
+
+if [ $# -lt 1 ]; then
+    help
+fi
+
+commands="set -o vi\\n"
+if [ ! -z "$commandsfile" ]; then
+    commands=$(cat "$commandsfile" | while read line; do
+        line=$(echo -n "$line" | escape '"')
+        echo "send \"$line\\n\""
+    done)
+fi
+
+username=$(cat ~/.ssh/config | perl -00 -ne 'if (m/Host (\*)/ && m/User\s+(\S+)/) { print $1;exit }')
+pass=$(echo -n "$pass" | escape '"' | escape '{' | escape '}' | escape '\\')
+autosudo="{
+    \"\\\\\[sudo\\\\\] password for $username: \" {
+        # Provide sudo password wen prompted
+        send \"$pass\\r\"
+    }
+}
+"
+
+if [ $autossh = true ]; then
+    autossh="
+send \"sudo su\n\"
+expect $autosudo
+sleep 0.1
+"
+else
+    autossh="
+expect_background $autosudo
+"
+fi
+
+script="
+set timeout -1
+spawn ssh $@
+$autossh
+$commands
+interact
+"
+
+expect -c "$script"
