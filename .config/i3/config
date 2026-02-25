@@ -319,13 +319,11 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-
-# assign windows to workspace
-assign [class="^Rambox$"] 10
-assign [class="^Signal\\ Beta$"] 10
-
 # Burp suite pop-up windows
 for_window [title="HTTP history filter"] floating enable
+
+# Resize the screen on i3 restart
+exec_always --no-startup-id xrandr --output Virtual-1 --preferred
 
 # Debugging
 #bindsym $mod+F3 exec bash -c "env > /tmp/env"
