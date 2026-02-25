@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+if [ "$1" = "-c" ]; then
+    # copy to clipboard
+    clipboard=true
+    shift
+fi
+file="$1"
+prefix_X=https://tresor.it/p#X
+path=$(realpath "$file" | sed 's#/home/jjk/tresorit/##')
+dir=$(echo -n "$path" | cut -d/ -f1)
+case "$dir" in
+    X)
+        prefix="$prefix_X"
+        ;;
+esac
+input=$(echo -n "$path" | urlencode --safe /)
+output=$(echo -n "$prefix/$input")
+if [ "$clipboard" = "true" ]; then
+    echo "$output" | xclip -selection clipboard
+else
+    echo "$output"
+fi

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+url="$1"
+if [ -z "$url" ]; then
+    url=$(xsel -o)
+fi
+echo -n "$url" | grep -qE "^(https://tresor.it|tresorit://)" || exit 1
+res="$(echo "$url" | from_tresorit)"
+open "$res"

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+prefix=$(realpath /home/jjk/tresorit)
+urls=$(sed -E 's#(https://tresor.it/|tresorit://)[^/]+/##' | urldecode)
+echo "$urls" | while read url; do
+    echo "$prefix/$url"
+done

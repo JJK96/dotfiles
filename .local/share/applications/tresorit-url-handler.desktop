@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Tresorit URL handler
+Exec=open_tresorit %u
+Comment=
+Icon=
+Categories=Application
+Type=Application
+Terminal=false
+NoDisplay=false
+StartupNotify=true
+MimeType=x-scheme-handler/https;x-scheme-handler/tresorit
