@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+a="$1"
+b="$2"
+dir="$(mktemp -d -t "diff_docx_XXXX")"
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+mkdir -p "$dir"
+ls "$dir"
+function cleanup() {
+    rm -rf "$dir"
+}
+trap cleanup EXIT
+{
+unzip -d "$dir/a" "$a"
+unzip -d "$dir/b" "$b"
+} >/dev/null 2>&1
+# Format all XML files
+find "$dir/a" "$dir/b" -name "*.xml" -exec xmllint --format -o {} {} \;
+mono $SCRIPT_DIR/ReadVBA.exe -f "$dir/a/word/vbaProject.bin" > "$dir/a/word/vbaProject.vba"
+mono $SCRIPT_DIR/ReadVBA.exe -f "$dir/b/word/vbaProject.bin" > "$dir/b/word/vbaProject.vba"
+git diff "$dir/a" "$dir/b"
